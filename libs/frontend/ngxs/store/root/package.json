@@ -1,0 +1,6 @@
+{
+	"name": "frontend-ngxs-store-root",
+	"devDependencies": {
+		"@ngxs/devtools-plugin": "^3.8.1"
+	}
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "../../node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 4,
+  "generator-cli": {
+		"version": "6.6.0",
+    "generators": {
+      "ng": {
+        "generatorName": "typescript-angular",
+        "output": "#{cwd}/.api",
+        "glob": "./src/models/api-docs.json",
+        "additionalProperties": {
+          "supportsES6": "true",
+          "withInterfaces": true
+        }
+      }
+    }
+  }
+}

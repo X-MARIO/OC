@@ -1,0 +1,186 @@
+{
+	"openapi" : "3.0.0",
+	"info" : {
+		"title" : "User",
+		"version" : "1.0.0"
+	},
+	"paths" : {
+	},
+	"components" : {
+		"schemas" : {
+			"TokenType" : {
+				"type" : "string",
+				"enum" : [
+					"R",
+					"T"
+				],
+				"description" : "Типы токена: Regular, Temporary",
+				"example" : "R"
+			},
+			"StorageKeys" : {
+				"type" : "string",
+				"enum" : [
+					"AuthToken"
+				],
+				"description" : "Типы токена: Regular, Temporary",
+				"example" : "R"
+			},
+			"User" : {
+				"required" : [
+					"id",
+					"username",
+					"email",
+					"password"
+				],
+				"type" : "object",
+				"properties" : {
+					"id" : {
+						"type" : "number",
+						"description" : "Ункальный идентификатор пользователя",
+						"example" : "1"
+					},
+					"username" : {
+						"type" : "string",
+						"description" : "Уникальный текстовый идентификатор пользователя",
+						"example" : "admin"
+					},
+					"email" : {
+						"type" : "string",
+						"description" : "Почта пользователя",
+						"example" : "admin@ya.ru"
+					},
+					"password" : {
+						"type" : "string",
+						"description" : "Пароль пользователя",
+						"example" : "qwerty"
+					}
+				}
+			},
+			"UserDB" : {
+				"required" : [
+					"id",
+					"username",
+					"email",
+					"password",
+					"createdAt",
+					"updatedAt"
+				],
+				"type" : "object",
+				"properties" : {
+					"id" : {
+						"type" : "number",
+						"description" : "Ункальный идентификатор пользователя",
+						"example" : "1"
+					},
+					"username" : {
+						"type" : "string",
+						"description" : "Уникальный тектовый идентификатор пользователя",
+						"example" : "admin"
+					},
+					"email" : {
+						"type" : "string",
+						"description" : "Почта пользователя",
+						"example" : "admin@ya.ru"
+					},
+					"password" : {
+						"type" : "string",
+						"description" : "Пароль пользователя",
+						"example" : "qwerty"
+					},
+					"createdAt" : {
+						"type" : "string",
+						"description" : "Время создания сущности в БД",
+						"format" : "2022-07-01T15:00:00+01"
+					},
+					"updatedAt" : {
+						"type" : "string",
+						"description" : "Время обновления сущности в БД",
+						"format" : "2022-07-01T15:00:00+01"
+					}
+				}
+			},
+			"UserSecrets" : {
+				"required" : [
+					"access_token",
+					"token_type",
+					"expires_in"
+				],
+				"type" : "object",
+				"properties" : {
+					"access_token" : {
+						"type" : "string",
+						"description" : "Дата до которой действует токен авторизации",
+						"example" : "1300819380"
+					},
+					"token_type" : {
+						"$ref" : "#/components/schemas/TokenType"
+					},
+					"expires_in" : {
+						"type" : "number",
+						"description" : "Дата до которой действует токен авторизации",
+						"example" : "0"
+					}
+				}
+			},
+			"UserLogin" : {
+				"required" : [
+					"email",
+					"password"
+				],
+				"type" : "object",
+				"properties" : {
+					"email" : {
+						"type" : "string",
+						"description" : "Почта пользователя",
+						"example" : "admin@ya.ru"
+					},
+					"password" : {
+						"type" : "string",
+						"description" : "Пароль пользователя",
+						"example" : "qwerty"
+					}
+				}
+			},
+			"UserCreate" : {
+				"required" : [
+					"username",
+					"email",
+					"password"
+				],
+				"type" : "object",
+				"properties" : {
+					"username" : {
+						"type" : "string",
+						"description" : "Уникальный тектовый идентификатор пользователя",
+						"example" : "admin"
+					},
+					"email" : {
+						"type" : "string",
+						"description" : "Почта пользователя",
+						"example" : "admin@ya.ru"
+					},
+					"password" : {
+						"type" : "string",
+						"description" : "Пароль пользователя",
+						"example" : "qwerty"
+					}
+				}
+			}
+		},
+		"parameters" : {
+			"userId" : {
+				"in" : "path",
+				"name" : "userId",
+				"required" : true,
+				"style" : "simple",
+				"schema" : {
+					"type" : "number"
+				},
+				"explode" : false,
+				"allowReserved" : false,
+				"description" : "Уникальный идентификатор пользователя",
+				"example" : "1"
+			}
+		}
+	}
+}

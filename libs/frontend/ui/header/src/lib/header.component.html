@@ -1,0 +1,29 @@
+<div *ngIf="menuItems$ | async as items">
+	<div class="navigation">
+		<div class="navigation__left">
+			<a
+				class="link"
+				type="button"
+			></a>
+		</div>
+		<div class="navigation__right">
+			<ng-container
+				[ngTemplateOutlet]="(logged$ | async) ? logout : login"
+				[ngTemplateOutletContext]="{ items: items }"></ng-container>
+		</div>
+	</div>
+</div>
+
+<ng-template #login let-items="items">
+	<a
+		*ngFor="let item of items"
+		class="link"
+		type="button"
+		(click)="navigate(item)">
+		{{ item.title }}
+	</a>
+</ng-template>
+
+<ng-template #logout>
+	Выйти
+</ng-template>

@@ -1,0 +1,67 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"rootDir": ".",
+		"sourceMap": true,
+		"declaration": false,
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"importHelpers": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "es2017",
+		"module": "esnext",
+		"lib": ["es2020", "dom"],
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"baseUrl": ".",
+		"paths": {
+			"@oc/core/api/interfaces": ["libs/core/api/interfaces/src/index.ts"],
+			"@oc/core/api/service": ["libs/core/api/service/src/index.ts"],
+			"@oc/core/api/utils": ["libs/core/api/utils/src/index.ts"],
+			"@oc/core/config/service": ["libs/core/config/service/src/index.ts"],
+			"@oc/core/environments/service": ["libs/core/environments/service/src/index.ts"],
+			"@oc/core/navigation/common": ["libs/core/navigation/common/src/index.ts"],
+			"@oc/core/navigation/service": ["libs/core/navigation/service/src/index.ts"],
+			"@oc/core/navigation/shared": ["libs/core/navigation/shared/src/index.ts"],
+			"@oc/core/operators": ["libs/core/operators/src/index.ts"],
+			"@oc/core/services": ["libs/core/services/src/index.ts"],
+			"@oc/core/storage/common": ["libs/core/storage/common/src/index.ts"],
+			"@oc/core/storage/memory": ["libs/core/storage/memory/src/index.ts"],
+			"@oc/core/storage/session": ["libs/core/storage/session/src/index.ts"],
+			"@oc/core/types": ["libs/core/types/src/index.ts"],
+			"@oc/core/window/service": ["libs/core/window/service/src/index.ts"],
+			"@oc/frontend/auth/api/interceptors/auth-interceptor": [
+				"libs/frontend/auth/api/interceptors/auth-interceptor/src/index.ts"
+			],
+			"@oc/frontend/auth/api/service": ["libs/frontend/auth/api/service/src/index.ts"],
+			"@oc/frontend/auth/facade": ["libs/frontend/auth/facade/src/index.ts"],
+			"@oc/frontend/auth/guards": ["libs/frontend/auth/guards/src/index.ts"],
+			"@oc/frontend/config": ["libs/frontend/config/src/index.ts"],
+			"@oc/frontend/dashboard/pages": ["libs/frontend/dashboard/pages/src/index.ts"],
+			"@oc/frontend/ngxs/auth/pages": ["libs/frontend/ngxs/auth/pages/src/index.ts"],
+			"@oc/frontend/ngxs/auth/state": ["libs/frontend/ngxs/auth/state/src/index.ts"],
+			"@oc/frontend/ngxs/dashboard/pages": [
+				"libs/frontend/ngxs/dashboard/pages/src/index.ts"
+			],
+			"@oc/frontend/ngxs/not-found/pages": [
+				"libs/frontend/ngxs/not-found/pages/src/index.ts"
+			],
+			"@oc/frontend/ngxs/store/root": ["libs/frontend/ngxs/store/root/src/index.ts"],
+			"@oc/frontend/not-found/pages": ["libs/frontend/not-found/pages/src/index.ts"],
+			"@oc/frontend/ui/header": ["libs/frontend/ui/header/src/index.ts"],
+			"@oc/frontend-api/types/base": ["libs/frontend-api/types/base/src/index.ts"],
+			"@oc/frontend-api/types/error": ["libs/frontend-api/types/error/src/index.ts"],
+			"@oc/frontend-api/types/model": ["libs/frontend-api/types/model/src/index.ts"],
+			"@oc/frontend-api/types/user": ["libs/frontend-api/types/user/src/index.ts"],
+			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"]
+		},
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitOverride": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true
+	},
+	"exclude": ["node_modules", "tmp"]
+}

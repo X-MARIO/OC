@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+    frontend:
+        build:
+            context: .
+            dockerfile: develop.frontend.Dockerfile
+        container_name: frontend
+        deploy:
+            resources:
+                limits:
+                    memory: 4GB
+        ports:
+            - '4200:4200'
+            - '49153:49153'
+        volumes:
+            - .:/usr/src/app/
+            - '/usr/src/app/node_modules'
+        environment:
+            CHOKIDAR_USEPOLLING: ${CHOKIDAR_USEPOLLING}
+            NODE_ENV: ${NODE_ENV}
+            FRONTEND_CLIENT_PORT: ${FRONTEND_CLIENT_PORT}
+        networks:
+          - backend
+
+volumes:
+    postgres-data:
+
+networks:
+  backend:
+    driver: bridge

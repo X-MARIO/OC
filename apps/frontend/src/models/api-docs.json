@@ -1,0 +1,206 @@
+{
+	"openapi" : "3.0.0",
+	"info" : {
+		"title" : "OC",
+		"version" : "1.0.0"
+	},
+	"servers" : [
+		{
+			"url" : "http://localhost:3333/api",
+			"description" : "Docker server"
+		}
+	],
+	"paths" : {
+		"/users" : {
+			"post" : {
+				"tags" : [
+					"Users"
+				],
+				"summary" : "Метод создания пользователя",
+				"operationId" : "createUser",
+				"requestBody" : {
+					"content" : {
+						"application/json" : {
+							"schema" : {
+								"$ref" : "user.json#/components/schemas/UserCreate"
+							}
+						}
+					}
+				},
+				"responses" : {
+					"200" : {
+						"description" : "Успешное создание пользователя",
+						"content" : {
+							"application/json" : {}
+						}
+					},
+					"default" : {
+						"description" : "Всё нестандартное",
+						"content" : {
+							"application/json" : {
+								"schema" : {
+									"$ref" : "#/components/schemas/HttpError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/{id}" : {
+			"parameters" : [
+				{
+					"$ref" : "parameters.json/#/components/parameters/id"
+				}
+			],
+			"get" : {
+				"tags" : [
+					"Users"
+				],
+				"summary" : "Метод получения пользователя",
+				"operationId" : "findOneUser",
+				"responses" : {
+					"200" : {
+						"description" : "Метод успешного получения пользователя",
+						"content" : {
+							"application/json" : {
+								"schema" : {
+									"$ref" : "user.json#/components/schemas/User"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put" : {
+				"tags" : [
+					"Users"
+				],
+				"summary" : "Метод обновления пользователя",
+				"operationId" : "updateUser",
+				"requestBody" : {
+					"content" : {
+						"application/json" : {
+							"schema" : {
+								"$ref" : "user.json#/components/schemas/User"
+							}
+						}
+					}
+				},
+				"responses" : {
+					"200" : {
+						"description" : "Метод успешного обновления пользователя",
+						"content" : {
+							"application/json" : {
+								"schema" : {
+									"$ref" : "user.json#/components/schemas/User"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/login" : {
+			"post" : {
+				"tags" : [
+					"Users"
+				],
+				"summary" : "Метод авторизации пользователя",
+				"operationId" : "loginUser",
+				"requestBody" : {
+					"content" : {
+						"application/json" : {
+							"schema" : {
+								"$ref" : "user.json/#/components/schemas/UserLogin"
+							}
+						}
+					}
+				},
+				"responses" : {
+					"200" : {
+						"description" : "Успешный ответ авторизации пользователя",
+						"content" : {
+							"application/json" : {
+								"schema" : {
+									"$ref" : "user.json#/components/schemas/UserSecrets"
+								}
+							}
+						}
+					},
+					"default" : {
+						"description" : "Всё нестандартное",
+						"content" : {
+							"application/json" : {
+								"schema" : {
+									"$ref" : "#/components/schemas/HttpError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/change-password" : {
+			"post" : {
+				"tags" : [
+					"Users"
+				],
+				"summary" : "Метод изменения пароля",
+				"operationId" : "changePassword",
+				"requestBody" : {
+					"content" : {
+						"application/json" : {
+							"schema" : {
+								"$ref" : "change-password.json#/components/schemas/ChangePassword"
+							}
+						}
+					}
+				},
+				"responses" : {
+					"200" : {
+						"description" : "Успешное изменение пароля",
+						"content" : {
+							"application/json" : {}
+						}
+					},
+					"default" : {
+						"description" : "Всё нестандартное",
+						"content" : {
+							"application/json" : {
+								"schema" : {
+									"$ref" : "#/components/schemas/HttpError"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components" : {
+		"schemas" : {
+			"HttpError" : {
+				"required" : [
+					"code",
+					"message"
+				],
+				"type" : "object",
+				"properties" : {
+					"code" : {
+						"type" : "integer"
+					},
+					"message" : {
+						"type" : "string"
+					}
+				}
+			},
+			"UserDB" : {
+				"$ref" : "user.json/#/components/schemas/UserDB"
+			},
+			"StorageKeys" : {
+				"$ref" : "user.json/#/components/schemas/StorageKeys"
+			}
+		}
+	}
+}

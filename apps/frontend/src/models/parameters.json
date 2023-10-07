@@ -1,0 +1,69 @@
+{
+	"openapi" : "3.0.0",
+	"info" : {
+		"title" : "Parameters",
+		"version" : "1.0.0"
+	},
+	"paths" : {
+	},
+	"components" : {
+		"parameters" : {
+			"id" : {
+				"in" : "path",
+				"name" : "id",
+				"required" : true,
+				"style" : "simple",
+				"schema" : {
+					"type" : "number"
+				},
+				"explode" : false,
+				"allowReserved" : false,
+				"description" : "Уникальный идентификатор ID",
+				"example" : "1"
+			},
+			"uuid" : {
+				"in" : "path",
+				"name" : "uuid",
+				"required" : true,
+				"style" : "simple",
+				"schema" : {
+					"type" : "string",
+					"format" : "uuid"
+				},
+				"explode" : false,
+				"allowReserved" : false,
+				"description" : "Уникальный идентификатор UUID",
+				"example" : "04438a72-2d03-11ee-be56-0242ac120002"
+			},
+			"page" : {
+				"in" : "query",
+				"name" : "page",
+				"required" : false,
+				"schema" : {
+					"type" : "number",
+					"minimum" : 1,
+					"default" : 1
+				},
+				"explode" : false,
+				"allowReserved" : false,
+				"description" : "Номер страницы",
+				"example" : 1
+			},
+			"limit" : {
+				"in" : "query",
+				"name" : "limit",
+				"required" : false,
+				"schema" : {
+					"type" : "number",
+					"minimum" : 1,
+					"maximum" : 100,
+					"default" : 100
+				},
+				"explode" : false,
+				"allowReserved" : false,
+				"description" : "Количество элементов на странице",
+				"example" : 100
+			}
+		}
+	}
+}

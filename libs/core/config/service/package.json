@@ -1,0 +1,6 @@
+{
+	"name": "frontend-ngxs-store-root",
+	"devDependencies": {
+		"@types/node": "^18.16.1"
+	}
+}

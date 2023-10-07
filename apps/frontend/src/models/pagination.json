@@ -1,0 +1,112 @@
+{
+	"openapi" : "3.0.0",
+	"info" : {
+		"title" : "Pagination",
+		"version" : "1.0.0"
+	},
+	"paths" : {
+	},
+	"components" : {
+		"schemas" : {
+			"Base": {
+				"required": [
+					"id"
+				],
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"description": "Объект всегда должен содержать ИД",
+						"example": "1"
+					}
+				}
+			},
+			"PaginationObject": {
+				"$ref": "#/components/schemas/Base"
+			},
+			"IPaginationMeta": {
+				"required": [
+					"totalItems",
+					"itemCount",
+					"itemsPerPage",
+					"totalPages",
+					"currentPage"
+				],
+				"type": "object",
+				"properties": {
+					"totalItems": {
+						"type": "number",
+						"description": "the amount of items on this specific page",
+						"example": "5"
+					},
+					"itemCount": {
+						"type": "number",
+						"description": "the total amount of items",
+						"example": "5"
+					},
+					"itemsPerPage": {
+						"type": "number",
+						"description": "the amount of items that were requested per page",
+						"example": "10"
+					},
+					"totalPages": {
+						"type": "number",
+						"description": "the total amount of pages in this paginator",
+						"example": "1"
+					},
+					"currentPage": {
+						"type": "number",
+						"description": "the current page this paginator \"points\" to",
+						"example": "1"
+					}
+				}
+			},
+			"IPaginationLinks": {
+				"type": "object",
+				"properties": {
+					"first": {
+						"type": "string",
+						"description": "a link to the \"first\" page",
+						"example": "/resources?page=1&limit=10"
+					},
+					"previous": {
+						"type": "string",
+						"description": "a link to the \"previous\" page",
+						"example": "/resources?page=1&limit=10"
+					},
+					"next": {
+						"type": "string",
+						"description": "a link to the \"next\" page",
+						"example": "/resources?page=2&limit=10"
+					},
+					"last": {
+						"type": "string",
+						"description": "a link to the \"last\" page",
+						"example": "/resources?page=3&limit=10"
+					}
+				}
+			},
+			"Pagination" : {
+				"required" : [
+					"items",
+					"meta"
+				],
+				"type" : "object",
+				"properties" : {
+					"items" : {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/PaginationObject"
+						}
+					},
+					"meta" : {
+						"$ref": "#/components/schemas/IPaginationMeta"
+					},
+					"links" : {
+						"$ref": "#/components/schemas/IPaginationLinks"
+					}
+				}
+			}
+		}
+	}
+}

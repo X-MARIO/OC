@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+#npm run test-e2e:all
+npm run prettier:fix
+#npm run stylelint:fix
+#npm run lint:fix

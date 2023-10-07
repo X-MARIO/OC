@@ -1,0 +1,22 @@
+{
+	"name": "frontend",
+	"version" : "1.0.0",
+	"scripts" : {
+		"api:gen" : "npm run api:prep && npm run api:move",
+		"api:prep" : "node ../../node_modules/rimraf/dist/cjs/src/index.js ./.api && openapi-generator-cli generate",
+		"api:move" : "node ../../node_modules/rimraf/dist/cjs/src/index.js ../../libs/frontend-api/types/model/src/lib/ && cpy ./.api/model/** ../../libs/frontend-api/types/model/src/lib/ && rimraf .api"
+	},
+	"dependencies": {
+		"@angular/common": "^16.0.0",
+		"@angular/core": "^16.0.0",
+		"@angular/platform-browser": "^16.0.0",
+		"@angular/platform-browser-dynamic": "^16.0.0",
+		"@angular/platform-server": "^16.0.0",
+		"@angular/router": "^16.0.0",
+		"@angular/service-worker": "^16.0.0",
+		"jest-preset-angular": "^13.0.1",
+		"rxjs": "^7.8.1",
+		"zone.js": "^0.13.0"
+	},
+	"devDependencies": {}
+}

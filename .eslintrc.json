@@ -1,0 +1,239 @@
+{
+	"root": true,
+	"ignorePatterns": ["**/*"],
+	"parserOptions": {
+		"project": ["tsconfig.base.json"],
+		"createDefaultProgram": true,
+		"sourceType": "module"
+	},
+	"plugins": ["@nx"],
+	"extends": [],
+	"overrides": [
+		{
+			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+			"rules": {
+				"@nx/enforce-module-boundaries": [
+					"error",
+					{
+						"enforceBuildableLibDependency": true,
+						"allow": [],
+						"depConstraints": [
+							{
+								"sourceTag": "*",
+								"onlyDependOnLibsWithTags": ["*"]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": ["*.ts", "*.tsx"],
+			"plugins": ["rxjs", "prefer-arrow", "simple-import-sort"],
+			"extends": [
+				"plugin:@nx/typescript",
+				"eslint:recommended",
+				"plugin:@typescript-eslint/all",
+				"plugin:import/recommended",
+				"airbnb-typescript/base",
+				"plugin:rxjs/recommended",
+				"plugin:jsdoc/recommended-typescript-error",
+				"plugin:prettier/recommended"
+			],
+			"rules": {
+				"@typescript-eslint/naming-convention": [
+					"error",
+					{
+						"selector": "interface",
+						"format": ["PascalCase"],
+						"custom": {
+							"regex": "^I[A-Z]",
+							"match": true
+						}
+					}
+				],
+				"import/no-unresolved": "off",
+				"import/prefer-default-export": "off",
+				"class-methods-use-this": "off",
+				"lines-between-class-members": "off",
+				"@typescript-eslint/indent": "off",
+				"rxjs/prefer-observer": [
+					"error",
+					{
+						"allowNext": false
+					}
+				],
+				"rxjs/no-unsafe-switchmap": [
+					"error",
+					{
+						"disallow": [
+							"add",
+							"create",
+							"delete",
+							"post",
+							"put",
+							"remove",
+							"set",
+							"update"
+						],
+						"observable": "[Aa]ction(s|s\\$|\\$)$"
+					}
+				],
+				"rxjs/no-unsafe-first": [
+					"error",
+					{
+						"observable": "[Aa]ction(s|s\\$|\\$)$"
+					}
+				],
+				"rxjs/no-unsafe-catch": [
+					"error",
+					{
+						"observable": "[Aa]ction(s|s\\$|\\$)$"
+					}
+				],
+				"rxjs/no-exposed-subjects": [
+					"error",
+					{
+						"allowProtected": true
+					}
+				],
+				"rxjs/no-cyclic-action": [
+					"error",
+					{
+						"observable": "[Aa]ction(s|s\\$|\\$)$"
+					}
+				],
+				"rxjs/finnish": [
+					"error",
+					{
+						"functions": true,
+						"methods": false,
+						"names": {
+							"^(canActivate|canActivateChild|canDeactivate|canLoad|intercept|resolve|validate)$": false
+						},
+						"parameters": true,
+						"properties": true,
+						"strict": false,
+						"types": {
+							"^EventEmitter$": false
+						},
+						"variables": true
+					}
+				],
+				"@typescript-eslint/no-extraneous-class": "off",
+				"@typescript-eslint/no-parameter-properties": "off",
+				"@typescript-eslint/prefer-readonly-parameter-types": "off",
+				"@typescript-eslint/no-type-alias": "off",
+				"@typescript-eslint/parameter-properties": "off",
+				"prefer-arrow/prefer-arrow-functions": [
+					"error",
+					{
+						"disallowPrototype": true,
+						"singleReturnOnly": false,
+						"classPropertiesAllowed": false
+					}
+				],
+				"simple-import-sort/imports": [
+					"error",
+					{
+						"groups": [
+							[
+								"^rxjs(/.*|$)",
+								"^moment(-timezone|$)"
+							],
+							["^(@tpi)/.*", "js-base64"],
+							[
+								"^\\.\\.(?!/?$)",
+								"^\\.\\./?$",
+								"^\\./(?=.*/)(?!/?$)",
+								"^\\.(?!/?$)",
+								"^\\./?$"
+							]
+						]
+					}
+				],
+				"simple-import-sort/exports": "warn",
+				"no-tab": "off",
+				"no-extra-boolean-cast": "off",
+				"@typescript-eslint/ban-ts-comment": "off",
+				"@typescript-eslint/unbound-method": "off",
+				"@typescript-eslint/dot-notation": "off",
+				"@typescript-eslint/no-redundant-type-constituents": "off",
+				"@typescript-eslint/no-unnecessary-condition": "off",
+				"prettier/prettier": [
+					"warn",
+					{
+						"endOfLine": "auto"
+					}
+				],
+				"@angular-eslint/prefer-standalone-component": "off"
+			}
+		},
+		{
+			"files": ["*.spec.ts"],
+			"excludedFiles": ["**/integration/*.spec.ts"],
+			"parserOptions": {
+				"project": ["tsconfig.base.json"]
+			},
+			"plugins": ["jest"],
+			"extends": ["plugin:jest/all"],
+			"env": {
+				"jest/globals": true
+			},
+			"rules": {
+				"jest/no-hooks": "off",
+				"@typescript-eslint/no-unsafe-call": "off",
+				"@typescript-eslint/init-declarations": "off",
+				"prettier/prettier": [
+					"warn",
+					{
+						"endOfLine": "auto"
+					}
+				],
+				"jest/no-duplicate-hooks": "off"
+			}
+		},
+		{
+			"files": ["*.cy.ts", "commands.ts"],
+			"parserOptions": {
+				"project": ["tsconfig.base.json"]
+			},
+			"rules": {
+				"@typescript-eslint/no-unsafe-call": "off",
+				"@typescript-eslint/method-signature-style": "off",
+				"@typescript-eslint/naming-convention": "off"
+			}
+		},
+		{
+			"files": ["*.component.ts"],
+			"parserOptions": {
+				"project": ["tsconfig.base.json"]
+			},
+			"extends": [
+				"plugin:@angular-eslint/all",
+				"plugin:@angular-eslint/template/process-inline-templates"
+			],
+			"rules": {
+				"prettier/prettier": [
+					"warn",
+					{
+						"endOfLine": "auto"
+					}
+				]
+			}
+		},
+		{
+			"files": ["*.js", "*.jsx"],
+			"extends": ["plugin:@nx/javascript"],
+			"rules": {
+				"no-undef": "off",
+				"prettier/prettier": [
+					"warn",
+					{
+						"endOfLine": "auto"
+					}
+				]
+			}
+		}
+	]
+}
