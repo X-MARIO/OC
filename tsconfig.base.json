@@ -31,12 +31,17 @@
 			"@oc/core/storage/session": ["libs/core/storage/session/src/index.ts"],
 			"@oc/core/types": ["libs/core/types/src/index.ts"],
 			"@oc/core/window/service": ["libs/core/window/service/src/index.ts"],
+			"@oc/frontend-api/types/base": ["libs/frontend-api/types/base/src/index.ts"],
+			"@oc/frontend-api/types/error": ["libs/frontend-api/types/error/src/index.ts"],
+			"@oc/frontend-api/types/model": ["libs/frontend-api/types/model/src/index.ts"],
+			"@oc/frontend-api/types/user": ["libs/frontend-api/types/user/src/index.ts"],
 			"@oc/frontend/auth/api/interceptors/auth-interceptor": [
 				"libs/frontend/auth/api/interceptors/auth-interceptor/src/index.ts"
 			],
 			"@oc/frontend/auth/api/service": ["libs/frontend/auth/api/service/src/index.ts"],
 			"@oc/frontend/auth/facade": ["libs/frontend/auth/facade/src/index.ts"],
 			"@oc/frontend/auth/guards": ["libs/frontend/auth/guards/src/index.ts"],
+			"@oc/frontend/auth/pages": ["libs/frontend/auth/pages/src/index.ts"],
 			"@oc/frontend/config": ["libs/frontend/config/src/index.ts"],
 			"@oc/frontend/dashboard/pages": ["libs/frontend/dashboard/pages/src/index.ts"],
 			"@oc/frontend/ngxs/auth/pages": ["libs/frontend/ngxs/auth/pages/src/index.ts"],
@@ -50,10 +55,6 @@
 			"@oc/frontend/ngxs/store/root": ["libs/frontend/ngxs/store/root/src/index.ts"],
 			"@oc/frontend/not-found/pages": ["libs/frontend/not-found/pages/src/index.ts"],
 			"@oc/frontend/ui/header": ["libs/frontend/ui/header/src/index.ts"],
-			"@oc/frontend-api/types/base": ["libs/frontend-api/types/base/src/index.ts"],
-			"@oc/frontend-api/types/error": ["libs/frontend-api/types/error/src/index.ts"],
-			"@oc/frontend-api/types/model": ["libs/frontend-api/types/model/src/index.ts"],
-			"@oc/frontend-api/types/user": ["libs/frontend-api/types/user/src/index.ts"],
 			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"]
 		},
 		"forceConsistentCasingInFileNames": true,
