@@ -1,0 +1,55 @@
+<form class="tui-form" [formGroup]="form">
+	<div class="tui-row">
+		<div class="tui-col_12">
+			<div class="tui-form__header">Регистрация</div>
+			<div class="tui-form__row">
+				<tui-input [formControlName]="formFields.email">
+					Email
+					<input tuiTextfield type="email" placeholder="Enter email" />
+				</tui-input>
+				<tui-error
+					[formControlName]="formFields.email"
+					[error]="[] | tuiFieldError | async"></tui-error>
+			</div>
+			<div class="tui-form__row">
+				<tui-input [formControlName]="formFields.username">
+					Username
+					<input tuiTextfield type="text" placeholder="Enter username" />
+				</tui-input>
+				<tui-error
+					[formControlName]="formFields.username"
+					[error]="[] | tuiFieldError | async"></tui-error>
+			</div>
+			<div class="tui-form__row">
+				<tui-input-password [formControlName]="formFields.password">
+					Password
+					<input tuiTextfield type="password" placeholder="Enter password" />
+				</tui-input-password>
+				<tui-error
+					[formControlName]="formFields.password"
+					[error]="[] | tuiFieldError | async"></tui-error>
+			</div>
+			<div class="tui-form__buttons tui-form__buttons_align_end">
+				<button
+					tuiButton
+					type="button"
+					size="l"
+					appearance="flat"
+					class="tui-form__button"
+					(click)="onReset()">
+					Очистить
+				</button>
+				<button
+					tuiButton
+					type="submit"
+					size="l"
+					appearance="primary"
+					class="tui-form__button"
+					[disabled]="form.invalid"
+					(click)="onRegister()">
+					Зарегистироваться
+				</button>
+			</div>
+		</div>
+	</div>
+</form>
