@@ -1,1 +1,1 @@
-export * from './lib/frontend-auth-login.module';
+export * from './lib/login-page.module';
