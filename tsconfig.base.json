@@ -41,6 +41,7 @@
 			"@oc/frontend/auth/api/service": ["libs/frontend/auth/api/service/src/index.ts"],
 			"@oc/frontend/auth/facade": ["libs/frontend/auth/facade/src/index.ts"],
 			"@oc/frontend/auth/guards": ["libs/frontend/auth/guards/src/index.ts"],
+			"@oc/frontend/auth/login": ["libs/frontend/auth/login/src/index.ts"],
 			"@oc/frontend/auth/pages": ["libs/frontend/auth/pages/src/index.ts"],
 			"@oc/frontend/config": ["libs/frontend/config/src/index.ts"],
 			"@oc/frontend/dashboard/pages": ["libs/frontend/dashboard/pages/src/index.ts"],
