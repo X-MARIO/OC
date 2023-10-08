@@ -1,3 +1,4 @@
+import { TuiRootModule } from '@taiga-ui/core';
 import { environment } from '../environments/environment';
 import { AppCoreModule } from './core/app-core.module';
 import { AppRoutingModule } from './routing/app-routing.module';
@@ -37,6 +38,7 @@ import { RootStoreDevelopmentModule, RootStoreModule } from '@oc/frontend/ngxs/s
 		// config
 		AppRoutingModule,
 		AppCoreModule,
+		TuiRootModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

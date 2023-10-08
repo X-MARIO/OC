@@ -9,6 +9,7 @@ import { ApiAuthInterceptorModule } from '@oc/frontend/auth/api/interceptors/aut
 import { AuthGuardsModule } from '@oc/frontend/auth/guards';
 import { REDUX_TYPE } from '@oc/frontend/config';
 import { AuthStateModule } from '@oc/frontend/ngxs/auth/state';
+import { HeaderModule } from '@oc/frontend/ui/header';
 import { LayoutModule } from '@oc/ui/layout';
 
 registerLocaleData(localeRu);
@@ -16,6 +17,7 @@ registerLocaleData(localeRu);
 @NgModule({
 	imports: [
 		LayoutModule,
+		HeaderModule,
 
 		// interceptors
 		ApiAuthInterceptorModule,
