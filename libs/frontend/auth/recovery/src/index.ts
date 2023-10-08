@@ -1,1 +1,1 @@
-export * from './lib/frontend-auth-recovery.module';
+export * from './lib/recovery-page.module';
