@@ -1,7 +1,7 @@
 {
   "login": {
-    "username": "mario15",
-    "password": "mario15@gmail.com",
-    "apiId": "users"
-  }
+		"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJ1c2VybmFtZSI6ImFkbWluQHlhLmNvbSIsImVtYWlsIjoiYWRtaW5AeWEuY29tIiwicGFzc3dvcmQiOiIifSwiaWF0IjoxNjkzMDYzODgwLCJleHAiOjE3OTMwNjM4ODB9.NPDF8cF2qHjSQ6tMOTY4PbqIYzWgPUWh6EhQop7VbYI",
+		"token_type": "T",
+		"expires_in": 10000
+	}
 }
