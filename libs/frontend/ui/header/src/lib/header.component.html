@@ -1,7 +1,7 @@
 <div class="tui-container_adaptive">
 	<div class="tui-row navigation">
 		<div class="tui-col_2 navigation__left">
-			<button appearance="flat" tuiButton type="button">Kali</button>
+			<button tuiButton type="button" appearance="flat" size="m">Kali</button>
 		</div>
 		<div class="tui-col_10 navigation__right">
 			<ng-container [ngTemplateOutlet]="(logged$ | async) ? logout : login"></ng-container>
@@ -12,7 +12,7 @@
 <ng-template #login>
 	<form class="form" [formGroup]="languageForm">
 		<tui-select
-			tuiTextfieldSize="l"
+			tuiTextfieldSize="m"
 			formControlName="language"
 			[valueContent]="languageContent">
 			Choose a language
@@ -29,7 +29,10 @@
 	</form>
 
 	<form class="b-form" [formGroup]="dayForm" [tuiTextfieldCleaner]="true">
-		<tui-input-date formControlName="day" tuiUnfinishedValidator="Finish filling the field">
+		<tui-input-date
+			tuiTextfieldSize="m"
+			formControlName="day"
+			tuiUnfinishedValidator="Finish filling the field">
 			Choose a date
 		</tui-input-date>
 		<tui-error formControlName="day" [error]="[] | tuiFieldError | async"></tui-error>
