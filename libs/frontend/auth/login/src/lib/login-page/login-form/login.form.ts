@@ -9,9 +9,8 @@ export class LoginForm {
 
 	public static newForm(): FormGroup {
 		return new FormGroup({
-			[FormModelLogin.email]: new FormControl('', [
+			[FormModelLogin.username]: new FormControl('', [
 				Validators.required,
-				Validators.email,
 				Validators.minLength(5),
 				Validators.maxLength(64),
 			]),

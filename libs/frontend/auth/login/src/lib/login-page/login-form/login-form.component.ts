@@ -46,7 +46,7 @@ export class LoginFormComponent extends LoginForm implements OnInit {
 		if (this.form.valid) {
 			const formValue: IFormModelLogin = this.form.getRawValue() as IFormModelLogin;
 			const payload: IUserLogin = {
-				email: formValue[FormModelLogin.email],
+				username: formValue[FormModelLogin.username],
 				password: formValue[FormModelLogin.password],
 			};
 			this.authFacade.login(payload);

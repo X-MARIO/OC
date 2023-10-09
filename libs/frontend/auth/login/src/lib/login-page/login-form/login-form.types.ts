@@ -1,11 +1,11 @@
 import type { IUserLogin } from '@oc/frontend-api/types/user';
 
 export enum FormModelLogin {
-	email = 'email',
+	username = 'username',
 	password = 'password',
 }
 
 export interface IFormModelLogin {
-	[FormModelLogin.email]: IUserLogin['email'];
+	[FormModelLogin.username]: IUserLogin['username'];
 	[FormModelLogin.password]: IUserLogin['password'];
 }

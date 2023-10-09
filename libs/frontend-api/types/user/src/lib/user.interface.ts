@@ -1,5 +1,5 @@
 import type { Flavor, ICodeTitle } from '@oc/core/types';
-import type { User, UserDB, UserSecrets } from '@oc/frontend-api/types/model';
+import type { User, UserDB, UserLogin, UserSecrets } from '@oc/frontend-api/types/model';
 
 export type IUserIdField = Flavor<User['id'], 'User-id-field'>;
 export type IUserUsernameField = Flavor<User['username'], 'User-username-field'>;
@@ -54,7 +54,7 @@ export interface IUserSecretsF extends UserSecrets {
 
 export type IUserAuth = IUserSecretsF;
 
-export type IUserLogin = Required<Readonly<Pick<User, 'email' | 'password'>>>;
+export type IUserLogin = Required<Readonly<UserLogin>>;
 
 export type IUserRecovery = Required<Readonly<Pick<User, 'email'>>>;
 

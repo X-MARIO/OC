@@ -3,12 +3,12 @@
 		<div class="tui-col_12">
 			<div class="tui-form__header">Авторизация</div>
 			<div class="tui-form__row">
-				<tui-input [formControlName]="formFields.email">
-					Email
-					<input tuiTextfield type="email" placeholder="Enter email" />
+				<tui-input [formControlName]="formFields.username">
+					Username
+					<input tuiTextfield type="text" placeholder="Enter username" />
 				</tui-input>
 				<tui-error
-					[formControlName]="formFields.email"
+					[formControlName]="formFields.username"
 					[error]="[] | tuiFieldError | async"></tui-error>
 			</div>
 			<div class="tui-form__row">

@@ -124,15 +124,15 @@
 			},
 			"UserLogin" : {
 				"required" : [
-					"email",
+					"username",
 					"password"
 				],
 				"type" : "object",
 				"properties" : {
-					"email" : {
+					"username" : {
 						"type" : "string",
-						"description" : "Почта пользователя",
-						"example" : "admin@ya.ru"
+						"description" : "Уникальный тектовый идентификатор пользователя",
+						"example" : "admin"
 					},
 					"password" : {
 						"type" : "string",
