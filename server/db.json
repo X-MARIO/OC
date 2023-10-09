@@ -1,72 +1,7 @@
 {
-	"products": [
-		{
-			"id": 1,
-			"title": "QE",
-			"price": "123",
-			"year": "1231231231",
-			"image": "assets/images/macbook.jpeg",
-			"configure": {
-				"chip": "",
-				"ssd": "",
-				"memory": "",
-				"display": ""
-			}
-		},
-		{
-			"id": 2,
-			"title": "MacBook",
-			"price": "123",
-			"year": "312",
-			"image": "assets/images/macbook.jpeg",
-			"configure": {
-				"chip": "",
-				"ssd": "",
-				"memory": "",
-				"display": ""
-			}
-		},
-		{
-			"id": 3,
-			"title": "123",
-			"price": "123",
-			"year": "12123",
-			"image": "assets/images/macbook.jpeg",
-			"configure": {
-				"chip": "",
-				"ssd": "",
-				"memory": "",
-				"display": ""
-			}
-		},
-		{
-			"id": 4,
-			"title": "",
-			"price": "qweqweqweq",
-			"year": "",
-			"image": "assets/images/macbook.jpeg",
-			"configure": {
-				"chip": "",
-				"ssd": "",
-				"memory": "",
-				"display": ""
-			}
-		}
-	],
-	"basket": [
-		{
-			"id": 1,
-			"title": "QE",
-			"price": "123",
-			"year": "1231231231",
-			"image": "assets/images/macbook.jpeg",
-			"configure": {
-				"chip": "",
-				"ssd": "",
-				"memory": "",
-				"display": ""
-			},
-			"quantity": 6
-		}
-	]
+  "login": {
+    "username": "mario15",
+    "password": "mario15@gmail.com",
+    "apiId": "users"
+  }
 }
