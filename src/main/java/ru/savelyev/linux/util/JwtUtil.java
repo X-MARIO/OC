@@ -2,6 +2,7 @@ package ru.savelyev.linux.util;
 
 
 import ru.savelyev.linux.entity.Role;
+import ru.savelyev.linux.entity.User;
 import ru.savelyev.linux.entity.UserSecrets;
 import ru.savelyev.linux.entity.UserDB;
 import ru.savelyev.linux.repository.UserRepository;
@@ -62,7 +63,7 @@ public class JwtUtil {
         UserDB byUserNameDB = userRepository.findUserByUsername(subject);
         List<String> roles = byUserNameDB.getRoles().stream().map(Role::getRole).collect(Collectors.toList());
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put("user", byUserNameDB);
+        map.put("user", modelMapper.map(byUserNameDB, User.class));
         map.put("roles", roles);
         return Jwts.builder().setClaims(claims).addClaims(map).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiresIn))
