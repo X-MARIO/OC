@@ -1,6 +1,8 @@
 import { PageComponent } from './page.component';
 import { PageRoutingModule } from './page-routing.module';
 
+import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 /**
@@ -8,6 +10,13 @@ import { NgModule } from '@angular/core';
  */
 @NgModule({
 	declarations: [PageComponent],
-	imports: [PageRoutingModule],
+	imports: [
+		CommonModule,
+		PageRoutingModule,
+
+		//
+		CdkDrag,
+		CdkDropList,
+	],
 })
 export class PageModule {}
