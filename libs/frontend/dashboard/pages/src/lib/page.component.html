@@ -1,35 +1,16 @@
-<!--<div class="example-box" cdkDrag>-->
-<!--	Drag me around-->
-<!--</div>-->
-
-<!--<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">-->
-<!--	<div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>-->
-<!--</div>-->
-
-<div class="example-container">
-	<h2>To do</h2>
-
+<div
+	class="example-container"
+	*ngFor="let itemFlat of matrix; trackBy: trackByIndex; let idx = index; let last = last">
 	<div
 		cdkDropList
-		#todoList="cdkDropList"
-		[cdkDropListData]="todo"
-		[cdkDropListConnectedTo]="[doneList]"
+		[id]="getIdToString(idx)"
+		[cdkDropListData]="matrix"
+		[cdkDropListConnectedTo]="getCdkDropListConnectedToList(idx)"
 		class="example-list"
-		(cdkDropListDropped)="drop($event)">
-		<div class="example-box" *ngFor="let item of todo" cdkDrag>{{ item }}</div>
-	</div>
-</div>
-
-<div class="example-container">
-	<h2>Done</h2>
-
-	<div
-		cdkDropList
-		#doneList="cdkDropList"
-		[cdkDropListData]="done"
-		[cdkDropListConnectedTo]="[todoList]"
-		class="example-list"
-		(cdkDropListDropped)="drop($event)">
-		<div class="example-box" *ngFor="let item of done" cdkDrag>{{ item }}</div>
+		(cdkDropListDropped)="drop($event)"
+		[cdkDropListEnterPredicate]="evenPredicate">
+		<div class="example-box" *ngFor="let item of itemFlat" cdkDrag [cdkDragData]="item">
+			{{ item }}
+		</div>
 	</div>
 </div>
