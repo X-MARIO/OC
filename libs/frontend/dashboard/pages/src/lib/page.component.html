@@ -1,6 +1,5 @@
-<div
-	class="example-container"
-	*ngFor="let itemFlat of matrix; trackBy: trackByIndex; let idx = index; let last = last">
+@for (itemFlat of matrix; track itemFlat; let idx = $index) {
+<div class="example-container">
 	<div
 		cdkDropList
 		[id]="getIdToString(idx)"
@@ -14,3 +13,4 @@
 		</div>
 	</div>
 </div>
+}
