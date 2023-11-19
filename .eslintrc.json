@@ -160,6 +160,7 @@
 				"@typescript-eslint/dot-notation": "off",
 				"@typescript-eslint/no-redundant-type-constituents": "off",
 				"@typescript-eslint/no-unnecessary-condition": "off",
+				"@typescript-eslint/class-methods-use-this": "off",
 				"prettier/prettier": [
 					"warn",
 					{
