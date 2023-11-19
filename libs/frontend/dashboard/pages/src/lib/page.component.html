@@ -9,7 +9,7 @@
 		(cdkDropListDropped)="drop($event)"
 		[cdkDropListEnterPredicate]="evenPredicate">
 		<div class="example-box" *ngFor="let item of itemFlat" cdkDrag [cdkDragData]="item">
-			{{ item }}
+			<div class="example-box__item">{{ item }}</div>
 		</div>
 	</div>
 </div>

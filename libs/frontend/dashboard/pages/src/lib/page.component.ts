@@ -65,7 +65,7 @@ export class PageComponent {
 	}
 
 	private getArr(): number[][] {
-		const array: number[] = Array(100)
+		const array: number[] = Array(128)
 			.fill(null)
 			.map((u, i) => i); //массив, можно использовать массив объектов
 		const size = 1; //размер подмассива
