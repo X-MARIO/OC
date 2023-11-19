@@ -1,0 +1,44 @@
+{
+	"name": "frontend-ui-icon",
+	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/frontend/ui/icon/src",
+	"prefix": "oc",
+	"tags": [],
+	"projectType": "library",
+	"targets": {
+		"build": {
+			"executor": "@nx/angular:ng-packagr-lite",
+			"outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+			"options": {
+				"project": "libs/frontend/ui/icon/ng-package.json"
+			},
+			"configurations": {
+				"production": {
+					"tsConfig": "libs/frontend/ui/icon/tsconfig.lib.prod.json"
+				},
+				"development": {
+					"tsConfig": "libs/frontend/ui/icon/tsconfig.lib.json"
+				}
+			},
+			"defaultConfiguration": "production"
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/frontend/ui/icon/jest.config.ts"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": [
+					"libs/frontend/ui/icon/**/*.ts",
+					"libs/frontend/ui/icon/**/*.html",
+					"libs/frontend/ui/icon/package.json"
+				]
+			}
+		}
+	}
+}
