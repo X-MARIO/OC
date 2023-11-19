@@ -2,6 +2,7 @@ import type { Type } from '@angular/core';
 import { NgModule } from '@angular/core';
 import type { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { AccessTokenCheckGuard } from '@oc/frontend/auth/guards';
 import type { PageModule } from '@oc/frontend/dashboard/pages';
 
 /**
@@ -10,6 +11,7 @@ import type { PageModule } from '@oc/frontend/dashboard/pages';
 const routes: Routes = [
 	{
 		path: '',
+		canActivate: [AccessTokenCheckGuard],
 		loadChildren: async (): Promise<Type<PageModule>> => {
 			return import('@oc/frontend/dashboard/pages').then(
 				(m: { PageModule: Type<PageModule> }) => m.PageModule,

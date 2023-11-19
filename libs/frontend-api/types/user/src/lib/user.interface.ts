@@ -1,11 +1,10 @@
 import type { Flavor, ICodeTitle } from '@oc/core/types';
-import type { User, UserDB, UserSecrets } from '@oc/frontend-api/types/model';
+import type { User, UserDB, UserLogin, UserSecrets } from '@oc/frontend-api/types/model';
 
 export type IUserIdField = Flavor<User['id'], 'User-id-field'>;
 export type IUserUsernameField = Flavor<User['username'], 'User-username-field'>;
 export type IUserEmailField = Flavor<User['email'], 'User-email-field'>;
 export type IUserPasswordField = Flavor<User['password'], 'User-password-field'>;
-export type IUserPromoCodeField = Flavor<string, 'User-promoCode-field'>;
 export type IUserCreatedAtField = Flavor<UserDB['createdAt'], 'User-createdAt-field'>;
 export type IUserUpdatedAtField = Flavor<UserDB['updatedAt'], 'User-updatedAt-field'>;
 
@@ -34,10 +33,6 @@ export interface IUserF extends User {
 	 * Пароль пользователя
 	 */
 	readonly password: IUserPasswordField;
-	/**
-	 * Промокод действующего пользователя
-	 */
-	readonly promoCode?: IUserPromoCodeField;
 }
 
 export interface IUserDBF extends UserDB {
@@ -59,10 +54,8 @@ export interface IUserSecretsF extends UserSecrets {
 
 export type IUserAuth = IUserSecretsF;
 
-export type IUserLogin = Required<Readonly<Pick<User, 'email' | 'password'>>>;
+export type IUserLogin = Required<Readonly<UserLogin>>;
 
 export type IUserRecovery = Required<Readonly<Pick<User, 'email'>>>;
 
 export type IUserCreate = Required<Readonly<Pick<User, 'email' | 'password' | 'username'>>>;
-
-export type IUserCreatePromo = IUserCreate & { promoCode?: IUserF['promoCode'] };

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import type {
 	IUserAuth,
-	IUserCreatePromo,
+	IUserCreate,
 	IUserLogin,
 	IUserRecovery,
 } from '@oc/frontend-api/types/user';
@@ -88,7 +88,7 @@ export abstract class AuthFacade {
 	 * User register method
 	 * @param payload IUserCreateFriend
 	 */
-	public abstract register(payload: IUserCreatePromo): void;
+	public abstract register(payload: IUserCreate): void;
 
 	/**
 	 * Method clear storage

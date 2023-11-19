@@ -9,6 +9,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { RootStoreDevelopmentModule, RootStoreModule } from '@oc/frontend/ngxs/store/root';
+import {
+	TuiAlertModule,
+	TuiDialogModule,
+	TuiModeModule,
+	TuiRootModule,
+	TuiThemeNightModule,
+} from '@taiga-ui/core';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -37,6 +44,18 @@ import { RootStoreDevelopmentModule, RootStoreModule } from '@oc/frontend/ngxs/s
 		// config
 		AppRoutingModule,
 		AppCoreModule,
+		TuiRootModule,
+		TuiAlertModule,
+		TuiDialogModule,
+		TuiThemeNightModule,
+		TuiModeModule,
+		ServiceWorkerModule.register('ngsw-worker.js', {
+			// enabled: !isDevMode(),
+			enabled: true,
+			// Register the ServiceWorker as soon as the application is stable
+			// or after 30 seconds (whichever comes first).
+			registrationStrategy: 'registerWhenStable:30000',
+		}),
 	],
 	providers: [],
 	bootstrap: [AppComponent],

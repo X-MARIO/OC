@@ -1,72 +1,7 @@
 {
-	"products": [
-		{
-			"id": 1,
-			"title": "QE",
-			"price": "123",
-			"year": "1231231231",
-			"image": "assets/images/macbook.jpeg",
-			"configure": {
-				"chip": "",
-				"ssd": "",
-				"memory": "",
-				"display": ""
-			}
-		},
-		{
-			"id": 2,
-			"title": "MacBook",
-			"price": "123",
-			"year": "312",
-			"image": "assets/images/macbook.jpeg",
-			"configure": {
-				"chip": "",
-				"ssd": "",
-				"memory": "",
-				"display": ""
-			}
-		},
-		{
-			"id": 3,
-			"title": "123",
-			"price": "123",
-			"year": "12123",
-			"image": "assets/images/macbook.jpeg",
-			"configure": {
-				"chip": "",
-				"ssd": "",
-				"memory": "",
-				"display": ""
-			}
-		},
-		{
-			"id": 4,
-			"title": "",
-			"price": "qweqweqweq",
-			"year": "",
-			"image": "assets/images/macbook.jpeg",
-			"configure": {
-				"chip": "",
-				"ssd": "",
-				"memory": "",
-				"display": ""
-			}
-		}
-	],
-	"basket": [
-		{
-			"id": 1,
-			"title": "QE",
-			"price": "123",
-			"year": "1231231231",
-			"image": "assets/images/macbook.jpeg",
-			"configure": {
-				"chip": "",
-				"ssd": "",
-				"memory": "",
-				"display": ""
-			},
-			"quantity": 6
-		}
-	]
+  "login": {
+		"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJ1c2VybmFtZSI6ImFkbWluQHlhLmNvbSIsImVtYWlsIjoiYWRtaW5AeWEuY29tIiwicGFzc3dvcmQiOiIifSwiaWF0IjoxNjkzMDYzODgwLCJleHAiOjE3OTMwNjM4ODB9.NPDF8cF2qHjSQ6tMOTY4PbqIYzWgPUWh6EhQop7VbYI",
+		"token_type": "T",
+		"expires_in": 10000
+	}
 }

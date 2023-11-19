@@ -1,29 +1,61 @@
-<div *ngIf="menuItems$ | async as items">
-	<div class="navigation">
-		<div class="navigation__left">
-			<a
-				class="link"
-				type="button"
-			></a>
+<div class="tui-container tui-container_fullwidth">
+	<div class="tui-row navigation">
+		<div class="tui-col_2 navigation__left">
+			<button tuiButton type="button" appearance="flat" size="m">Kali</button>
 		</div>
-		<div class="navigation__right">
-			<ng-container
-				[ngTemplateOutlet]="(logged$ | async) ? logout : login"
-				[ngTemplateOutletContext]="{ items: items }"></ng-container>
+		<div class="tui-col_10 navigation__right">
+			<ng-container [ngTemplateOutlet]="(logged$ | async) ? logout : login"></ng-container>
 		</div>
 	</div>
 </div>
 
-<ng-template #login let-items="items">
-	<a
-		*ngFor="let item of items"
-		class="link"
-		type="button"
-		(click)="navigate(item)">
-		{{ item.title }}
-	</a>
+<ng-template #login>
+	<form class="form" [formGroup]="languageForm">
+		<tui-select
+			tuiTextfieldSize="m"
+			formControlName="language"
+			[valueContent]="languageContent">
+			Choose a language
+			<tui-data-list-wrapper
+				*tuiDataList
+				[itemContent]="languageContent"
+				[items]="languages"></tui-data-list-wrapper>
+		</tui-select>
+		<ng-template #languageContent let-item>
+			<div class="card-item">
+				<span class="card-name">{{ item.name }}</span>
+			</div>
+		</ng-template>
+	</form>
+
+	<form class="b-form" [formGroup]="dayForm" [tuiTextfieldCleaner]="true">
+		<tui-input-date
+			tuiTextfieldSize="m"
+			formControlName="day"
+			tuiUnfinishedValidator="Finish filling the field">
+			Choose a date
+		</tui-input-date>
+		<tui-error formControlName="day" [error]="[] | tuiFieldError | async"></tui-error>
+	</form>
+
+	<tui-hosted-dropdown #dropdown [content]="content" [(open)]="dropdownOpen">
+		<button
+			tuiIconButton
+			type="button"
+			icon="tuiIconPower"
+			appearance="flat"
+			size="m"
+			[pseudoHover]="dropdown.open || null"></button>
+	</tui-hosted-dropdown>
 </ng-template>
 
-<ng-template #logout>
-	Выйти
+<ng-template #content let-activeZone>
+	<tui-data-list tuiDataListDropdownManager [tuiActiveZoneParent]="activeZone" [size]="size">
+		<button tuiOption>Suspend</button>
+		<button tuiOption>Hibernate</button>
+		<button tuiOption>Restart...</button>
+		<button tuiOption>Shut Down</button>
+	</tui-data-list>
 </ng-template>
+
+<ng-template #logout>Выйти</ng-template>

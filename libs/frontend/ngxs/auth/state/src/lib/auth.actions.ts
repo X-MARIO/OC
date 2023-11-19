@@ -1,6 +1,6 @@
 import type {
 	IUserAuth,
-	IUserCreatePromo,
+	IUserCreate,
 	IUserLogin,
 	IUserRecovery,
 } from '@oc/frontend-api/types/user';
@@ -76,7 +76,7 @@ export class RecoveryFailure {
 export class Register {
 	public static readonly type = '[Auth] Register';
 
-	public constructor(public readonly payload: IUserCreatePromo) {}
+	public constructor(public readonly payload: IUserCreate) {}
 }
 
 export class RegisterSuccess {

@@ -1,17 +1,16 @@
-import { of } from 'rxjs';
-
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NAVIGATION_PATHS, routesNameEnumNames } from '@oc/core/navigation/common';
 import { AuthFacade } from '@oc/frontend/auth/facade';
-import type { Observable } from 'rxjs';
+import { TuiDay } from '@taiga-ui/cdk';
+import type { TuiSizeL, TuiSizeS } from '@taiga-ui/core';
 
-export interface IMenuItem {
-	title: string;
-	navigation: string[];
+class Language {
+	public constructor(public readonly name: string) {}
 }
 
+// eslint-disable-next-line @angular-eslint/prefer-standalone-component
 @Component({
 	selector: 'oc-header',
 	templateUrl: './header.component.html',
@@ -19,36 +18,27 @@ export interface IMenuItem {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
+	public dropdownOpen = false;
+
+	public readonly size: TuiSizeL | TuiSizeS = 'm';
+
+	public readonly dayForm = new FormGroup({
+		day: new FormControl(new TuiDay(2017, 0, 15)),
+	});
+
+	public languages: Language[] = [new Language('RU'), new Language('EN')];
+
+	public readonly languageForm = new FormGroup({
+		language: new FormControl(this.languages[0]),
+	});
+
 	public readonly logged$: AuthFacade['logged$'] = this.authFacade.logged$;
 
-	public menuItems$: Observable<IMenuItem[]> = of([]);
+	public constructor(private readonly authFacade: AuthFacade, private readonly router: Router) {}
 
-	public readonly home: IMenuItem = {
-		title: 'Актуальная',
-		navigation: [NAVIGATION_PATHS.home],
-	};
+	public ngOnInit(): void {}
 
-	private readonly menu: IMenuItem[] = [
-		{
-			title: routesNameEnumNames[NAVIGATION_PATHS.authLogin],
-			navigation: [NAVIGATION_PATHS.authLogin],
-		},
-		{
-			title: routesNameEnumNames[NAVIGATION_PATHS.authRegister],
-			navigation: [NAVIGATION_PATHS.authRegister],
-		},
-	];
-
-	public constructor(
-		private readonly authFacade: AuthFacade,
-		private readonly router: Router,
-	) {}
-
-	public ngOnInit(): void {
-		this.menuItems$ = of(this.menu);
-	}
-
-	public navigate(item: IMenuItem): void {
-		void this.router.navigate(item.navigation).then().catch();
+	public navigate(): void {
+		// void this.router.navigate('').then().catch();
 	}
 }

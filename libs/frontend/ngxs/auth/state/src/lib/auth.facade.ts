@@ -6,7 +6,7 @@ import { AuthState } from './auth.state';
 import { Injectable } from '@angular/core';
 import { Actions, ofActionDispatched, Select, Store } from '@ngxs/store';
 import type { AuthFacade } from '@oc/frontend/auth/facade';
-import type { IUserCreatePromo, IUserLogin, IUserRecovery } from '@oc/frontend-api/types/user';
+import type { IUserCreate, IUserLogin, IUserRecovery } from '@oc/frontend-api/types/user';
 
 /**
  * Ngxs implementation AuthFacade
@@ -62,10 +62,7 @@ export class NgxsAuthFacade implements AuthFacade {
 		map(({ error }) => error),
 	);
 
-	public constructor(
-		private readonly store: Store,
-		private readonly actions$: Actions,
-	) {}
+	public constructor(private readonly store: Store, private readonly actions$: Actions) {}
 
 	public login(payload: IUserLogin): void {
 		this.store.dispatch(new AuthActions.Login(payload));
@@ -79,7 +76,7 @@ export class NgxsAuthFacade implements AuthFacade {
 		this.store.dispatch(new AuthActions.Recovery(payload));
 	}
 
-	public register(payload: IUserCreatePromo): void {
+	public register(payload: IUserCreate): void {
 		this.store.dispatch(new AuthActions.Register(payload));
 	}
 
