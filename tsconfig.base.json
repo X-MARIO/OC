@@ -59,6 +59,7 @@
 			"@oc/frontend/not-found/pages": ["libs/frontend/not-found/pages/src/index.ts"],
 			"@oc/frontend/ui/header": ["libs/frontend/ui/header/src/index.ts"],
 			"@oc/frontend/ui/icon": ["libs/frontend/ui/icon/src/index.ts"],
+			"@oc/frontend/ui/matrix": ["libs/frontend/ui/matrix/src/index.ts"],
 			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"]
 		},
 		"forceConsistentCasingInFileNames": true,
