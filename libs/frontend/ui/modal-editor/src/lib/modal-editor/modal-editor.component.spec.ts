@@ -1,7 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ModalEditorComponent } from './modal-editor.component';
 
-describe('ModalEditorComponent', () => {
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+
+describe('modalEditorComponent', () => {
 	let component: ModalEditorComponent;
 	let fixture: ComponentFixture<ModalEditorComponent>;
 
@@ -16,6 +18,7 @@ describe('ModalEditorComponent', () => {
 	});
 
 	it('should create', () => {
+		expect.hasAssertions();
 		expect(component).toBeTruthy();
 	});
 });

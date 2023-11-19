@@ -1,1 +1,4 @@
-<p>modal-editor works!</p>
+<tui-editor new class="editor" [formControl]="control" [tools]="builtInTools"></tui-editor>
+
+<h4>HTML:</h4>
+<tui-editor-socket [content]="control.value ?? ''"></tui-editor-socket>
