@@ -3,6 +3,7 @@ import { InjectionToken } from '@angular/core';
 export interface INavigationPaths {
 	home: string;
 	dashboard: string;
+	dashboardFileEdit: string;
 
 	auth: string;
 	authLogin: string;
@@ -17,6 +18,7 @@ export interface INavigationPaths {
 export const NAVIGATION_PATHS: INavigationPaths = {
 	home: '',
 	dashboard: 'dashboard',
+	dashboardFileEdit: 'file/edit',
 
 	auth: 'auth',
 	authLogin: 'auth/login',

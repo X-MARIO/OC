@@ -3,7 +3,7 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, Inject, Injector } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
 	TUI_EDITOR_EXTENSIONS,
 	TUI_IMAGE_LOADER,
@@ -14,10 +14,9 @@ import {
 import { TuiDestroyService, TuiHandler } from '@taiga-ui/cdk';
 import type { Observable } from 'rxjs';
 
+// eslint-disable-next-line @angular-eslint/prefer-standalone-component
 @Component({
 	selector: 'oc-modal-editor',
-	standalone: true,
-	imports: [CommonModule, TuiEditorModule, TuiEditorSocketModule],
 	providers: [
 		TuiDestroyService,
 		{

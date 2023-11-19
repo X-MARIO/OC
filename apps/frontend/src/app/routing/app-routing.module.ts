@@ -20,7 +20,6 @@ const routes: Routes = [
 			},
 			{
 				path: '',
-				pathMatch: 'full',
 				loadChildren: async (): Promise<Type<DashboardPagesModule>> => {
 					return import('@oc/frontend/ngxs/dashboard/pages').then(
 						(m: { PagesModule: Type<DashboardPagesModule> }) => m.PagesModule,
