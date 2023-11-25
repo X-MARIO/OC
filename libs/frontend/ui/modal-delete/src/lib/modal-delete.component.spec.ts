@@ -1,7 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ModalDeleteComponent } from './modal-delete.component';
 
-describe('ModalDeleteComponent', () => {
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+
+describe('modalDeleteComponent', () => {
 	let component: ModalDeleteComponent;
 	let fixture: ComponentFixture<ModalDeleteComponent>;
 

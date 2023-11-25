@@ -14,7 +14,7 @@
 		"test-e2e:frontend": "node --max-old-space-size=8192 ./node_modules/nx/bin/nx e2e frontend-e2e",
 		"lint": "node --max-old-space-size=8192 ./node_modules/nx/bin/nx run-many --all --target=lint",
 		"lint:fix": "node --max-old-space-size=8192 ./node_modules/nx/bin/nx run-many --all --target=lint --fix=true",
-		"lint:fix:project": "node --max-old-space-size=8192 ./node_modules/nx/bin/nx lint --project=frontend-ui-modal-rename --fix=true",
+		"lint:fix:project": "node --max-old-space-size=8192 ./node_modules/nx/bin/nx lint --project=frontend-ui-modal-delete --fix=true",
 		"stylelint": "node --max-old-space-size=8192 ./node_modules/stylelint/bin/stylelint apps/**/*.scss --config .stylelintrc",
 		"stylelint:fix": "node --max-old-space-size=8192 ./node_modules/stylelint/bin/stylelint apps/**/*.scss --fix=true --config .stylelintrc",
 		"prettier": "node --max-old-space-size=8192 ./node_modules/prettier/bin-prettier .prettierrc --config .prettierrc",
