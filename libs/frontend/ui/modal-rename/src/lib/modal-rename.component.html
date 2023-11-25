@@ -1,1 +1,28 @@
-<p>modal-rename works!</p>
+<div class="tui-form">
+	<div class="tui-row">
+		<div class="tui-col_12">
+			<div class="tui-form__header">1</div>
+			<div class="tui-form__row">2</div>
+			<div class="tui-form__buttons tui-form__buttons_align_end">
+				<button
+					tuiButton
+					type="button"
+					size="l"
+					appearance="flat"
+					class="tui-form__button"
+					(click)="onCancel()">
+					Cancel
+				</button>
+				<button
+					tuiButton
+					type="button"
+					size="l"
+					appearance="flat"
+					class="tui-form__button"
+					(click)="onDelete()">
+					Delete
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

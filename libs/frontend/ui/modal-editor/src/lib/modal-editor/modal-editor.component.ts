@@ -1,6 +1,3 @@
-import { tuiCreateImageEditorExtension } from '@taiga-ui/addon-editor/extensions/image-editor/image-editor.extension';
-import { map, take, takeUntil } from 'rxjs/operators';
-
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, Inject, Injector } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -9,6 +6,7 @@ import { NavigationService } from '@oc/core/navigation/service';
 import { MatrixElement, MatrixEmitService } from '@oc/frontend/ui/matrix';
 import { TUI_EDITOR_EXTENSIONS, TuiEditorTool } from '@taiga-ui/addon-editor';
 import { TuiDestroyService } from '@taiga-ui/cdk';
+import { map, take, takeUntil } from 'rxjs/operators';
 
 // eslint-disable-next-line @angular-eslint/prefer-standalone-component
 @Component({
@@ -57,6 +55,13 @@ export class ModalEditorComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.setSubscriptions();
+	}
+
+	public onCancel(): void {
+		void this.navigationService
+			.navigateByUrl(this.navigationService.getPaths().dashboard)
+			.then()
+			.catch();
 	}
 
 	public onSave(): void {
