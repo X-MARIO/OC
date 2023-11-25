@@ -35,7 +35,12 @@ export class IconComponent {
 
 	public constructor(private readonly navigationService: NavigationService) {}
 
-	public onClick($event: MouseEvent): void {
+	public onOpenContextMenu($event: MouseEvent): void {
+		$event.preventDefault();
+		this.dropdownOpen = !this.dropdownOpen;
+	}
+
+	public onOpen($event: MouseEvent): void {
 		const queryParams: IQueryParamsEditIcon = {
 			iconId: this.data.iconId,
 		};
@@ -48,14 +53,29 @@ export class IconComponent {
 			.catch();
 	}
 
-	public onOpenContextMenu($event: MouseEvent): void {
-		$event.preventDefault();
-		this.dropdownOpen = !this.dropdownOpen;
+	public onDelete($event: MouseEvent): void {
+		const queryParams: IQueryParamsEditIcon = {
+			iconId: this.data.iconId,
+		};
+
+		void this.navigationService
+			.navigateByUrl(this.navigationService.getPaths().dashboardFileDelete, undefined, {
+				queryParams: queryParams,
+			})
+			.then()
+			.catch();
 	}
 
-	public onOpen($event: MouseEvent) {}
+	public onRename($event: MouseEvent): void {
+		const queryParams: IQueryParamsEditIcon = {
+			iconId: this.data.iconId,
+		};
 
-	public onDelete($event: MouseEvent) {}
-
-	public onRename($event: MouseEvent) {}
+		void this.navigationService
+			.navigateByUrl(this.navigationService.getPaths().dashboardFileRename, undefined, {
+				queryParams: queryParams,
+			})
+			.then()
+			.catch();
+	}
 }
