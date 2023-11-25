@@ -8,7 +8,20 @@ import {
 	transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, TemplateRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ContentChild,
+	Inject,
+	TemplateRef,
+} from '@angular/core';
+import {
+	EFileType,
+	MatrixElement,
+	MatrixElementBase,
+	MatrixElementShort,
+	MatrixEmitService,
+} from './matrix-emit.service';
 
 @Component({
 	selector: 'oc-matrix',
@@ -28,7 +41,7 @@ import { ChangeDetectionStrategy, Component, ContentChild, TemplateRef } from '@
 export class MatrixComponent {
 	@ContentChild('content') public content!: TemplateRef<unknown>;
 
-	public readonly matrix: number[][] = this.getArr();
+	public readonly matrix: MatrixElementBase[][] = this.getArr();
 
 	public matrixLength: number = this.matrix.length;
 
@@ -36,7 +49,11 @@ export class MatrixComponent {
 		.fill(null)
 		.map((u, i) => i.toString());
 
-	public trackByIndex(index: number, item: number[]): number {
+	public constructor(
+		@Inject(MatrixEmitService) private readonly matrixEmitService: MatrixEmitService,
+	) {}
+
+	public trackByIndex(index: number, item: MatrixElementBase[]): number {
 		return index;
 	}
 
@@ -49,8 +66,8 @@ export class MatrixComponent {
 		return this.listsMatrixIndex.filter((item: string) => item !== idxStr);
 	}
 
-	public drop(event: CdkDragDrop<number[][]>): void {
-		console.log('drop', event);
+	public drop(event: CdkDragDrop<MatrixElementBase[][]>): void {
+		console.log('event', event);
 		const currentContainerIndexId: number = +event.container.id;
 		if (event.previousContainer === event.container) {
 			moveItemInArray(
@@ -67,6 +84,7 @@ export class MatrixComponent {
 				event.currentIndex,
 			);
 		}
+		this.matrixEmitService.setMatrixData([...event.container.data]);
 	}
 
 	/**
@@ -74,19 +92,42 @@ export class MatrixComponent {
 	 * @param drag
 	 * @param drop
 	 */
-	public evenPredicate(drag: CdkDrag<number>, drop: CdkDropList<number[][]>): boolean {
+	public evenPredicate(drag: CdkDrag<number>, drop: CdkDropList<MatrixElementBase[][]>): boolean {
 		const dropContainerId: number = +drop.id;
 		return !drop.data[dropContainerId].length;
 	}
 
-	private getArr(): number[][] {
+	private getArr(): MatrixElementBase[][] {
 		const array: number[] = Array(128)
 			.fill(null)
 			.map((u, i) => i); //массив, можно использовать массив объектов
 		const size = 1; //размер подмассива
-		const subarray: number[][] = []; //массив в который будет выведен результат.
+		const subarray: MatrixElementBase[][] = []; //массив в который будет выведен результат.
 		for (let i = 0; i < Math.ceil(array.length / size); i++) {
-			subarray[i] = i === 55 ? [55] : i === 56 ? [56] : [];
+			subarray[i] =
+				i === 55
+					? [
+							new MatrixElement({
+								_placeId: 55,
+								_iconId: 1,
+								_icon: 'tuiIconFileLarge',
+								_name: '1',
+								_mime: EFileType.FILE,
+								_content: '',
+							}),
+					  ]
+					: i === 56
+					? [
+							new MatrixElement({
+								_placeId: 56,
+								_iconId: 2,
+								_icon: 'tuiIconFolderLarge',
+								_name: '2',
+								_mime: EFileType.FOLDER,
+								_content: '',
+							}),
+					  ]
+					: [];
 		}
 		console.log('subarray', subarray);
 		return subarray;

@@ -1,16 +1,13 @@
 import { switchMap, takeUntil } from 'rxjs/operators';
 
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, Inject, Injector } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import {
-	TUI_EDITOR_EXTENSIONS,
-	TUI_IMAGE_LOADER,
-	TuiEditorModule,
-	TuiEditorSocketModule,
-	TuiEditorTool,
-} from '@taiga-ui/addon-editor';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import type { IMatrixElementBase, MatrixElementBase } from '@oc/frontend/ui/matrix';
+import { MatrixEmitService } from '@oc/frontend/ui/matrix';
+import { TUI_EDITOR_EXTENSIONS, TUI_IMAGE_LOADER, TuiEditorTool } from '@taiga-ui/addon-editor';
 import { TuiDestroyService, TuiHandler } from '@taiga-ui/cdk';
 import type { Observable } from 'rxjs';
 
@@ -34,7 +31,7 @@ import type { Observable } from 'rxjs';
 	styleUrls: ['./modal-editor.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ModalEditorComponent {
+export class ModalEditorComponent implements OnInit {
 	public readonly builtInTools: TuiEditorTool[] = [TuiEditorTool.Img];
 
 	public readonly base64Image$: Observable<string> = this.http
@@ -43,18 +40,49 @@ export class ModalEditorComponent {
 
 	public control: FormControl<string | null> = new FormControl<string>('');
 
+	private readonly matrixElementId: MatrixElementBase['_placeId'] = -1;
+
 	public constructor(
 		@Inject(TUI_IMAGE_LOADER)
 		private readonly imageLoader: TuiHandler<Blob, Observable<string>>,
 		@Inject(HttpClient) private readonly http: HttpClient,
-		@Inject(TuiDestroyService) destroy$: TuiDestroyService,
+		@Inject(TuiDestroyService) private readonly destroy$: TuiDestroyService,
+		@Inject(MatrixEmitService) private readonly matrixEmitService: MatrixEmitService,
+		@Inject(ActivatedRoute) private readonly activatedRoute: ActivatedRoute,
 	) {
-		this.base64Image$.pipe(takeUntil(destroy$)).subscribe({
+		const matrixElementId: string | null = this.activatedRoute.snapshot.paramMap.get('iconId');
+
+		if (matrixElementId == null) {
+			throw new Error('de84cd20-d78a-450e-850b-7584955629ab');
+		}
+
+		this.matrixElementId = +matrixElementId;
+
+		this.base64Image$.pipe(takeUntil(this.destroy$)).subscribe({
 			next: (src) => {
 				this.control.patchValue(
 					`<img data-type="image-editor" src="${src}" width="300"><p>Try to drag right border of image!</p><p>To change min size of image use token <code>TUI_EDITOR_MIN_IMAGE_WIDTH</code>.</p><p>To change max size of image use token <code>TUI_EDITOR_MAX_IMAGE_WIDTH</code>.</p>`,
 				);
 			},
 		});
+	}
+
+	public ngOnInit(): void {
+		this.setSubscriptions();
+	}
+
+	public onSave(): void {
+		console.log('t', this.control.value);
+	}
+
+	private setSubscriptions(): void {
+		this.matrixEmitService
+			.getMatrixData()
+			.pipe(takeUntil(this.destroy$))
+			.subscribe({
+				next: (value: MatrixElementBase[][]) => {
+					console.log('v', value);
+				},
+			});
 	}
 }
