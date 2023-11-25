@@ -1,7 +1,9 @@
 package ru.savelyev.linux;
 
+import ru.savelyev.linux.entity.Icon;
 import ru.savelyev.linux.entity.Role;
 import ru.savelyev.linux.entity.UserDB;
+import ru.savelyev.linux.repository.IconRepository;
 import ru.savelyev.linux.repository.RoleRepository;
 import ru.savelyev.linux.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,8 @@ import java.util.stream.Stream;
 public class SpringSecurityJwtExampleApplication {
 
     private final UserRepository repository;
+
+    private final IconRepository iconRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -32,6 +36,10 @@ public class SpringSecurityJwtExampleApplication {
                 new UserDB(null, "maxim", passwordEncoder.encode("pwd1"), "user1@gmail.com", null, null, Stream.of(role2).collect(Collectors.toList()))
         ).collect(Collectors.toList());
         repository.saveAll(userDBS);
+        Icon icon =new Icon(1,"hype","test",6, "text/plain","fdsfdsfsfs");
+        Icon icon3 =new Icon(3,"hype","test",1, "text/plain","fdsfdsfsfs");
+        Icon icon2 =new Icon(2,"hype","test",3, "text/plain","fdsfdsfsfs");
+        iconRepository.saveAll(Stream.of(icon, icon2,icon3).collect(Collectors.toList()));
     }
 
     public static void main(String[] args) {
