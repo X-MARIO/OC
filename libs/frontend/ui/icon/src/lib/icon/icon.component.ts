@@ -3,12 +3,22 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NavigationService } from '@oc/core/navigation/service';
 import type { IQueryParamsEditIcon } from '@oc/frontend/ui/matrix';
 import { MatrixElementShort } from '@oc/frontend/ui/matrix';
-import { TuiButtonModule } from '@taiga-ui/core';
+import { TuiActiveZoneModule } from '@taiga-ui/cdk';
+import type { TuiSizeL, TuiSizeS } from '@taiga-ui/core';
+import { TuiButtonModule, TuiDataListModule, TuiDropdownModule } from '@taiga-ui/core';
+import { TuiDataListDropdownManagerModule } from '@taiga-ui/kit';
 
 @Component({
 	selector: 'oc-icon',
 	standalone: true,
-	imports: [CommonModule, TuiButtonModule],
+	imports: [
+		CommonModule,
+		TuiButtonModule,
+		TuiDataListModule,
+		TuiDataListDropdownManagerModule,
+		TuiDropdownModule,
+		TuiActiveZoneModule,
+	],
 	templateUrl: './icon.component.html',
 	styleUrls: ['./icon.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,6 +28,10 @@ export class IconComponent {
 		required: true,
 	})
 	public data!: MatrixElementShort;
+
+	public dropdownOpen = false;
+
+	public readonly size: TuiSizeL | TuiSizeS = 'm';
 
 	public constructor(private readonly navigationService: NavigationService) {}
 
@@ -33,4 +47,15 @@ export class IconComponent {
 			.then()
 			.catch();
 	}
+
+	public onOpenContextMenu($event: MouseEvent): void {
+		$event.preventDefault();
+		this.dropdownOpen = !this.dropdownOpen;
+	}
+
+	public onOpen($event: MouseEvent) {}
+
+	public onDelete($event: MouseEvent) {}
+
+	public onRename($event: MouseEvent) {}
 }
