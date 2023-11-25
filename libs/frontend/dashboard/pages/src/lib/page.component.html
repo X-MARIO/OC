@@ -1,5 +1,7 @@
-<oc-matrix>
-	<ng-template #content let-data="data">
-		<oc-icon [data]="data"></oc-icon>
-	</ng-template>
-</oc-matrix>
+<ng-container *ngIf="matrix$ | async as matrix">
+	<oc-matrix [matrix]="matrix">
+		<ng-template #content let-data="data">
+			<oc-icon [data]="data"></oc-icon>
+		</ng-template>
+	</oc-matrix>
+</ng-container>

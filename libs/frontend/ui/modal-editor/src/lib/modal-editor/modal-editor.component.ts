@@ -1,15 +1,14 @@
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { tuiCreateImageEditorExtension } from '@taiga-ui/addon-editor/extensions/image-editor/image-editor.extension';
+import { map, take, takeUntil } from 'rxjs/operators';
 
-import { HttpClient } from '@angular/common/http';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, Inject, Injector } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import type { IMatrixElementBase, MatrixElementBase } from '@oc/frontend/ui/matrix';
-import { MatrixEmitService } from '@oc/frontend/ui/matrix';
-import { TUI_EDITOR_EXTENSIONS, TUI_IMAGE_LOADER, TuiEditorTool } from '@taiga-ui/addon-editor';
-import { TuiDestroyService, TuiHandler } from '@taiga-ui/cdk';
-import type { Observable } from 'rxjs';
+import { NavigationService } from '@oc/core/navigation/service';
+import { MatrixElement, MatrixEmitService } from '@oc/frontend/ui/matrix';
+import { TUI_EDITOR_EXTENSIONS, TuiEditorTool } from '@taiga-ui/addon-editor';
+import { TuiDestroyService } from '@taiga-ui/cdk';
 
 // eslint-disable-next-line @angular-eslint/prefer-standalone-component
 @Component({
@@ -22,7 +21,7 @@ import type { Observable } from 'rxjs';
 			useFactory: (injector: Injector) => [
 				import('@taiga-ui/addon-editor/extensions/starter-kit').then((m) => m.StarterKit),
 				import('@taiga-ui/addon-editor/extensions/image-editor').then((m) =>
-					m.createImageEditorExtension(injector),
+					m.tuiCreateImageEditorExtension({ injector }),
 				),
 			],
 		},
@@ -34,37 +33,26 @@ import type { Observable } from 'rxjs';
 export class ModalEditorComponent implements OnInit {
 	public readonly builtInTools: TuiEditorTool[] = [TuiEditorTool.Img];
 
-	public readonly base64Image$: Observable<string> = this.http
-		.get('assets/images/lumberjack.png', { responseType: 'blob' })
-		.pipe(switchMap((file: Blob) => this.imageLoader(file)));
+	public element!: MatrixElement;
 
 	public control: FormControl<string | null> = new FormControl<string>('');
 
-	private readonly matrixElementId: MatrixElementBase['_placeId'] = -1;
+	private readonly matrixElementId: MatrixElement['_iconId'] = -1;
 
 	public constructor(
-		@Inject(TUI_IMAGE_LOADER)
-		private readonly imageLoader: TuiHandler<Blob, Observable<string>>,
-		@Inject(HttpClient) private readonly http: HttpClient,
-		@Inject(TuiDestroyService) private readonly destroy$: TuiDestroyService,
-		@Inject(MatrixEmitService) private readonly matrixEmitService: MatrixEmitService,
 		@Inject(ActivatedRoute) private readonly activatedRoute: ActivatedRoute,
+		@Inject(TuiDestroyService) private readonly destroy$: TuiDestroyService,
+		private readonly matrixEmitService: MatrixEmitService<MatrixElement>,
+		private readonly navigationService: NavigationService,
 	) {
-		const matrixElementId: string | null = this.activatedRoute.snapshot.paramMap.get('iconId');
+		const matrixElementId: string | null =
+			this.activatedRoute.snapshot.queryParamMap.get('iconId');
 
 		if (matrixElementId == null) {
 			throw new Error('de84cd20-d78a-450e-850b-7584955629ab');
 		}
 
 		this.matrixElementId = +matrixElementId;
-
-		this.base64Image$.pipe(takeUntil(this.destroy$)).subscribe({
-			next: (src) => {
-				this.control.patchValue(
-					`<img data-type="image-editor" src="${src}" width="300"><p>Try to drag right border of image!</p><p>To change min size of image use token <code>TUI_EDITOR_MIN_IMAGE_WIDTH</code>.</p><p>To change max size of image use token <code>TUI_EDITOR_MAX_IMAGE_WIDTH</code>.</p>`,
-				);
-			},
-		});
 	}
 
 	public ngOnInit(): void {
@@ -72,16 +60,53 @@ export class ModalEditorComponent implements OnInit {
 	}
 
 	public onSave(): void {
-		console.log('t', this.control.value);
+		this.matrixEmitService
+			.update(
+				new MatrixElement({
+					...this.element,
+					_content: this.control.value ?? '',
+				}),
+			)
+			.pipe(take(1), takeUntil(this.destroy$))
+			.subscribe({
+				next: () => {
+					void this.navigationService
+						.navigateByUrl(this.navigationService.getPaths().dashboard)
+						.then()
+						.catch();
+				},
+			});
 	}
 
 	private setSubscriptions(): void {
 		this.matrixEmitService
-			.getMatrixData()
-			.pipe(takeUntil(this.destroy$))
+			.getMatrixData$()
+			.pipe(
+				take(1),
+				map((matrix: MatrixElement[][]) => {
+					const el: MatrixElement[] | undefined = matrix.find(
+						(value: MatrixElement[]) => value[0]?.iconId === this.matrixElementId,
+					);
+
+					if (!el) {
+						throw new Error('');
+					}
+
+					const matrixEl: MatrixElement | undefined = el[0];
+
+					if (matrixEl === undefined) {
+						throw new Error('');
+					}
+
+					this.control.patchValue(matrixEl.content);
+
+					return el[0];
+				}),
+				takeUntil(this.destroy$),
+			)
 			.subscribe({
-				next: (value: MatrixElementBase[][]) => {
-					console.log('v', value);
+				next: (matrixEl: MatrixElement) => {
+					this.element = matrixEl;
 				},
 			});
 	}

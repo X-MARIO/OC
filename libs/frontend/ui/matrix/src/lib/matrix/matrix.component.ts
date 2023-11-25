@@ -1,3 +1,6 @@
+import type { MatrixElementBase } from './matrix-emit.service';
+import { MatrixEmitService } from './matrix-emit.service';
+
 import type { CdkDragDrop } from '@angular/cdk/drag-drop';
 import {
 	CdkDrag,
@@ -13,15 +16,9 @@ import {
 	Component,
 	ContentChild,
 	Inject,
+	Input,
 	TemplateRef,
 } from '@angular/core';
-import {
-	EFileType,
-	MatrixElement,
-	MatrixElementBase,
-	MatrixElementShort,
-	MatrixEmitService,
-} from './matrix-emit.service';
 
 @Component({
 	selector: 'oc-matrix',
@@ -41,13 +38,22 @@ import {
 export class MatrixComponent {
 	@ContentChild('content') public content!: TemplateRef<unknown>;
 
-	public readonly matrix: MatrixElementBase[][] = this.getArr();
+	public _matrix: MatrixElementBase[][] = [];
 
-	public matrixLength: number = this.matrix.length;
+	public _matrixLength = -1;
 
-	public listsMatrixIndex: string[] = Array(this.matrixLength)
-		.fill(null)
-		.map((u, i) => i.toString());
+	public _listsMatrixIndex: string[] = [];
+
+	@Input({
+		required: true,
+	})
+	public set matrix(value: MatrixElementBase[][]) {
+		this._matrix = value;
+		this._matrixLength = value.length;
+		this._listsMatrixIndex = Array(this._matrixLength)
+			.fill(null)
+			.map((u, i) => i.toString());
+	}
 
 	public constructor(
 		@Inject(MatrixEmitService) private readonly matrixEmitService: MatrixEmitService,
@@ -63,11 +69,10 @@ export class MatrixComponent {
 
 	public getCdkDropListConnectedToList(idx: number): string[] {
 		const idxStr: string = idx.toString();
-		return this.listsMatrixIndex.filter((item: string) => item !== idxStr);
+		return this._listsMatrixIndex.filter((item: string) => item !== idxStr);
 	}
 
 	public drop(event: CdkDragDrop<MatrixElementBase[][]>): void {
-		console.log('event', event);
 		const currentContainerIndexId: number = +event.container.id;
 		if (event.previousContainer === event.container) {
 			moveItemInArray(
@@ -95,41 +100,5 @@ export class MatrixComponent {
 	public evenPredicate(drag: CdkDrag<number>, drop: CdkDropList<MatrixElementBase[][]>): boolean {
 		const dropContainerId: number = +drop.id;
 		return !drop.data[dropContainerId].length;
-	}
-
-	private getArr(): MatrixElementBase[][] {
-		const array: number[] = Array(128)
-			.fill(null)
-			.map((u, i) => i); //массив, можно использовать массив объектов
-		const size = 1; //размер подмассива
-		const subarray: MatrixElementBase[][] = []; //массив в который будет выведен результат.
-		for (let i = 0; i < Math.ceil(array.length / size); i++) {
-			subarray[i] =
-				i === 55
-					? [
-							new MatrixElement({
-								_placeId: 55,
-								_iconId: 1,
-								_icon: 'tuiIconFileLarge',
-								_name: '1',
-								_mime: EFileType.FILE,
-								_content: '',
-							}),
-					  ]
-					: i === 56
-					? [
-							new MatrixElement({
-								_placeId: 56,
-								_iconId: 2,
-								_icon: 'tuiIconFolderLarge',
-								_name: '2',
-								_mime: EFileType.FOLDER,
-								_content: '',
-							}),
-					  ]
-					: [];
-		}
-		console.log('subarray', subarray);
-		return subarray;
 	}
 }
