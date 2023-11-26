@@ -8,6 +8,7 @@ import ru.savelyev.linux.exception.BadRequestException;
 import ru.savelyev.linux.service.FileService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -15,16 +16,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FileController {
     private final FileService fileService;
+
     @GetMapping("/icons")
     public List<Icon> getAllIcons() {
         return fileService.getAll();
     }
+
     @PostMapping("/icons")
     public Icon createIcon(@RequestBody(required = false) Icon icon) {
         if (icon == null) {
             throw new BadRequestException("Request body is empty");
         }
-       return fileService.saveIcon(icon);
+        return fileService.saveIcon(icon);
+    }
+    @PatchMapping("/icons/{id}")
+    public Icon partialUpdateIcon(@PathVariable Integer id, @RequestBody(required = false) Map<String, Object> fields) {
+        return fileService.partialUpdateIcon(id, fields);
     }
 
     @DeleteMapping("/icons/{id}")
@@ -39,6 +46,5 @@ public class FileController {
         }
         return fileService.updateById(id, icon);
     }
-
 
 }

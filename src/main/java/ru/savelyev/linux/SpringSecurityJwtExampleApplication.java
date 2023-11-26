@@ -36,9 +36,9 @@ public class SpringSecurityJwtExampleApplication {
                 new UserDB(null, "maxim", passwordEncoder.encode("pwd1"), "user1@gmail.com", null, null, Stream.of(role2).collect(Collectors.toList()))
         ).collect(Collectors.toList());
         repository.saveAll(userDBS);
-        Icon icon =new Icon(1,"hype","test",6, "text/plain","fdsfdsfsfs");
-        Icon icon3 =new Icon(3,"hype","test",1, "text/plain","fdsfdsfsfs");
-        Icon icon2 =new Icon(2,"hype","test",3, "text/plain","fdsfdsfsfs");
+        Icon icon = new Icon(1,"Icon 1", "https://cdn-icons-png.flaticon.com/512/29/29072.png", 7, "image/png", "Icon 1 content");
+        Icon icon2 = new Icon(2,"Icon 2", "https://cdn-icons-png.flaticon.com/512/29/29072.png", 9, "image/png", "Icon 2 content");
+        Icon icon3 = new Icon(3,"Icon 3", "https://cdn-icons-png.flaticon.com/512/29/29072.png", 1, "image/png", "Icon 3 content");
         iconRepository.saveAll(Stream.of(icon, icon2,icon3).collect(Collectors.toList()));
     }
 
