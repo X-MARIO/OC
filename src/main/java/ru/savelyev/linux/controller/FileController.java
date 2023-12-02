@@ -22,6 +22,11 @@ public class FileController {
         return fileService.getAll();
     }
 
+    @GetMapping("/icons/{id}")
+    public Icon findIconById(@PathVariable("id") Integer id) {
+        return fileService.findById(id);
+    }
+
     @PostMapping("/icons")
     public Icon createIcon(@RequestBody(required = false) Icon icon) {
         if (icon == null) {
