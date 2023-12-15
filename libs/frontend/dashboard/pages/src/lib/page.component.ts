@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import type { MatrixElement } from '@oc/frontend/ui/matrix';
 import { MatrixEmitService } from '@oc/frontend/ui/matrix';
-import { type Observable } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 /**
  * Page component for dashboard application
@@ -16,11 +16,5 @@ import { type Observable } from 'rxjs';
 export class PageComponent {
 	public readonly matrix$: Observable<MatrixElement[][]> = this.matrixEmitService.initialize();
 
-	public open = false;
-
 	public constructor(private readonly matrixEmitService: MatrixEmitService<MatrixElement>) {}
-
-	onOpen() {
-		this.open = true;
-	}
 }

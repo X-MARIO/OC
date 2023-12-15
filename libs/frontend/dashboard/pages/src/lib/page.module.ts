@@ -1,4 +1,5 @@
 import { CdkDrag } from '@angular/cdk/drag-drop';
+import { TerminalComponent } from '../../../../ui/terminal/src/lib/terminal.component';
 import { PageComponent } from './page.component';
 import { PageRoutingModule } from './page-routing.module';
 
@@ -20,6 +21,7 @@ import { CreateComponent } from '@oc/frontend/ui/create';
 		IconComponent,
 		CreateComponent,
 		CdkDrag,
+		TerminalComponent,
 	],
 })
 export class PageModule {}
