@@ -4,6 +4,7 @@ import type { Type } from '@angular/core';
 import { NgModule } from '@angular/core';
 import type { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import type { ModalCreateFolderModule } from '@oc/frontend/ui/modal-create-folder';
 import type { ModalDeleteModule } from '@oc/frontend/ui/modal-delete';
 import type { ModalEditorModule } from '@oc/frontend/ui/modal-editor';
 import type { ModalRenameModule } from '@oc/frontend/ui/modal-rename';
@@ -37,6 +38,15 @@ const routes: Routes = [
 		loadChildren: async (): Promise<Type<ModalDeleteModule>> => {
 			return import('@oc/frontend/ui/modal-delete').then(
 				(m: { ModalDeleteModule: Type<ModalDeleteModule> }) => m.ModalDeleteModule,
+			);
+		},
+	},
+	{
+		path: 'folder/create',
+		loadChildren: async (): Promise<Type<ModalCreateFolderModule>> => {
+			return import('@oc/frontend/ui/modal-create-folder').then(
+				(m: { ModalCreateFolderModule: Type<ModalCreateFolderModule> }) =>
+					m.ModalCreateFolderModule,
 			);
 		},
 	},

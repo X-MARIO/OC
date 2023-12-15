@@ -61,11 +61,13 @@
 			"@oc/frontend/ui/header": ["libs/frontend/ui/header/src/index.ts"],
 			"@oc/frontend/ui/icon": ["libs/frontend/ui/icon/src/index.ts"],
 			"@oc/frontend/ui/matrix": ["libs/frontend/ui/matrix/src/index.ts"],
+			"@oc/frontend/ui/modal-create-folder": [
+				"libs/frontend/ui/modal-create-folder/src/index.ts"
+			],
 			"@oc/frontend/ui/modal-delete": ["libs/frontend/ui/modal-delete/src/index.ts"],
 			"@oc/frontend/ui/modal-editor": ["libs/frontend/ui/modal-editor/src/index.ts"],
 			"@oc/frontend/ui/modal-rename": ["libs/frontend/ui/modal-rename/src/index.ts"],
-			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"],
-			"@oc/frontend/ui/modal-create-folder": ["libs/frontend/ui/modal-create-folder/src/index.ts"]
+			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"]
 		},
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,

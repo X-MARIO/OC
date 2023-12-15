@@ -11,12 +11,12 @@ export class LoginForm {
 		return new FormGroup({
 			[FormModelLogin.username]: new FormControl('', [
 				Validators.required,
-				Validators.minLength(5),
+				Validators.minLength(4),
 				Validators.maxLength(64),
 			]),
 			[FormModelLogin.password]: new FormControl('', [
 				Validators.required,
-				Validators.minLength(11),
+				Validators.minLength(4),
 				Validators.maxLength(64),
 			]),
 		});

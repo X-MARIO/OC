@@ -9,7 +9,7 @@
 
 <ng-template #content let-activeZone>
 	<tui-data-list tuiDataListDropdownManager [tuiActiveZoneParent]="activeZone" [size]="size">
-		<button tuiOption type="button">Create Folder</button>
+		<button tuiOption type="button" (click)="onOpenCreateFolder($event)">Create Folder</button>
 		<button tuiOption type="button">Create Document</button>
 		<button tuiOption type="button">Open Terminal Here</button>
 	</tui-data-list>
