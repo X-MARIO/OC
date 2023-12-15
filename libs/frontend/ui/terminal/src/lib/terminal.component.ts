@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs';
+import { TerminalService } from './terminal.service';
+
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -28,7 +31,7 @@ export interface ICommand {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TerminalComponent {
-	public open = false;
+	public open$: Observable<boolean> = this._terminalService.getOpenTerminal$();
 
 	public commands: ICommand[] = [
 		{
@@ -45,9 +48,13 @@ export class TerminalComponent {
 		},
 	];
 
-	public onOpen(): void {
-		this.open = true;
+	public constructor(private readonly _terminalService: TerminalService) {}
+
+	public onClose(): void {
+		this._terminalService.setOpenTerminal(false);
 	}
 
-	public onEnter(): void {}
+	public onEnter(): void {
+		this.onClose();
+	}
 }

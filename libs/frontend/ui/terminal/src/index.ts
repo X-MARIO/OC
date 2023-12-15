@@ -1,1 +1,2 @@
-export * from './lib/terminal.module';
+export * from './lib/terminal.component';
+export * from './lib/terminal.service';

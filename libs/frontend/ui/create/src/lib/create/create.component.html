@@ -1,5 +1,6 @@
 <div
 	class="container"
+	tuiDropdownAlign="right"
 	tuiDropdownDirection="bottom"
 	(contextmenu)="onOpenContextMenu($event)"
 	[tuiDropdown]="content"
@@ -19,7 +20,7 @@
 			[tuiDropdownManual]="false">
 			Create Document
 		</button>
-		<button tuiOption type="button">Open Terminal Here</button>
+		<button tuiOption type="button" (click)="onOpenTerminal($event)">Open Terminal Here</button>
 
 		<ng-template #emptyFile>
 			<tui-data-list tuiDataListDropdownManager [tuiActiveZoneParent]="activeZone">
