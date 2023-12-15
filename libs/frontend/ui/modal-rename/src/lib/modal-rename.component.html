@@ -1,8 +1,16 @@
-<div class="tui-form">
+<form class="tui-form" [formGroup]="form">
 	<div class="tui-row">
 		<div class="tui-col_12">
-			<div class="tui-form__header">1</div>
-			<div class="tui-form__row">2</div>
+			<div class="tui-form__header">Enter the new name:</div>
+			<div class="tui-form__row">
+				<tui-input [formControlName]="formFields.fileName">
+					FileName
+					<input tuiTextfield type="text" placeholder="Enter new file name" />
+				</tui-input>
+				<tui-error
+					[formControlName]="formFields.fileName"
+					[error]="[] | tuiFieldError | async"></tui-error>
+			</div>
 			<div class="tui-form__buttons tui-form__buttons_align_end">
 				<button
 					tuiButton
@@ -19,10 +27,10 @@
 					size="l"
 					appearance="flat"
 					class="tui-form__button"
-					(click)="onDelete()">
-					Delete
+					(click)="onRename()">
+					Rename
 				</button>
 			</div>
 		</div>
 	</div>
-</div>
+</form>
