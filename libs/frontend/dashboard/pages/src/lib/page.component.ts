@@ -16,5 +16,11 @@ import { type Observable } from 'rxjs';
 export class PageComponent {
 	public readonly matrix$: Observable<MatrixElement[][]> = this.matrixEmitService.initialize();
 
+	public open = false;
+
 	public constructor(private readonly matrixEmitService: MatrixEmitService<MatrixElement>) {}
+
+	onOpen() {
+		this.open = true;
+	}
 }

@@ -1,7 +1,12 @@
 <ng-container *ngIf="matrix$ | async as matrix">
-	<oc-matrix [matrix]="matrix">
-		<ng-template #content let-data="data">
-			<oc-icon [data]="data"></oc-icon>
-		</ng-template>
-	</oc-matrix>
+	<div class="example-boundary">
+		<oc-matrix [matrix]="matrix">
+			<ng-template #content let-data="data">
+				<oc-icon [data]="data"></oc-icon>
+			</ng-template>
+		</oc-matrix>
+		<div *ngIf="open" class="example-box" cdkDragBoundary=".example-boundary" cdkDrag>
+			I can only be dragged within the dotted container
+		</div>
+	</div>
 </ng-container>

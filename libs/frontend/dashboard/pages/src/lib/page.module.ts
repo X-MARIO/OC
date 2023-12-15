@@ -1,3 +1,4 @@
+import { CdkDrag } from '@angular/cdk/drag-drop';
 import { PageComponent } from './page.component';
 import { PageRoutingModule } from './page-routing.module';
 
@@ -12,6 +13,13 @@ import { CreateComponent } from '@oc/frontend/ui/create';
  */
 @NgModule({
 	declarations: [PageComponent],
-	imports: [CommonModule, PageRoutingModule, MatrixComponent, IconComponent, CreateComponent],
+	imports: [
+		CommonModule,
+		PageRoutingModule,
+		MatrixComponent,
+		IconComponent,
+		CreateComponent,
+		CdkDrag,
+	],
 })
 export class PageModule {}
