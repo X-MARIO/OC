@@ -1,3 +1,4 @@
+import { CreateComponent } from '@oc/frontend/ui/create';
 import type { MatrixElementBase } from './matrix-emit.service';
 import { MatrixEmitService } from './matrix-emit.service';
 
@@ -30,6 +31,7 @@ import {
 		CdkDropList,
 		CdkDropListGroup,
 		CdkDragPlaceholder,
+		CreateComponent,
 	],
 	templateUrl: './matrix.component.html',
 	styleUrls: ['./matrix.component.scss'],
