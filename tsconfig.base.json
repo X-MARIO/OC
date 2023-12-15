@@ -64,7 +64,8 @@
 			"@oc/frontend/ui/modal-delete": ["libs/frontend/ui/modal-delete/src/index.ts"],
 			"@oc/frontend/ui/modal-editor": ["libs/frontend/ui/modal-editor/src/index.ts"],
 			"@oc/frontend/ui/modal-rename": ["libs/frontend/ui/modal-rename/src/index.ts"],
-			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"]
+			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"],
+			"@oc/frontend/ui/modal-create-folder": ["libs/frontend/ui/modal-create-folder/src/index.ts"]
 		},
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
