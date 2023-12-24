@@ -1,13 +1,13 @@
 import { CdkDrag } from '@angular/cdk/drag-drop';
-import { TerminalComponent } from '../../../../ui/terminal/src/lib/terminal.component';
-import { PageComponent } from './page.component';
-import { PageRoutingModule } from './page-routing.module';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { CreateComponent } from '@oc/frontend/ui/create';
 import { IconComponent } from '@oc/frontend/ui/icon';
 import { MatrixComponent } from '@oc/frontend/ui/matrix';
-import { CreateComponent } from '@oc/frontend/ui/create';
+import { TerminalComponent } from '@oc/frontend/ui/terminal';
+import { PageRoutingModule } from './page-routing.module';
+import { PageComponent } from './page.component';
 
 /**
  * Dashboard page module

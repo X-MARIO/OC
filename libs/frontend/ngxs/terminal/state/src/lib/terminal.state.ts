@@ -1,12 +1,13 @@
+import { catchError, map, Observable } from 'rxjs';
+
+import * as TerminalActions from './terminal.actions';
+
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { uuidv4 } from 'core-uuid';
-import { catchError, map, Observable } from 'rxjs';
 import { State as EState } from 'store-root';
 import { TerminalApiWrapperService } from 'terminal-api';
 import { EAuthor, Message } from 'types-terminal';
-
-import * as TerminalActions from './terminal.actions';
 
 /**
  * This state using for Terminal.
@@ -66,13 +67,15 @@ export class TerminalState {
 		{ payload }: TerminalActions.GetTerminal,
 	): Observable<Observable<void> | void> {
 		const state = ctx.getState();
+		const uuid: string = uuidv4();
 
 		ctx.setState({
 			...state,
 			state: EState.PENDING,
 			messages: [
+				...state.messages,
 				new Message({
-					id: uuidv4(),
+					id: uuid,
 					text: payload,
 					author: EAuthor.USER,
 					createdAt: new Date().valueOf(),
@@ -81,15 +84,17 @@ export class TerminalState {
 			error: {},
 		});
 
-		return this.terminalApiWrapperService.get().pipe(
+		return this.terminalApiWrapperService.get(payload).pipe(
 			map((res: string) => {
+				const stateS = ctx.getState();
+
 				ctx.setState({
-					...state,
+					...stateS,
 					state: EState.READY,
 					messages: [
-						...state.messages,
+						...stateS.messages,
 						new Message({
-							id: uuidv4(),
+							id: uuid,
 							text: res,
 							author: EAuthor.SYSTEM,
 							createdAt: new Date().valueOf(),
@@ -98,16 +103,18 @@ export class TerminalState {
 					error: {},
 				});
 
-				return ctx.dispatch(new TerminalActions.GetTerminalSuccess(Terminal));
+				return ctx.dispatch(new TerminalActions.GetTerminalSuccess(res));
 			}),
 			catchError((error: {}) => {
+				const stateE = ctx.getState();
+
 				ctx.setState({
-					...state,
+					...stateE,
 					state: EState.ERROR,
 					messages: [
-						...state.messages,
+						...stateE.messages,
 						new Message({
-							id: uuidv4(),
+							id: uuid,
 							text: 'Произошла ошибка. Ответ не получен.',
 							author: EAuthor.SYSTEM,
 							createdAt: new Date().valueOf(),

@@ -71,9 +71,10 @@ export class ProcessState {
 
 		return this.processApiWrapperService.getAll().pipe(
 			map((process: Process[]) => {
-				console.log('process', process);
+				const stateS = ctx.getState();
+
 				ctx.setState({
-					...state,
+					...stateS,
 					state: EState.READY,
 					process,
 					error: {},
@@ -82,8 +83,10 @@ export class ProcessState {
 				return ctx.dispatch(new ProcessActions.GetProcessSuccess(process));
 			}),
 			catchError((error: {}) => {
+				const stateE = ctx.getState();
+
 				ctx.setState({
-					...state,
+					...stateE,
 					state: EState.ERROR,
 					process: [],
 					error,
