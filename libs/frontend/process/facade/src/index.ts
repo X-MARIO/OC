@@ -1,1 +1,1 @@
-export * from './lib/process-facade/process-facade.component';
+export * from './lib/process.facade';

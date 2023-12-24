@@ -11,7 +11,7 @@ import type { Observable } from 'rxjs';
  * Facade to encapsulate State Management such as Ngxs
  */
 @Injectable()
-export abstract class AuthFacade {
+export abstract class ProcessFacade {
 	/**
 	 * A flag that indicates whether posts have been logged in by the user.
 	 */
@@ -38,6 +38,26 @@ export abstract class AuthFacade {
 	public loginFailure$!: Observable<Record<string, any>>;
 
 	/**
+	 * The user has successfully reset the password
+	 */
+	public recoverySuccess$!: Observable<void>;
+
+	/**
+	 * The user has unsuccessfully reset the password
+	 */
+	public recoveryFailure$!: Observable<Record<string, any>>;
+
+	/**
+	 * The user has been successfully registered
+	 */
+	public registerSuccess$!: Observable<IUserAuth>;
+
+	/**
+	 * The user has been unsuccessfully registered
+	 */
+	public registerFailure$!: Observable<Record<string, any>>;
+
+	/**
 	 * Storage cleared successfully
 	 */
 	public clearSuccess$!: Observable<void>;
@@ -48,10 +68,27 @@ export abstract class AuthFacade {
 	public clearFailure$!: Observable<Record<string, any>>;
 
 	/**
-	 * Get process method
+	 * User authorization method
 	 * @param payload IUserLogin
 	 */
-	public abstract getProcess(payload: IUserLogin): void;
+	public abstract login(payload: IUserLogin): void;
+
+	/**
+	 * Method of exiting the profile
+	 */
+	public abstract logout(): void;
+
+	/**
+	 * User recovery method
+	 * @param payload IUserRecovery
+	 */
+	public abstract recovery(payload: IUserRecovery): void;
+
+	/**
+	 * User register method
+	 * @param payload IUserCreateFriend
+	 */
+	public abstract register(payload: IUserCreate): void;
 
 	/**
 	 * Method clear storage

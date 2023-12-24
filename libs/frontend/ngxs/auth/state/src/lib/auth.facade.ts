@@ -9,7 +9,7 @@ import type { AuthFacade } from '@oc/frontend/auth/facade';
 import type { IUserCreate, IUserLogin, IUserRecovery } from '@oc/frontend-api/types/user';
 
 /**
- * Ngxs implementation AuthFacade
+ * Ngxs implementation ProcessFacade
  */
 @Injectable()
 export class NgxsAuthFacade implements AuthFacade {
@@ -64,7 +64,7 @@ export class NgxsAuthFacade implements AuthFacade {
 
 	public constructor(private readonly store: Store, private readonly actions$: Actions) {}
 
-	public login(payload: IUserLogin): void {
+	public getProcess(payload: IUserLogin): void {
 		this.store.dispatch(new AuthActions.Login(payload));
 	}
 
