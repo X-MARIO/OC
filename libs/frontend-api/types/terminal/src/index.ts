@@ -1,1 +1,1 @@
-export * from './lib/types-terminal/types-terminal.component';
+export * from './lib/terminal.interface';
