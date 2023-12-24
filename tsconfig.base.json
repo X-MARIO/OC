@@ -72,7 +72,8 @@
 			"button-process": ["libs/frontend/ui/process/src/index.ts"],
 			"modal-process": ["libs/frontend/ui/modal-process/src/index.ts"],
 			"process-api": ["libs/frontend/process/api/src/index.ts"],
-			"process-facade": ["libs/frontend/process/facade/src/index.ts"]
+			"process-facade": ["libs/frontend/process/facade/src/index.ts"],
+			"types-process": ["libs/frontend-api/types/process/src/index.ts"]
 		},
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
