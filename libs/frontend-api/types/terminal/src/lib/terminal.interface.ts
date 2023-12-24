@@ -36,3 +36,4 @@ export class Message implements IMessage {
 }
 
 // пока не вижу необходимости создавать class Terminal содержащий массив сообщений
+export type ITerminalCommand = Flavor<string, 'ITerminal-command'>;
