@@ -1,1 +1,1 @@
-export * from './lib/terminal-facade/terminal-facade.component';
+export * from './lib/terminal.facade';
