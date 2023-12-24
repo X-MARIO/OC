@@ -1,0 +1,27 @@
+{
+	"name": "ngxs-process-state",
+	"$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/frontend/ngxs/process/state/src",
+	"prefix": "oc-ngxs-process-state",
+	"tags": [],
+	"projectType": "library",
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/frontend/ngxs/process/state/jest.config.ts"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": [
+					"libs/frontend/ngxs/process/state/**/*.ts",
+					"libs/frontend/ngxs/process/state/**/*.html"
+				]
+			}
+		}
+	}
+}
