@@ -1,1 +1,142 @@
-<p>table-process works!</p>
+<div class="table">
+	<tui-scrollbar>
+		<cdk-virtual-scroll-viewport
+			#viewport
+			tuiScrollable
+			class="viewport tui-zero-scrollbar"
+			[itemSize]="45"
+			[maxBufferPx]="500"
+			[minBufferPx]="400">
+			<table tuiTable [columns]="columns">
+				<thead>
+					<tr tuiThGroup>
+						<th
+							*tuiHead="'command'"
+							tuiTh
+							[sorter]="sorterByCommand"
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']">
+							command
+						</th>
+						<th
+							*tuiHead="'cpuUsage'"
+							tuiTh
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']">
+							cpuUsage
+						</th>
+						<th
+							*tuiHead="'memoryUsage'"
+							tuiTh
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']">
+							memoryUsage
+						</th>
+						<!--[style.top.px]="-viewport['_renderedContentOffset']"-->
+						<th
+							*tuiHead="'pid'"
+							tuiTh
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']">
+							pid
+						</th>
+						<th
+							*tuiHead="'rss'"
+							tuiTh
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']">
+							rss
+						</th>
+						<th
+							*tuiHead="'start'"
+							tuiTh
+							[sorter]="sorterByStart"
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']">
+							start
+						</th>
+						<th
+							*tuiHead="'stat'"
+							tuiTh
+							[sorter]="sorterByStat"
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']">
+							stat
+						</th>
+						<th
+							*tuiHead="'time'"
+							tuiTh
+							[sorter]="sorterByTime"
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']">
+							time
+						</th>
+						<th
+							*tuiHead="'tty'"
+							tuiTh
+							[sorter]="sorterByTty"
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']">
+							tty
+						</th>
+						<th
+							*tuiHead="'user'"
+							tuiTh
+							[sorter]="sorterByUser"
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']">
+							user
+						</th>
+						<th
+							*tuiHead="'vsz'"
+							tuiTh
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']">
+							vsz
+						</th>
+					</tr>
+				</thead>
+				<tbody
+					*tuiLet="process | tuiTableSort as sortedProcess"
+					tuiTbody
+					[data]="sortedProcess">
+					<tr *cdkVirtualFor="let process of sortedProcess; let index = index" tuiTr>
+						<td *tuiCell="'command'" tuiTd>
+							{{ getProcessCommand(process) }}
+						</td>
+						<td *tuiCell="'cpuUsage'" tuiTd>
+							{{ getProcessCpuUsage(process) }}
+						</td>
+						<td *tuiCell="'memoryUsage'" tuiTd>
+							{{ getProcessMemoryUsage(process) }}
+						</td>
+						<td *tuiCell="'pid'" tuiTd>
+							{{ getProcessPid(process) }}
+						</td>
+						<td *tuiCell="'rss'" tuiTd>
+							{{ getProcessRss(process) }}
+						</td>
+						<td *tuiCell="'start'" tuiTd>
+							{{ getProcessStart(process) }}
+						</td>
+						<td *tuiCell="'stat'" tuiTd>
+							{{ getProcessStat(process) }}
+						</td>
+						<td *tuiCell="'time'" tuiTd>
+							{{ getProcessTime(process) }}
+						</td>
+						<td *tuiCell="'tty'" tuiTd>
+							{{ getProcessTty(process) }}
+						</td>
+						<td *tuiCell="'user'" tuiTd>
+							{{ getProcessUser(process) }}
+						</td>
+						<td *tuiCell="'process'" tuiTd>
+							{{ getProcessVsz(process) }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</cdk-virtual-scroll-viewport>
+	</tui-scrollbar>
+</div>

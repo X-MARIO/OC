@@ -12,6 +12,19 @@ export type IProcessStart = Flavor<string, 'IProcess-start'>;
 export type IProcessTime = Flavor<string, 'IProcess-time'>;
 export type IProcessCommand = Flavor<string, 'IProcess-command'>;
 
+export type TProcessKey =
+	| 'command'
+	| 'cpuUsage'
+	| 'memoryUsage'
+	| 'pid'
+	| 'rss'
+	| 'start'
+	| 'stat'
+	| 'time'
+	| 'tty'
+	| 'user'
+	| 'vsz';
+
 export interface IProcess {
 	readonly user: IProcessUser;
 	readonly pid: IProcessPid;
