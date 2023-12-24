@@ -11,6 +11,7 @@
 					[icon]="'tuiIconTerminal'"
 					(click)="onOpenList($event)"></button>
 			</tui-hosted-dropdown>
+			<lib-button-process></lib-button-process>
 		</div>
 		<div class="tui-col_10 navigation__right">
 			<ng-container [ngTemplateOutlet]="(logged$ | async) ? logout : login"></ng-container>

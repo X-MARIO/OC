@@ -20,6 +20,7 @@ import {
 	TuiInputDateModule,
 	TuiSelectModule,
 } from '@taiga-ui/kit';
+import { ButtonProcessComponent } from 'button-process';
 
 @NgModule({
 	imports: [
@@ -39,6 +40,7 @@ import {
 		TuiDataListModule,
 		FormsModule,
 		TuiSvgModule,
+		ButtonProcessComponent,
 	],
 	declarations: [HeaderComponent],
 	exports: [HeaderComponent],
