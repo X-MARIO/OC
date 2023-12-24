@@ -15,13 +15,7 @@
 		},
 		"lint": {
 			"executor": "@nx/eslint:lint",
-			"outputs": ["{options.outputFile}"],
-			"options": {
-				"lintFilePatterns": [
-					"libs/frontend/ngxs/auth/state/**/*.ts",
-					"libs/frontend/ngxs/auth/state/**/*.html"
-				]
-			}
+			"outputs": ["{options.outputFile}"]
 		}
 	}
 }
