@@ -5,4 +5,4 @@ import { NgModule } from '@angular/core';
 @NgModule({
 	providers: [TerminalApiWrapperService],
 })
-export class ProcessApiModule {}
+export class TerminalApiModule {}

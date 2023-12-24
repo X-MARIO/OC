@@ -12,7 +12,7 @@ export type IMessageCreatedAt = Flavor<number, 'IMessage-createdAt'>;
 
 export interface IMessage {
 	readonly id: IMessageId;
-	readonly text: IMessageText;
+	readonly text: IMessageText | ITerminalCommand;
 	readonly author: IMessageAuthor;
 	readonly createdAt: IMessageCreatedAt;
 }

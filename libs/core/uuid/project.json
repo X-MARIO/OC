@@ -1,0 +1,21 @@
+{
+	"name": "core-uuid",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/core/uuid/src",
+	"prefix": "oc-core-uuid",
+	"tags": [],
+	"projectType": "library",
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/core/uuid/jest.config.ts"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"]
+		}
+	}
+}
