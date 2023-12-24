@@ -27,69 +27,33 @@ export interface IProcess {
 }
 
 export class Process implements IProcess {
-	readonly #user: IProcess['user'] = '';
+	public readonly user: IProcess['user'] = '';
 
-	readonly #pid: IProcess['pid'] = -1;
+	public readonly pid: IProcess['pid'] = -1;
 
-	readonly #cpuUsage: IProcess['cpuUsage'] = -1;
+	public readonly cpuUsage: IProcess['cpuUsage'] = -1;
 
-	readonly #memoryUsage: IProcess['memoryUsage'] = -1;
+	public readonly memoryUsage: IProcess['memoryUsage'] = -1;
 
-	readonly #vsz: IProcess['vsz'] = -1;
+	public readonly vsz: IProcess['vsz'] = -1;
 
-	readonly #rss: IProcess['rss'] = -1;
+	public readonly rss: IProcess['rss'] = -1;
 
-	readonly #tty: IProcess['tty'] = '';
+	public readonly tty: IProcess['tty'] = '';
 
-	readonly #stat: IProcess['stat'] = '';
+	public readonly stat: IProcess['stat'] = '';
 
-	readonly #start: IProcess['start'] = '';
+	public readonly start: IProcess['start'] = '';
 
-	readonly #time: IProcess['time'] = '';
+	public readonly time: IProcess['time'] = '';
 
-	readonly #command: IProcess['command'] = '';
+	public readonly command: IProcess['command'] = '';
 
-	public get user(): IProcess['user'] {
-		return this.#user;
+	public constructor(params: IProcess) {
+		this.update(params);
 	}
 
-	public get pid(): IProcess['pid'] {
-		return this.#pid;
-	}
-
-	public get cpuUsage(): IProcess['cpuUsage'] {
-		return this.#cpuUsage;
-	}
-
-	public get memoryUsage(): IProcess['memoryUsage'] {
-		return this.#memoryUsage;
-	}
-
-	public get vsz(): IProcess['vsz'] {
-		return this.#vsz;
-	}
-
-	public get rss(): IProcess['rss'] {
-		return this.#rss;
-	}
-
-	public get tty(): IProcess['tty'] {
-		return this.#tty;
-	}
-
-	public get stat(): IProcess['stat'] {
-		return this.#stat;
-	}
-
-	public get start(): IProcess['start'] {
-		return this.#start;
-	}
-
-	public get time(): IProcess['time'] {
-		return this.#time;
-	}
-
-	public get command(): IProcess['command'] {
-		return this.#command;
+	private update(params: Partial<IProcess>): this {
+		return Object.assign(this, params);
 	}
 }

@@ -71,6 +71,7 @@ export class ProcessState {
 
 		return this.processApiWrapperService.getAll().pipe(
 			map((process: Process[]) => {
+				console.log('process', process);
 				ctx.setState({
 					...state,
 					state: EState.READY,

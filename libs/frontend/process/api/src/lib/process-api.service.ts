@@ -24,7 +24,11 @@ export class ProcessApiService {
 			.get<IProcess[]>(PROCESS_API_ROUTES[ProcessApiRoutesEnum.PROCESS])
 			.pipe(
 				map((res: IProcess[]) => {
-					return plainToInstance<Process, IProcess>(Process, res);
+					// return plainToInstance<Process, IProcess>(Process, res);
+					console.log('res', res);
+					const result = res.map((item: IProcess) => new Process(item));
+					console.log('result', result);
+					return result;
 				}),
 			);
 	}
