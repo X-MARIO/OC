@@ -1,0 +1,27 @@
+{
+	"name": "process-api",
+	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/frontend/process/api/src",
+	"prefix": "oc-process-api",
+	"tags": [],
+	"projectType": "library",
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/frontend/process/api/jest.config.ts"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": [
+					"libs/frontend/process/api/**/*.ts",
+					"libs/frontend/process/api/**/*.html"
+				]
+			}
+		}
+	}
+}
