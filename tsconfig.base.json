@@ -73,6 +73,7 @@
 			"modal-process": ["libs/frontend/process/modal-precess/src/index.ts"],
 			"modal-process-error": ["libs/frontend/process/modal-process-error/src/index.ts"],
 			"ngxs-process-state": ["libs/frontend/ngxs/process/state/src/index.ts"],
+			"ngxs-terminal-state": ["libs/frontend/ngxs/terminal/state/src/index.ts"],
 			"process-api": ["libs/frontend/process/api/src/index.ts"],
 			"process-facade": ["libs/frontend/process/facade/src/index.ts"],
 			"store-root": ["libs/core/store/root/src/index.ts"],
