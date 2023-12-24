@@ -10,7 +10,7 @@ export abstract class ProcessFacade {
 	/**
 	 * A flag that indicates whether process have been logged in by the process.
 	 */
-	public logged$!: Observable<boolean | null>;
+	public state$!: Observable<boolean | null>;
 
 	/**
 	 * A flag that indicates whether posts have been logged in by the process.

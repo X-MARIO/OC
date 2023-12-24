@@ -1,8 +1,8 @@
-import { ProcessApiService } from './process-api.service';
+import { ProcessApiWrapperService } from './process-api-wrapper.service';
 
 import { NgModule } from '@angular/core';
 
 @NgModule({
-	providers: [ProcessApiService],
+	providers: [ProcessApiWrapperService],
 })
 export class ProcessApiModule {}

@@ -74,6 +74,7 @@
 			"ngxs-process-state": ["libs/frontend/ngxs/process/state/src/index.ts"],
 			"process-api": ["libs/frontend/process/api/src/index.ts"],
 			"process-facade": ["libs/frontend/process/facade/src/index.ts"],
+			"store-root": ["libs/core/store/root/src/index.ts"],
 			"types-process": ["libs/frontend-api/types/process/src/index.ts"]
 		},
 		"forceConsistentCasingInFileNames": true,
