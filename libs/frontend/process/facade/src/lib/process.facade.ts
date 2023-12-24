@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import type { Observable } from 'rxjs';
+import type { State } from 'store-root';
 import type { Process } from 'types-process';
 
 /**
@@ -10,7 +11,7 @@ export abstract class ProcessFacade {
 	/**
 	 * A flag that indicates whether process have been logged in by the process.
 	 */
-	public state$!: Observable<boolean | null>;
+	public state$!: Observable<State>;
 
 	/**
 	 * A flag that indicates whether posts have been logged in by the process.

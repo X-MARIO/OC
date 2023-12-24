@@ -1,7 +1,21 @@
 <div class="tui-form">
 	<div class="tui-row">
 		<div class="tui-col_12">
-			{{ process$ | async | json }}
+			@if (state$ | async; as state) {
+			<tui-loader [showLoader]="state === stateEnum.PENDING" [overlay]="true">
+				@switch (state) { @case (stateEnum.PENDING) {} @case (stateEnum.READY) {
+				<ng-container *ngIf="process$ | async as process">
+					<oc-table-process-table-process
+						[process]="process"></oc-table-process-table-process>
+				</ng-container>
+				} @case (stateEnum.ERROR) {
+				<oc-modal-process-error-modal-process-error></oc-modal-process-error-modal-process-error>
+				} @default { Непредвиденная, но обработанная ситуация. Неизвестное состояние. Быть
+				того не может. } }
+			</tui-loader>
+			} @else {
+			<p>Непредвиденная, но обработанная ситуация. Пропал поток. Быть того не может.</p>
+			}
 		</div>
 	</div>
 </div>
