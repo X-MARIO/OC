@@ -64,7 +64,7 @@ export class NgxsAuthFacade implements AuthFacade {
 
 	public constructor(private readonly store: Store, private readonly actions$: Actions) {}
 
-	public getProcess(payload: IUserLogin): void {
+	public login(payload: IUserLogin): void {
 		this.store.dispatch(new AuthActions.Login(payload));
 	}
 

@@ -11,7 +11,7 @@ import type { Observable } from 'rxjs';
  * Facade to encapsulate State Management such as Ngxs
  */
 @Injectable()
-export abstract class ProcessFacade {
+export abstract class AuthFacade {
 	/**
 	 * A flag that indicates whether posts have been logged in by the user.
 	 */

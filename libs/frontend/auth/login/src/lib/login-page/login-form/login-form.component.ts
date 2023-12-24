@@ -49,7 +49,7 @@ export class LoginFormComponent extends LoginForm implements OnInit {
 				username: formValue[FormModelLogin.username],
 				password: formValue[FormModelLogin.password],
 			};
-			this.authFacade.getProcess(payload);
+			this.authFacade.login(payload);
 		}
 	}
 
