@@ -10,11 +10,11 @@ COPY decorate-angular-cli.js ./
 
 RUN npm i npm@9.8.1 -g
 
-RUN npm i nx@17.1.2 -g
+RUN npm i nx@17.2.7 -g
 
-RUN npm i @nx/nx-linux-x64-gnu@17.1.2 -g
+RUN npm i @nx/nx-linux-x64-gnu@17.2.7 -g
 
-RUN npm i @nx/nx-linux-x64-musl@17.1.2 -g
+RUN npm i @nx/nx-linux-x64-musl@17.2.7 -g
 
 RUN npm ci
 
