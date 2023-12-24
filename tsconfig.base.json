@@ -69,7 +69,8 @@
 			"@oc/frontend/ui/modal-rename": ["libs/frontend/ui/modal-rename/src/index.ts"],
 			"@oc/frontend/ui/terminal": ["libs/frontend/ui/terminal/src/index.ts"],
 			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"],
-			"button-process": ["libs/frontend/ui/process/src/index.ts"]
+			"button-process": ["libs/frontend/ui/process/src/index.ts"],
+			"modal-process": ["libs/frontend/ui/modal-process/src/index.ts"]
 		},
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
