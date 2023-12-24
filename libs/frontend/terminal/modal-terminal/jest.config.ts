@@ -3,7 +3,7 @@ export default {
 	displayName: 'terminal',
 	preset: '../../../../jest.preset.js',
 	setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-	coverageDirectory: '../../../../coverage/libs/frontend/ui/terminal',
+	coverageDirectory: '../../../../coverage/libs/frontend/terminal/modal-terminal',
 	transform: {
 		'^.+\\.(ts|mjs|js|html)$': [
 			'jest-preset-angular',
