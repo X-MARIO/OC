@@ -21,7 +21,7 @@ export class ProcessApiService {
 
 	public getAll(): Observable<Process[]> {
 		return this.apiService
-			.post<IProcess[]>(PROCESS_API_ROUTES[ProcessApiRoutesEnum.PROCESS])
+			.get<IProcess[]>(PROCESS_API_ROUTES[ProcessApiRoutesEnum.PROCESS])
 			.pipe(
 				map((res: IProcess[]) => {
 					return plainToInstance<Process, IProcess>(Process, res);

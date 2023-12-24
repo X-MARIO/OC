@@ -23,7 +23,7 @@
 		"db:start:development": "docker-compose -f docker-compose.yml -f develop.docker-compose.yml up --build",
 		"db:start:prod": "docker-compose -f docker-compose.yml -f prod.docker-compose.yml up --build",
 		"db:stop": "docker-compose stop",
-		"server": "json-server --watch server/db.json --port 3333"
+		"server": " node --max-old-space-size=8192 ./node_modules/json-server/lib/cli/bin.js --watch server/db.json --port 8888"
 	},
 	"private": true,
 	"dependencies": {

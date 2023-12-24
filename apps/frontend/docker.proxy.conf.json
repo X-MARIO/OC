@@ -1,6 +1,6 @@
 {
 	"/api": {
-	  "target": "http://api:3333",
+	  "target": "http://api:8888",
 	  "secure": false,
 	  "pathRewrite": {
 		"^/api": ""
