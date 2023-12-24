@@ -75,6 +75,7 @@
 			"process-api": ["libs/frontend/process/api/src/index.ts"],
 			"process-facade": ["libs/frontend/process/facade/src/index.ts"],
 			"store-root": ["libs/core/store/root/src/index.ts"],
+			"table-process": ["libs/frontend/process/table-process/src/index.ts"],
 			"types-process": ["libs/frontend-api/types/process/src/index.ts"]
 		},
 		"forceConsistentCasingInFileNames": true,
