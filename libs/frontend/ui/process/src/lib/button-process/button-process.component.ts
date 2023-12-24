@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NavigationService } from '@oc/core/navigation/service';
 import { TuiButtonModule, TuiHostedDropdownModule } from '@taiga-ui/core';
 
 @Component({
@@ -11,5 +12,12 @@ import { TuiButtonModule, TuiHostedDropdownModule } from '@taiga-ui/core';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonProcessComponent {
-	public onOpenProcess($event: MouseEvent): void {}
+	public constructor(private readonly navigationService: NavigationService) {}
+
+	public onOpenProcess(): void {
+		void this.navigationService
+			.navigateByUrl(this.navigationService.getPaths().process)
+			.then()
+			.catch();
+	}
 }

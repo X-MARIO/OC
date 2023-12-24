@@ -8,6 +8,7 @@ import type { ModalCreateFolderModule } from '@oc/frontend/ui/modal-create-folde
 import type { ModalDeleteModule } from '@oc/frontend/ui/modal-delete';
 import type { ModalEditorModule } from '@oc/frontend/ui/modal-editor';
 import type { ModalRenameModule } from '@oc/frontend/ui/modal-rename';
+import type { ModalProcessModule } from 'modal-process';
 
 /**
  * Dashboard page
@@ -47,6 +48,14 @@ const routes: Routes = [
 			return import('@oc/frontend/ui/modal-create-folder').then(
 				(m: { ModalCreateFolderModule: Type<ModalCreateFolderModule> }) =>
 					m.ModalCreateFolderModule,
+			);
+		},
+	},
+	{
+		path: 'process',
+		loadChildren: async (): Promise<Type<ModalProcessModule>> => {
+			return import('modal-process').then(
+				(m: { ModalProcessModule: Type<ModalProcessModule> }) => m.ModalProcessModule,
 			);
 		},
 	},

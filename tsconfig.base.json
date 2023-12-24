@@ -70,7 +70,7 @@
 			"@oc/frontend/ui/terminal": ["libs/frontend/ui/terminal/src/index.ts"],
 			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"],
 			"button-process": ["libs/frontend/ui/process/src/index.ts"],
-			"modal-process": ["libs/frontend/ui/modal-process/src/index.ts"],
+			"modal-process": ["libs/frontend/process/modal-precess/src/index.ts"],
 			"ngxs-process-state": ["libs/frontend/ngxs/process/state/src/index.ts"],
 			"process-api": ["libs/frontend/process/api/src/index.ts"],
 			"process-facade": ["libs/frontend/process/facade/src/index.ts"],

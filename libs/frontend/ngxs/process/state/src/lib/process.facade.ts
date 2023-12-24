@@ -21,12 +21,12 @@ export class NgxsProcessFacade implements ProcessFacade {
 	@Select(ProcessState.error)
 	public error$!: ProcessFacade['error$'];
 
-	public getProcessSuccess$: ProcessFacade['getProcessSuccess$'] = this.actions$.pipe(
+	public processSuccess$: ProcessFacade['processSuccess$'] = this.actions$.pipe(
 		ofActionDispatched(ProcessActions.GetProcessSuccess),
 		map(({ payload }) => payload),
 	);
 
-	public getProcessFailure$: ProcessFacade['getProcessFailure$'] = this.actions$.pipe(
+	public processFailure$: ProcessFacade['processFailure$'] = this.actions$.pipe(
 		ofActionDispatched(ProcessActions.GetProcessFailure),
 		map(({ error }) => error),
 	);

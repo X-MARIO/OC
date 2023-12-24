@@ -1,8 +1,8 @@
 {
-	"name": "modal-process",
+	"name": "process-modal-precess",
 	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-	"sourceRoot": "libs/frontend/ui/modal-process/src",
-	"prefix": "lib",
+	"sourceRoot": "libs/frontend/process/modal-precess/src",
+	"prefix": "oc-process-modal-precess",
 	"tags": [],
 	"projectType": "library",
 	"targets": {
@@ -10,7 +10,7 @@
 			"executor": "@nx/jest:jest",
 			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
 			"options": {
-				"jestConfig": "libs/frontend/ui/modal-process/jest.config.ts"
+				"jestConfig": "libs/frontend/process/modal-precess/jest.config.ts"
 			}
 		},
 		"lint": {
@@ -18,8 +18,8 @@
 			"outputs": ["{options.outputFile}"],
 			"options": {
 				"lintFilePatterns": [
-					"libs/frontend/ui/modal-process/**/*.ts",
-					"libs/frontend/ui/modal-process/**/*.html"
+					"libs/frontend/process/modal-precess/**/*.ts",
+					"libs/frontend/process/modal-precess/**/*.html"
 				]
 			}
 		}

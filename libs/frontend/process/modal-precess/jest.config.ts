@@ -3,7 +3,7 @@ export default {
 	displayName: 'modal-process',
 	preset: '../../../../jest.preset.js',
 	setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-	coverageDirectory: '../../../../coverage/libs/frontend/ui/modal-process',
+	coverageDirectory: '../../../../coverage/libs/frontend/process/modal-precess',
 	transform: {
 		'^.+\\.(ts|mjs|js|html)$': [
 			'jest-preset-angular',

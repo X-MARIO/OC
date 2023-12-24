@@ -25,12 +25,12 @@ export abstract class ProcessFacade {
 	/**
 	 * The process is logged in successfully
 	 */
-	public getProcessSuccess$!: Observable<Process[]>;
+	public processSuccess$!: Observable<Process[]>;
 
 	/**
 	 * The process is logged in unsuccessfully
 	 */
-	public getProcessFailure$!: Observable<Record<string, any>>;
+	public processFailure$!: Observable<Record<string, any>>;
 
 	/**
 	 * Storage cleared successfully

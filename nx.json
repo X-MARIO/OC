@@ -21,6 +21,9 @@
 		"@nx/angular:component": {
 			"style": "scss",
 			"changeDetection": "OnPush"
+		},
+		"@nx/workspace:move": {
+			"projectNameAndRootFormat": "as-provided"
 		}
 	},
 	"defaultProject": "frontend",

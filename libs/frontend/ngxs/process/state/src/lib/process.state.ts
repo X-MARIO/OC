@@ -3,9 +3,9 @@ import { catchError, map, Observable } from 'rxjs';
 import * as ProcessActions from './process.actions';
 
 import { Injectable } from '@angular/core';
-import { Action, Selector, StateContext } from '@ngxs/store';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { ProcessApiWrapperService } from 'process-api';
-import { State as EState, State } from 'store-root';
+import { State as EState } from 'store-root';
 import type { Process } from 'types-process';
 
 /**
@@ -80,7 +80,7 @@ export class ProcessState {
 
 				return ctx.dispatch(new ProcessActions.GetProcessSuccess(process));
 			}),
-			catchError((error: unknown) => {
+			catchError((error: {}) => {
 				ctx.setState({
 					...state,
 					state: EState.ERROR,
