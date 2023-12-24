@@ -1,11 +1,10 @@
-import { switchMap, takeUntil, tap } from 'rxjs';
-
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { NavigationService } from '@oc/core/navigation/service';
 import { TuiDestroyService } from '@taiga-ui/cdk';
 import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
 import { ProcessFacade } from 'process-facade';
+import { switchMap, takeUntil } from 'rxjs';
 import { State } from 'store-root';
 
 // eslint-disable-next-line @angular-eslint/prefer-standalone-component
@@ -16,11 +15,7 @@ import { State } from 'store-root';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalProcessComponent implements OnInit {
-	public state$: ProcessFacade['state$'] = this.processFacade.state$.pipe(
-		tap((value) => {
-			console.log(value);
-		}),
-	);
+	public state$: ProcessFacade['state$'] = this.processFacade.state$;
 
 	public process$: ProcessFacade['process$'] = this.processFacade.process$;
 
@@ -34,6 +29,7 @@ export class ModalProcessComponent implements OnInit {
 	) {}
 
 	public ngOnInit(): void {
+		this.processFacade.clear();
 		this.processFacade.getProcess();
 		this.setSubscriptions();
 	}
