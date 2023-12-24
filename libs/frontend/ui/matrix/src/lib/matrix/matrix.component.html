@@ -1,16 +1,20 @@
-@for (itemFlat of matrix; track itemFlat; let idx = $index) {
+@for (itemFlat of _matrix; track itemFlat; let idx = $index) {
 <div class="example-container">
-	<div
-		cdkDropList
-		[id]="getIdToString(idx)"
-		[cdkDropListData]="matrix"
-		[cdkDropListConnectedTo]="getCdkDropListConnectedToList(idx)"
-		class="example-list"
-		(cdkDropListDropped)="drop($event)"
-		[cdkDropListEnterPredicate]="evenPredicate">
-		<div class="example-box" *ngFor="let item of itemFlat" cdkDrag [cdkDragData]="item">
-			<ng-container [ngTemplateOutlet]="content"></ng-container>
+	<lib-create>
+		<div
+			cdkDropList
+			[id]="getIdToString(idx)"
+			[cdkDropListData]="_matrix"
+			[cdkDropListConnectedTo]="getCdkDropListConnectedToList(idx)"
+			class="example-list"
+			(cdkDropListDropped)="drop($event)"
+			[cdkDropListEnterPredicate]="evenPredicate">
+			<div class="example-box" *ngFor="let item of itemFlat" cdkDrag [cdkDragData]="item">
+				<ng-container
+					[ngTemplateOutlet]="content"
+					[ngTemplateOutletContext]="{ data: item }"></ng-container>
+			</div>
 		</div>
-	</div>
+	</lib-create>
 </div>
 }

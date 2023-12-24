@@ -2,7 +2,7 @@ import { HeaderComponent } from './header.component';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TuiActiveZoneModule } from '@taiga-ui/cdk';
 import {
@@ -10,6 +10,7 @@ import {
 	TuiDataListModule,
 	TuiErrorModule,
 	TuiHostedDropdownModule,
+	TuiSvgModule,
 	TuiTextfieldControllerModule,
 } from '@taiga-ui/core';
 import {
@@ -19,6 +20,7 @@ import {
 	TuiInputDateModule,
 	TuiSelectModule,
 } from '@taiga-ui/kit';
+import { ButtonProcessComponent } from 'button-process';
 
 @NgModule({
 	imports: [
@@ -36,6 +38,9 @@ import {
 		TuiButtonModule,
 		TuiTextfieldControllerModule,
 		TuiDataListModule,
+		FormsModule,
+		TuiSvgModule,
+		ButtonProcessComponent,
 	],
 	declarations: [HeaderComponent],
 	exports: [HeaderComponent],

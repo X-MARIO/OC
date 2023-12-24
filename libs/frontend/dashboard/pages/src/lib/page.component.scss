@@ -1,0 +1,26 @@
+.example-box {
+	position: relative;
+	z-index: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	width: 200px;
+	height: 200px;
+	margin-right: 25px;
+	padding: 10px;
+	color: rgb(0 0 0 / 87%);
+	text-align: center;
+	background: #fff;
+	border: solid 1px #ccc;
+	border-radius: 4px;
+	box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%),
+		0 1px 5px 0 rgb(0 0 0 / 12%);
+	cursor: move;
+	transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:active {
+	box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+		0 3px 14px 2px rgb(0 0 0 / 12%);
+}

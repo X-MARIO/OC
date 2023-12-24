@@ -57,11 +57,23 @@
 			],
 			"@oc/frontend/ngxs/store/root": ["libs/frontend/ngxs/store/root/src/index.ts"],
 			"@oc/frontend/not-found/pages": ["libs/frontend/not-found/pages/src/index.ts"],
+			"@oc/frontend/ui/create": ["libs/frontend/ui/create/src/index.ts"],
 			"@oc/frontend/ui/header": ["libs/frontend/ui/header/src/index.ts"],
 			"@oc/frontend/ui/icon": ["libs/frontend/ui/icon/src/index.ts"],
 			"@oc/frontend/ui/matrix": ["libs/frontend/ui/matrix/src/index.ts"],
+			"@oc/frontend/ui/modal-create-folder": [
+				"libs/frontend/ui/modal-create-folder/src/index.ts"
+			],
+			"@oc/frontend/ui/modal-delete": ["libs/frontend/ui/modal-delete/src/index.ts"],
 			"@oc/frontend/ui/modal-editor": ["libs/frontend/ui/modal-editor/src/index.ts"],
-			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"]
+			"@oc/frontend/ui/modal-rename": ["libs/frontend/ui/modal-rename/src/index.ts"],
+			"@oc/frontend/ui/terminal": ["libs/frontend/ui/terminal/src/index.ts"],
+			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"],
+			"button-process": ["libs/frontend/ui/process/src/index.ts"],
+			"modal-process": ["libs/frontend/ui/modal-process/src/index.ts"],
+			"process-api": ["libs/frontend/process/api/src/index.ts"],
+			"process-facade": ["libs/frontend/process/facade/src/index.ts"],
+			"types-process": ["libs/frontend-api/types/process/src/index.ts"]
 		},
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,

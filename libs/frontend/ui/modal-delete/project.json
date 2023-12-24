@@ -1,0 +1,27 @@
+{
+	"name": "frontend-ui-modal-delete",
+	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/frontend/ui/modal-delete/src",
+	"prefix": "lib",
+	"tags": [],
+	"projectType": "library",
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/frontend/ui/modal-delete/jest.config.ts"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": [
+					"libs/frontend/ui/modal-delete/**/*.ts",
+					"libs/frontend/ui/modal-delete/**/*.html"
+				]
+			}
+		}
+	}
+}

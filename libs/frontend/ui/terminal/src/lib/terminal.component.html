@@ -1,0 +1,33 @@
+<ng-container *ngIf="open$ | async">
+	<div class="example-box" cdkDragBoundary=".example-boundary" cdkDrag>
+		<form class="tui-form terminal">
+			<div class="tui-form__header">Kali terminal</div>
+			<div class="tui-row commands">
+				<div *ngFor="let command of commands" class="tui-col_12 commands__item">
+					<p>You: {{ command.youRequest }}</p>
+					<p>System: {{ command.systemResponse }}</p>
+				</div>
+			</div>
+			<div class="tui-row">
+				<div class="tui-col_12">
+					<div class="tui-form__row">
+						<tui-textarea class="field-large" [expandable]="false">
+							Type a command
+						</tui-textarea>
+					</div>
+					<div class="tui-form__buttons tui-form__buttons_align_end">
+						<button
+							tuiButton
+							type="button"
+							size="l"
+							appearance="flat"
+							class="tui-form__button"
+							(click)="onEnter()">
+							Enter
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</ng-container>

@@ -1,2 +1,35 @@
-<tui-editor new class="editor" [formControl]="control" [tools]="builtInTools"></tui-editor>
-<tui-editor-socket [content]="control.value ?? ''"></tui-editor-socket>
+<div class="tui-form">
+	<div class="tui-row">
+		<div class="tui-col_12">
+			<div class="tui-form__header"></div>
+			<div class="tui-form__row">
+				<tui-editor
+					new
+					class="editor"
+					[formControl]="control"
+					[tools]="builtInTools"></tui-editor>
+				<tui-editor-socket [content]="control.value ?? ''"></tui-editor-socket>
+			</div>
+			<div class="tui-form__buttons tui-form__buttons_align_end">
+				<button
+					tuiButton
+					type="button"
+					size="l"
+					appearance="flat"
+					class="tui-form__button"
+					(click)="onCancel()">
+					Cancel
+				</button>
+				<button
+					tuiButton
+					type="button"
+					size="l"
+					appearance="flat"
+					class="tui-form__button"
+					(click)="onSave()">
+					Сохранить
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

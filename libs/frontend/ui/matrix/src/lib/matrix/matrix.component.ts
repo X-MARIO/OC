@@ -1,3 +1,7 @@
+import { CreateComponent } from '@oc/frontend/ui/create';
+import type { MatrixElementBase } from './matrix-emit.service';
+import { MatrixEmitService } from './matrix-emit.service';
+
 import type { CdkDragDrop } from '@angular/cdk/drag-drop';
 import {
 	CdkDrag,
@@ -8,7 +12,14 @@ import {
 	transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, TemplateRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ContentChild,
+	Inject,
+	Input,
+	TemplateRef,
+} from '@angular/core';
 
 @Component({
 	selector: 'oc-matrix',
@@ -20,6 +31,7 @@ import { ChangeDetectionStrategy, Component, ContentChild, TemplateRef } from '@
 		CdkDropList,
 		CdkDropListGroup,
 		CdkDragPlaceholder,
+		CreateComponent,
 	],
 	templateUrl: './matrix.component.html',
 	styleUrls: ['./matrix.component.scss'],
@@ -28,15 +40,28 @@ import { ChangeDetectionStrategy, Component, ContentChild, TemplateRef } from '@
 export class MatrixComponent {
 	@ContentChild('content') public content!: TemplateRef<unknown>;
 
-	public readonly matrix: number[][] = this.getArr();
+	public _matrix: MatrixElementBase[][] = [];
 
-	public matrixLength: number = this.matrix.length;
+	public _matrixLength = -1;
 
-	public listsMatrixIndex: string[] = Array(this.matrixLength)
-		.fill(null)
-		.map((u, i) => i.toString());
+	public _listsMatrixIndex: string[] = [];
 
-	public trackByIndex(index: number, item: number[]): number {
+	@Input({
+		required: true,
+	})
+	public set matrix(value: MatrixElementBase[][]) {
+		this._matrix = value;
+		this._matrixLength = value.length;
+		this._listsMatrixIndex = Array(this._matrixLength)
+			.fill(null)
+			.map((u, i) => i.toString());
+	}
+
+	public constructor(
+		@Inject(MatrixEmitService) private readonly matrixEmitService: MatrixEmitService,
+	) {}
+
+	public trackByIndex(index: number, item: MatrixElementBase[]): number {
 		return index;
 	}
 
@@ -46,11 +71,10 @@ export class MatrixComponent {
 
 	public getCdkDropListConnectedToList(idx: number): string[] {
 		const idxStr: string = idx.toString();
-		return this.listsMatrixIndex.filter((item: string) => item !== idxStr);
+		return this._listsMatrixIndex.filter((item: string) => item !== idxStr);
 	}
 
-	public drop(event: CdkDragDrop<number[][]>): void {
-		console.log('drop', event);
+	public drop(event: CdkDragDrop<MatrixElementBase[][]>): void {
 		const currentContainerIndexId: number = +event.container.id;
 		if (event.previousContainer === event.container) {
 			moveItemInArray(
@@ -67,6 +91,7 @@ export class MatrixComponent {
 				event.currentIndex,
 			);
 		}
+		this.matrixEmitService.setMatrixData([...event.container.data]);
 	}
 
 	/**
@@ -74,21 +99,8 @@ export class MatrixComponent {
 	 * @param drag
 	 * @param drop
 	 */
-	public evenPredicate(drag: CdkDrag<number>, drop: CdkDropList<number[][]>): boolean {
+	public evenPredicate(drag: CdkDrag<number>, drop: CdkDropList<MatrixElementBase[][]>): boolean {
 		const dropContainerId: number = +drop.id;
 		return !drop.data[dropContainerId].length;
-	}
-
-	private getArr(): number[][] {
-		const array: number[] = Array(128)
-			.fill(null)
-			.map((u, i) => i); //массив, можно использовать массив объектов
-		const size = 1; //размер подмассива
-		const subarray: number[][] = []; //массив в который будет выведен результат.
-		for (let i = 0; i < Math.ceil(array.length / size); i++) {
-			subarray[i] = i === 55 ? [55] : i === 56 ? [56] : [];
-		}
-		console.log('subarray', subarray);
-		return subarray;
 	}
 }

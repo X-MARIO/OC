@@ -1,5 +1,17 @@
 <button
-	icon="tuiIconFileTextLarge"
+	tuiDropdownDirection="bottom"
 	tuiIconButton
 	type="button"
-	(dblclick)="onClick($event)"></button>
+	[icon]="data.icon"
+	(dblclick)="onOpen($event)"
+	(contextmenu)="onOpenContextMenu($event)"
+	[tuiDropdown]="content"
+	[tuiDropdownManual]="dropdownOpen"></button>
+
+<ng-template #content let-activeZone>
+	<tui-data-list tuiDataListDropdownManager [tuiActiveZoneParent]="activeZone" [size]="size">
+		<button tuiOption type="button" (click)="onOpen($event)">Open</button>
+		<button tuiOption type="button" (click)="onDelete($event)">Delete</button>
+		<button tuiOption type="button" (click)="onRename($event)">Rename</button>
+	</tui-data-list>
+</ng-template>
