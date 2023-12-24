@@ -1,4 +1,4 @@
-FROM node:20.9.0-alpine3.16 as development
+FROM node:20.9.0 as development
 
 RUN mkdir -p /usr/src/app
 

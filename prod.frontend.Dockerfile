@@ -1,6 +1,6 @@
-FROM node:20.2.0-alpine3.16 as node
+FROM node:20.9.0 as node
 
-RUN npm install -g npm@9.3.0
+RUN npm install -g npm@9.8.1
 
 WORKDIR /app
 
