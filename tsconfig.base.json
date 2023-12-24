@@ -70,7 +70,8 @@
 			"@oc/frontend/ui/terminal": ["libs/frontend/ui/terminal/src/index.ts"],
 			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"],
 			"button-process": ["libs/frontend/ui/process/src/index.ts"],
-			"modal-process": ["libs/frontend/ui/modal-process/src/index.ts"]
+			"modal-process": ["libs/frontend/ui/modal-process/src/index.ts"],
+			"process-facade": ["libs/frontend/process/facade/src/index.ts"]
 		},
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
