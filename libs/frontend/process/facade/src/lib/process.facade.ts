@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
-import type {
-	IUserAuth,
-	IUserCreate,
-	IUserLogin,
-	IUserRecovery,
-} from '@oc/frontend-api/types/user';
 import type { Observable } from 'rxjs';
+import type { Process } from 'types-process';
 
 /**
  * Facade to encapsulate State Management such as Ngxs
@@ -13,49 +8,29 @@ import type { Observable } from 'rxjs';
 @Injectable()
 export abstract class ProcessFacade {
 	/**
-	 * A flag that indicates whether posts have been logged in by the user.
+	 * A flag that indicates whether process have been logged in by the process.
 	 */
 	public logged$!: Observable<boolean | null>;
 
 	/**
-	 * A flag that indicates whether posts have been logged in by the user.
+	 * A flag that indicates whether posts have been logged in by the process.
 	 */
-	public user$!: Observable<IUserAuth | undefined>;
+	public process$!: Observable<Process[]>;
 
 	/**
-	 * A flag that indicates whether posts have been logged in by the user.
+	 * A flag that indicates whether process have been logged in by the process.
 	 */
 	public error$!: Observable<Record<string, any>>;
 
 	/**
-	 * The user is logged in successfully
+	 * The process is logged in successfully
 	 */
-	public loginSuccess$!: Observable<IUserAuth>;
+	public getProcessSuccess$!: Observable<Process[]>;
 
 	/**
-	 * The user is logged in unsuccessfully
+	 * The process is logged in unsuccessfully
 	 */
-	public loginFailure$!: Observable<Record<string, any>>;
-
-	/**
-	 * The user has successfully reset the password
-	 */
-	public recoverySuccess$!: Observable<void>;
-
-	/**
-	 * The user has unsuccessfully reset the password
-	 */
-	public recoveryFailure$!: Observable<Record<string, any>>;
-
-	/**
-	 * The user has been successfully registered
-	 */
-	public registerSuccess$!: Observable<IUserAuth>;
-
-	/**
-	 * The user has been unsuccessfully registered
-	 */
-	public registerFailure$!: Observable<Record<string, any>>;
+	public getProcessFailure$!: Observable<Record<string, any>>;
 
 	/**
 	 * Storage cleared successfully
@@ -68,27 +43,9 @@ export abstract class ProcessFacade {
 	public clearFailure$!: Observable<Record<string, any>>;
 
 	/**
-	 * User authorization method
-	 * @param payload IUserLogin
+	 * Process get method
 	 */
-	public abstract login(payload: IUserLogin): void;
-
-	/**
-	 * Method of exiting the profile
-	 */
-	public abstract logout(): void;
-
-	/**
-	 * User recovery method
-	 * @param payload IUserRecovery
-	 */
-	public abstract recovery(payload: IUserRecovery): void;
-
-	/**
-	 * User register method
-	 * @param payload IUserCreateFriend
-	 */
-	public abstract register(payload: IUserCreate): void;
+	public abstract getProcess(): void;
 
 	/**
 	 * Method clear storage

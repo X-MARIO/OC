@@ -1,1 +1,1 @@
-export * from './lib/types-process/types-process.component';
+export * from './lib/process.interface';
