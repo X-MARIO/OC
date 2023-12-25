@@ -1,6 +1,6 @@
 <ng-container *ngIf="matrix$ | async as matrix">
 	<div class="example-boundary">
-		<oc-matrix [matrix]="matrix">
+		<oc-matrix [matrix]="matrix" (onDrop)="setMatrixData($event)">
 			<ng-template #content let-data="data">
 				<oc-icon [data]="data"></oc-icon>
 			</ng-template>

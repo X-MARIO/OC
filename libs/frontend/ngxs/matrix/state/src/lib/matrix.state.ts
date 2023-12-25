@@ -4,7 +4,6 @@ import { MatrixApiWrapperService } from 'matrix-api';
 import { catchError, map, Observable } from 'rxjs';
 import { State as EState } from 'store-root';
 import { MatrixElement } from 'types-matrix';
-
 import * as MatrixActions from './matrix.actions';
 
 /**
@@ -53,12 +52,12 @@ export class MatrixState {
 	public constructor(private readonly matrixApiWrapperService: MatrixApiWrapperService) {}
 
 	/**
-	 * Action for login user.
+	 * Action for get matrix.
 	 * @param ctx StateContext<IMatrixStateModel>
 	 * @returns Observable<void>
 	 */
 	@Action(MatrixActions.GetMatrix)
-	public login(ctx: StateContext<IMatrixStateModel>): Observable<Observable<void> | void> {
+	public getMatrix(ctx: StateContext<IMatrixStateModel>): Observable<Observable<void> | void> {
 		return this.matrixApiWrapperService.getAll().pipe(
 			map((res: MatrixElement[][]) => {
 				const stateS = ctx.getState();
@@ -84,6 +83,48 @@ export class MatrixState {
 
 				return ctx.dispatch(
 					new MatrixActions.GetMatrixFailure({
+						error,
+					}),
+				);
+			}),
+		);
+	}
+
+	/**
+	 * Action for set matrix.
+	 * @param ctx StateContext<IMatrixStateModel>
+	 * @returns Observable<void>
+	 */
+	@Action(MatrixActions.SetMatrix)
+	public setMatrix(
+		ctx: StateContext<IMatrixStateModel>,
+		{ payload }: MatrixActions.SetMatrix,
+	): Observable<Observable<void> | void> {
+		return this.matrixApiWrapperService.setAll(payload).pipe(
+			map((matrix: MatrixElement[][]) => {
+				const stateS = ctx.getState();
+
+				ctx.setState({
+					...stateS,
+					state: EState.READY,
+					matrix,
+					error: {},
+				});
+
+				return ctx.dispatch(new MatrixActions.SetMatrixSuccess(matrix));
+			}),
+			catchError((error: {}) => {
+				const stateE = ctx.getState();
+
+				ctx.setState({
+					...stateE,
+					state: EState.ERROR,
+					matrix: [],
+					error,
+				});
+
+				return ctx.dispatch(
+					new MatrixActions.SetMatrixFailure({
 						error,
 					}),
 				);

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatrixFacade } from 'matrix-facade';
 import type { Observable } from 'rxjs';
-import type { MatrixElement } from 'types-matrix';
+import { MatrixElementBase } from 'types-matrix';
 
 /**
  * Page component for dashboard application
@@ -14,11 +14,15 @@ import type { MatrixElement } from 'types-matrix';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageComponent implements OnInit {
-	public readonly matrix$: Observable<MatrixElement[][]> = this.matrixFacade.matrix$;
+	public readonly matrix$: Observable<MatrixElementBase[][]> = this.matrixFacade.matrix$;
 
 	public constructor(private readonly matrixFacade: MatrixFacade) {}
 
 	public ngOnInit(): void {
 		this.matrixFacade.getMatrix();
+	}
+
+	public setMatrixData($event: MatrixElementBase[][]) {
+		this.matrixFacade.setMatrix($event);
 	}
 }

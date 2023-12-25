@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, ofActionDispatched, Select, Store } from '@ngxs/store';
 import { MatrixFacade } from 'matrix-facade';
 import { map } from 'rxjs';
-
+import { MatrixElement } from 'types-matrix';
 import * as MatrixActions from './matrix.actions';
 import { MatrixState } from './matrix.state';
 
@@ -30,6 +30,16 @@ export class NgxsMatrixFacade implements MatrixFacade {
 		map(({ error }) => error),
 	);
 
+	public setMatrixSuccess$: MatrixFacade['setMatrixSuccess$'] = this.actions$.pipe(
+		ofActionDispatched(MatrixActions.SetMatrixSuccess),
+		map(({ payload }) => payload),
+	);
+
+	public setMatrixFailure$: MatrixFacade['setMatrixFailure$'] = this.actions$.pipe(
+		ofActionDispatched(MatrixActions.SetMatrixFailure),
+		map(({ error }) => error),
+	);
+
 	public clearSuccess$: MatrixFacade['clearSuccess$'] = this.actions$.pipe(
 		ofActionDispatched(MatrixActions.ClearSuccess),
 		map(() => undefined),
@@ -44,6 +54,10 @@ export class NgxsMatrixFacade implements MatrixFacade {
 
 	public getMatrix(): void {
 		this.store.dispatch(new MatrixActions.GetMatrix());
+	}
+
+	public setMatrix(payload: MatrixElement[][]): void {
+		this.store.dispatch(new MatrixActions.SetMatrix(payload));
 	}
 
 	public clear(): void {

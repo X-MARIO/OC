@@ -13,11 +13,14 @@ export const MATRIX_API_ROUTES: Record<MatrixApiRoutesEnum, string> = {
 
 @Injectable()
 export class MatrixApiMockService {
-	public constructor(protected readonly apiService: ApiService) {
-	}
+	public constructor(protected readonly apiService: ApiService) {}
 
 	public getAll(): Observable<MatrixElement[][]> {
 		return of(this.getArr());
+	}
+
+	public setAll(matrix: MatrixElement[][]): Observable<MatrixElement[][]> {
+		return of(matrix);
 	}
 
 	private getArr(): MatrixElement[][] {
@@ -30,17 +33,17 @@ export class MatrixApiMockService {
 			subarray[i] =
 				i === 55
 					? [
-						new MatrixElement({
-							_placeId: 55,
-							_iconId: 1,
-							_icon: 'tuiIconFileLarge',
-							_name: '1',
-							_mime: EFileType.FILE,
-							_content: '',
-						}),
-					]
+							new MatrixElement({
+								_placeId: 55,
+								_iconId: 1,
+								_icon: 'tuiIconFileLarge',
+								_name: '1',
+								_mime: EFileType.FILE,
+								_content: '',
+							}),
+					  ]
 					: i === 56
-						? [
+					? [
 							new MatrixElement({
 								_placeId: 56,
 								_iconId: 2,
@@ -49,8 +52,8 @@ export class MatrixApiMockService {
 								_mime: EFileType.FOLDER,
 								_content: '',
 							}),
-						]
-						: [];
+					  ]
+					: [];
 		}
 		console.log('subarray', subarray);
 		// @ts-expect-error

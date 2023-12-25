@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import type { Observable } from 'rxjs';
 import type { State } from 'store-root';
-import { MatrixElement } from 'types-matrix';
+import { MatrixElementBase } from 'types-matrix';
 
 /**
  * Facade to encapsulate State Management such as Ngxs
@@ -16,7 +16,7 @@ export abstract class MatrixFacade {
 	/**
 	 * A flag that indicates whether posts have been logged in by the matrix.
 	 */
-	public matrix$!: Observable<MatrixElement[][]>;
+	public matrix$!: Observable<MatrixElementBase[][]>;
 
 	/**
 	 * A flag that indicates whether matrix have been logged in by the matrix.
@@ -26,12 +26,22 @@ export abstract class MatrixFacade {
 	/**
 	 * The matrix is logged in successfully
 	 */
-	public matrixSuccess$!: Observable<MatrixElement[][]>;
+	public matrixSuccess$!: Observable<MatrixElementBase[][]>;
 
 	/**
 	 * The matrix is logged in unsuccessfully
 	 */
 	public matrixFailure$!: Observable<Record<string, any>>;
+
+	/**
+	 * The matrix is set in successfully
+	 */
+	public setMatrixSuccess$!: Observable<MatrixElementBase[][]>;
+
+	/**
+	 * The matrix is set in unsuccessfully
+	 */
+	public setMatrixFailure$!: Observable<Record<string, any>>;
 
 	/**
 	 * Storage cleared successfully
@@ -47,6 +57,11 @@ export abstract class MatrixFacade {
 	 * matrix get method
 	 */
 	public abstract getMatrix(): void;
+
+	/**
+	 * matrix set method
+	 */
+	public abstract setMatrix(payload: MatrixElementBase[][]): void;
 
 	/**
 	 * Method clear storage

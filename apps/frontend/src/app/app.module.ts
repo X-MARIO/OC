@@ -3,7 +3,7 @@ import { isDevMode, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { RootStoreDevelopmentModule, RootStoreModule } from '@oc/frontend/ngxs/store/root';
+import { RootStoreModule } from '@oc/frontend/ngxs/store/root';
 import {
 	TuiAlertModule,
 	TuiDialogModule,
@@ -11,7 +11,6 @@ import {
 	TuiRootModule,
 	TuiThemeNightModule,
 } from '@taiga-ui/core';
-import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppCoreModule } from './core/app-core.module';
 import { AppRoutingModule } from './routing/app-routing.module';
@@ -36,7 +35,8 @@ import { AppRoutingModule } from './routing/app-routing.module';
 
 		// ngxs
 		// eslint-disable-next-line
-		!environment.production ? RootStoreDevelopmentModule : RootStoreModule,
+		// !environment.production ? RootStoreDevelopmentModule : RootStoreModule,
+		RootStoreModule,
 
 		// material
 

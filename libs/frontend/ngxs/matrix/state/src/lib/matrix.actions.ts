@@ -22,6 +22,24 @@ export class GetMatrixFailure {
 	public constructor(public readonly error: Record<string, any>) {}
 }
 
+export class SetMatrix {
+	public static readonly type = '[Matrix] Set';
+
+	public constructor(public readonly payload: MatrixElement[][]) {}
+}
+
+export class SetMatrixSuccess {
+	public static readonly type = '[Matrix] Set Success';
+
+	public constructor(public readonly payload: MatrixElement[][]) {}
+}
+
+export class SetMatrixFailure {
+	public static readonly type = '[Matrix] Set Failure';
+
+	public constructor(public readonly error: Record<string, any>) {}
+}
+
 export class Clear {
 	public static readonly type = '[Matrix] Clear';
 }

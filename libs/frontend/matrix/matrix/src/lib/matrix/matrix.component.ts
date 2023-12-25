@@ -1,5 +1,3 @@
-import { MatrixEmitService } from './matrix-emit.service';
-
 import type { CdkDragDrop } from '@angular/cdk/drag-drop';
 import {
 	CdkDrag,
@@ -14,8 +12,9 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	ContentChild,
-	Inject,
+	EventEmitter,
 	Input,
+	Output,
 	TemplateRef,
 } from '@angular/core';
 import { CreateComponent } from '@oc/frontend/ui/create';
@@ -57,9 +56,11 @@ export class MatrixComponent {
 			.map((u, i) => i.toString());
 	}
 
-	public constructor(
-		@Inject(MatrixEmitService) private readonly matrixEmitService: MatrixEmitService,
-	) {}
+	@Output() public onDrop: EventEmitter<MatrixElementBase[][]> = new EventEmitter<
+		MatrixElementBase[][]
+	>();
+
+	public constructor() {}
 
 	public trackByIndex(index: number, item: MatrixElementBase[]): number {
 		return index;
@@ -84,6 +85,16 @@ export class MatrixComponent {
 			);
 		} else {
 			const previousContainerId: number = +event.previousContainer.id;
+			console.log(
+				'event.previousContainer.data[previousContainerId]',
+				event.previousContainer.data[previousContainerId],
+			);
+			console.log(
+				'event.container.data[currentContainerIndexId]',
+				event.container.data[currentContainerIndexId],
+			);
+			console.log('event.previousIndex', event.previousIndex);
+			console.log('event.currentIndex', event.currentIndex);
 			transferArrayItem(
 				event.previousContainer.data[previousContainerId],
 				event.container.data[currentContainerIndexId],
@@ -91,7 +102,7 @@ export class MatrixComponent {
 				event.currentIndex,
 			);
 		}
-		this.matrixEmitService.setMatrixData([...event.container.data]);
+		// this.onDrop.emit([...event.container.data]);
 	}
 
 	/**
