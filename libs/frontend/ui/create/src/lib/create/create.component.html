@@ -17,8 +17,7 @@
 			tuiDropdownSided
 			tuiOption
 			[tuiDropdown]="emptyFile"
-			[tuiDropdownManual]="false"
-			(click)="onOpenCreateDocument($event)">
+			[tuiDropdownManual]="false">
 			Create Document
 		</button>
 		<button tuiOption type="button" (click)="onOpenTerminal($event)">Open Terminal Here</button>
@@ -26,7 +25,9 @@
 		<ng-template #emptyFile>
 			<tui-data-list tuiDataListDropdownManager [tuiActiveZoneParent]="activeZone">
 				No templates installed
-				<button tuiOption type="button">Empty File</button>
+				<button tuiOption type="button" (click)="onOpenCreateEmptyFile($event)">
+					Empty File
+				</button>
 			</tui-data-list>
 		</ng-template>
 	</tui-data-list>

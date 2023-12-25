@@ -1,7 +1,7 @@
-export enum FormModelCreateFolder {
-	folderName = 'folderName',
+export enum FormModelCreateItem {
+	itemName = 'itemName',
 }
 
-export interface IFormModelCreateFolder {
-	readonly [FormModelCreateFolder.folderName]: string;
+export interface IFormModelCreateItem {
+	readonly [FormModelCreateItem.itemName]: string;
 }

@@ -11,7 +11,7 @@ import {
 	type TuiSizeS,
 } from '@taiga-ui/core';
 import { TuiDataListDropdownManagerModule } from '@taiga-ui/kit';
-import { EFileType, IQueryParamsBase, IQueryParamsCreate } from 'types-matrix';
+import { EFileType, IQueryParamsCreate } from 'types-matrix';
 
 @Component({
 	selector: 'lib-create',
@@ -59,9 +59,10 @@ export class CreateComponent {
 			.catch();
 	}
 
-	public onOpenCreateDocument($event: MouseEvent): void {
-		const queryParams: IQueryParamsBase = {
+	public onOpenCreateEmptyFile($event: MouseEvent): void {
+		const queryParams: IQueryParamsCreate = {
 			iconId: this.id,
+			fileType: EFileType.FILE,
 		};
 
 		void this.navigationService

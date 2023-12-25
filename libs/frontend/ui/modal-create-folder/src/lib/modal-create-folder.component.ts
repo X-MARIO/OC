@@ -9,7 +9,7 @@ import { delay, switchMap, tap } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EFileType, MatrixElement } from 'types-matrix';
 import { CreateFolderForm } from './create-folder.form';
-import { FormModelCreateFolder } from './create-folder.types';
+import { FormModelCreateItem } from './create-folder.types';
 
 // eslint-disable-next-line @angular-eslint/prefer-standalone-component
 @Component({
@@ -19,9 +19,11 @@ import { FormModelCreateFolder } from './create-folder.types';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalCreateFolderComponent extends CreateFolderForm implements OnInit {
-	private readonly placeId: number = -1;
+	public readonly eFileType: typeof EFileType = EFileType;
 
-	private readonly fileType: MatrixElement['_mime'] = EFileType.FOLDER;
+	public readonly fileType: MatrixElement['_mime'] = EFileType.FOLDER;
+
+	private readonly placeId: number = -1;
 
 	public constructor(
 		@Inject(ActivatedRoute) private readonly activatedRoute: ActivatedRoute,
@@ -64,7 +66,7 @@ export class ModalCreateFolderComponent extends CreateFolderForm implements OnIn
 	public onCreate(): void {
 		const newEl: MatrixElement = new MatrixElement({
 			_placeId: this.placeId,
-			_name: this.getFormField(FormModelCreateFolder.folderName).value,
+			_name: this.getFormField(FormModelCreateItem.itemName).value,
 			_icon: this.fileType === EFileType.FOLDER ? 'tuiIconFolderLarge' : 'tuiIconFileLarge',
 			_mime: this.fileType,
 			_iconId: this.placeId,
@@ -77,7 +79,7 @@ export class ModalCreateFolderComponent extends CreateFolderForm implements OnIn
 		this.form = CreateFolderForm.newForm();
 	}
 
-	private getFormField(fromField: FormModelCreateFolder): FormControl {
+	private getFormField(fromField: FormModelCreateItem): FormControl {
 		return this.form.get(fromField) as FormControl;
 	}
 
@@ -85,8 +87,20 @@ export class ModalCreateFolderComponent extends CreateFolderForm implements OnIn
 		this.matrixFacade.createElMatrixSuccess$
 			.pipe(
 				switchMap(() => {
+					let label: string = '';
+					switch (this.fileType) {
+						case EFileType.FOLDER:
+							label = `Папка успешно создана`;
+							break;
+						case EFileType.FILE:
+							label = `Файл успешно создан`;
+							break;
+						default:
+							label = `Сущность успешно создана`;
+					}
+
 					return this.alerts$.open(undefined, {
-						label: 'Файл успешно Создан',
+						label,
 						status: TuiNotification.Success,
 						hasCloseButton: true,
 						hasIcon: true,
@@ -112,8 +126,20 @@ export class ModalCreateFolderComponent extends CreateFolderForm implements OnIn
 		this.matrixFacade.createElMatrixFailure$
 			.pipe(
 				switchMap(() => {
+					let label: string = '';
+					switch (this.fileType) {
+						case EFileType.FOLDER:
+							label = `Не удалось создать папку`;
+							break;
+						case EFileType.FILE:
+							label = `Не удалось создать файл`;
+							break;
+						default:
+							label = `Не удалось создать сущность`;
+					}
+
 					return this.alerts$.open(undefined, {
-						label: 'Не удалось создать файл',
+						label,
 						status: TuiNotification.Error,
 						hasCloseButton: true,
 						hasIcon: true,

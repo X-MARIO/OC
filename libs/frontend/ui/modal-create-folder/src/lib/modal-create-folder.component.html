@@ -3,12 +3,17 @@
 		<div class="tui-col_12">
 			<div class="tui-form__header">Enter the name:</div>
 			<div class="tui-form__row">
-				<tui-input [formControlName]="formFields.folderName">
-					FolderName
-					<input tuiTextfield type="text" placeholder="Enter new folder name" />
+				<tui-input [formControlName]="formFields.itemName">
+					{{ fileType === eFileType.FOLDER ? 'FolderName' : 'FileName' }}
+					<input
+						tuiTextfield
+						type="text"
+						placeholder="Enter new {{
+							fileType === eFileType.FOLDER ? 'folder' : 'file'
+						}} name" />
 				</tui-input>
 				<tui-error
-					[formControlName]="formFields.folderName"
+					[formControlName]="formFields.itemName"
 					[error]="[] | tuiFieldError | async"></tui-error>
 			</div>
 			<div class="tui-form__buttons tui-form__buttons_align_end">
