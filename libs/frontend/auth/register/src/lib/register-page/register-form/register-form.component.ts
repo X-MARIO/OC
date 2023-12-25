@@ -1,16 +1,15 @@
-import { delay, switchMap, takeUntil, tap } from 'rxjs';
-
-import { RegisterForm } from './register.form';
-import type { IFormModelRegister } from './register-form.types';
-import { FormModelRegister } from './register-form.types';
-
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { NavigationService } from '@oc/core/navigation/service';
-import { AuthFacade } from '@oc/frontend/auth/facade';
 import type { IUserCreate } from '@oc/frontend-api/types/user';
+import { AuthFacade } from '@oc/frontend/auth/facade';
 import { TuiDestroyService } from '@taiga-ui/cdk';
 import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
+import { delay, switchMap, takeUntil, tap } from 'rxjs';
+import type { IFormModelRegister } from './register-form.types';
+import { FormModelRegister } from './register-form.types';
+
+import { RegisterForm } from './register.form';
 
 // eslint-disable-next-line @angular-eslint/prefer-standalone-component
 @Component({
@@ -34,6 +33,13 @@ export class RegisterFormComponent extends RegisterForm implements OnInit {
 	public ngOnInit(): void {
 		this.initForm();
 		this.setSubscriptions();
+	}
+
+	public onLogin(): void {
+		this.navigationService
+			.navigateByUrl(this.navigationService.getPaths().authLogin)
+			.then()
+			.catch();
 	}
 
 	public onReset(): void {

@@ -1,7 +1,17 @@
 <form class="tui-form" [formGroup]="form">
 	<div class="tui-row">
 		<div class="tui-col_12">
-			<div class="tui-form__header">Регистрация</div>
+			<div class="tui-form__header">
+				Регистрация
+				<button
+						tuiButton
+						type="button"
+						size="s"
+						appearance="flat"
+						(click)="onLogin()">
+					Авторизация
+				</button>
+			</div>
 			<div class="tui-form__row">
 				<tui-input [formControlName]="formFields.email">
 					Email

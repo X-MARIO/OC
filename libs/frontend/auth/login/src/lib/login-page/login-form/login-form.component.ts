@@ -36,6 +36,13 @@ export class LoginFormComponent extends LoginForm implements OnInit {
 		this.setSubscriptions();
 	}
 
+	public onRegister(): void {
+		this.navigationService
+			.navigateByUrl(this.navigationService.getPaths().authRegister)
+			.then()
+			.catch();
+	}
+
 	public onReset(): void {
 		this.form.reset();
 	}

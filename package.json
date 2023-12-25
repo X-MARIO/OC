@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "node --max-old-space-size=8192 ./node_modules/nx/bin/nx",
     "postinstall": "node --max-old-space-size=8192 ./decorate-angular-cli.js",
-    "start:frontend": "node --max-old-space-size=8192 ./node_modules/nx/bin/nx run frontend:serve:development --port=4200 --host 0.0.0.0 --poll 500",
+    "start:frontend": "node --max-old-space-size=8192 ./node_modules/nx/bin/nx run frontend:serve:development --port=4200",
     "build:frontend": "node --max-old-space-size=8192 ./node_modules/nx/bin/nx build frontend:build:production --prod --aot",
     "build:frontend:run": "npm run build:frontend && cd dist/frontend/browser && http-server -p 8081",
     "test:all": "node --max-old-space-size=8192 ./node_modules/nx/bin/nx run-many --target=test --all",
