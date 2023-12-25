@@ -8,3 +8,4 @@ services:
         container_name: frontend
         ports:
             - '8080:80'
+            - '8888:8888'
