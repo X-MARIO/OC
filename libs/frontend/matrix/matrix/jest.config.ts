@@ -3,7 +3,7 @@ export default {
 	displayName: 'matrix',
 	preset: '../../../../jest.preset.js',
 	setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-	coverageDirectory: '../../../../coverage/libs/frontend/ui/matrix',
+	coverageDirectory: '../../../../coverage/libs/frontend/matrix/matrix',
 	transform: {
 		'^.+\\.(ts|mjs|js|html)$': [
 			'jest-preset-angular',

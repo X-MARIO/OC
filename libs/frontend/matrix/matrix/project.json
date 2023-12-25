@@ -1,7 +1,7 @@
 {
 	"name": "frontend-ui-matrix",
 	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-	"sourceRoot": "libs/frontend/ui/matrix/src",
+	"sourceRoot": "libs/frontend/matrix/matrix/src",
 	"prefix": "oc",
 	"tags": [],
 	"projectType": "library",
@@ -10,7 +10,7 @@
 			"executor": "@nx/jest:jest",
 			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
 			"options": {
-				"jestConfig": "libs/frontend/ui/matrix/jest.config.ts"
+				"jestConfig": "libs/frontend/matrix/matrix/jest.config.ts"
 			}
 		},
 		"lint": {
