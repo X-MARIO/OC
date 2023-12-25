@@ -1,1 +1,4 @@
-export * from './lib/ngxs-matrix-state/ngxs-matrix-state.component';
+export * from './lib/matrix.actions';
+export * from './lib/matrix-state.module';
+export * from './lib/matrix.facade';
+export * from './lib/matrix.state';
