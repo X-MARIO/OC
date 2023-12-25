@@ -84,6 +84,7 @@
 			"table-process": ["libs/frontend/process/table-process/src/index.ts"],
 			"terminal-api": ["libs/frontend/terminal/api/src/index.ts"],
 			"terminal-facade": ["libs/frontend/terminal/facade/src/index.ts"],
+			"types-matrix": ["libs/frontend-api/types/matrix/src/index.ts"],
 			"types-process": ["libs/frontend-api/types/process/src/index.ts"],
 			"types-terminal": ["libs/frontend-api/types/terminal/src/index.ts"]
 		},
