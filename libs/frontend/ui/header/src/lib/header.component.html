@@ -1,7 +1,8 @@
 <div class="tui-container tui-container_fullwidth">
-	<div class="tui-row navigation">
+	<div class="tui-row navigation" *tuiLet="logged$ | async as logged">
 		<div class="tui-col_2 navigation__left">
 			<button tuiButton type="button" appearance="flat" size="m">Kali</button>
+			@if (logged) {
 			<tui-hosted-dropdown [content]="contentApplicationList">
 				<button
 					tuiIconButton
@@ -12,9 +13,10 @@
 					(click)="onOpenList($event)"></button>
 			</tui-hosted-dropdown>
 			<lib-button-process></lib-button-process>
+			}
 		</div>
 		<div class="tui-col_10 navigation__right">
-			<ng-container [ngTemplateOutlet]="(logged$ | async) ? logout : login"></ng-container>
+			<ng-container [ngTemplateOutlet]="logged ? logout : login"></ng-container>
 		</div>
 	</div>
 </div>

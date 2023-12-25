@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import type { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { NAVIGATION_PATHS } from '@oc/core/navigation/common';
+import { AccessTokenCheckGuard } from '@oc/frontend/auth/guards';
 import type { PagesModule as AuthPagesModule } from '@oc/frontend/ngxs/auth/pages';
 import type { PagesModule as DashboardPagesModule } from '@oc/frontend/ngxs/dashboard/pages';
 import { HeaderComponent } from '@oc/frontend/ui/header';
@@ -25,6 +26,7 @@ const routes: Routes = [
 			},
 			{
 				path: 'dashboard',
+				canActivate: [AccessTokenCheckGuard],
 				loadChildren: async (): Promise<Type<DashboardPagesModule>> => {
 					return import('@oc/frontend/ngxs/dashboard/pages').then(
 						(m: { PagesModule: Type<DashboardPagesModule> }) => m.PagesModule,

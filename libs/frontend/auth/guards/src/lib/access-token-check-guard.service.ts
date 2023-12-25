@@ -28,13 +28,7 @@ export class AccessTokenCheckGuard implements CanActivate {
 			.pipe(
 				take(1),
 				map((authToken: IUserSecretsF['access_token'] | null) => {
-					console.log('authToken', authToken);
-
 					if (!authToken) {
-						console.log(
-							'this.navigationService.createUrlTree(this.paths.authLogin)',
-							this.navigationService.createUrlTree(this.paths.authLogin),
-						);
 						this.navigationService
 							.navigateByUrl(this.navigationService.getPaths().authLogin)
 							.then()

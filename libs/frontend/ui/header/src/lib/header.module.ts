@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TuiActiveZoneModule } from '@taiga-ui/cdk';
+import { TuiActiveZoneModule, TuiLetModule } from '@taiga-ui/cdk';
 import {
 	TuiButtonModule,
 	TuiDataListModule,
@@ -41,6 +41,7 @@ import { ButtonProcessComponent } from 'button-process';
 		FormsModule,
 		TuiSvgModule,
 		ButtonProcessComponent,
+		TuiLetModule,
 	],
 	declarations: [HeaderComponent],
 	exports: [HeaderComponent],

@@ -92,6 +92,10 @@ export class HeaderComponent implements OnInit {
 
 	public onLogout(): void {
 		this.authFacade.logout();
+		this.navigationService
+			.navigateByUrl(this.navigationService.getPaths().authLogin)
+			.then()
+			.catch();
 	}
 
 	public onOpenList($event: MouseEvent) {}
