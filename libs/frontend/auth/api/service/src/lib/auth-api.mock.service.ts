@@ -27,7 +27,16 @@ export class AuthApiMockService {
 	public constructor(private readonly apiService: ApiService) {}
 
 	public login(payload: IUserLogin): Observable<IUserAuth> {
-		return this.apiService.post<IUserAuth>(AUTH_API_ROUTES[AuthApiRoutesEnum.LOGIN], payload);
+		const secret = 'secret';
+		const jwt: string = sign(payload, secret);
+
+		const result: IUserAuth = {
+			access_token: jwt,
+			token_type: 'T',
+			expires_in: 10000,
+		};
+
+		return of(result);
 	}
 
 	public recovery(payload: IUserRecovery): Observable<void> {

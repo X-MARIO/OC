@@ -68,7 +68,17 @@
 	</tui-data-list>
 </ng-template>
 
-<ng-template #logout>Выйти</ng-template>
+<ng-template #logout>
+	<button
+		tuiButton
+		type="button"
+		appearance="flat"
+		size="m"
+		[icon]="'tuiIconLogOut'"
+		(click)="onLogout()">
+		Logout
+	</button>
+</ng-template>
 
 <ng-template #contentApplicationList>
 	<tui-data-list role="menu">

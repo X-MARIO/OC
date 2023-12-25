@@ -1,13 +1,15 @@
+import { catchError, map, Observable, of, switchMap, take } from 'rxjs';
+
+import * as AuthActions from './auth.actions';
+
 import { Injectable } from '@angular/core';
 import type { NgxsOnInit } from '@ngxs/store';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { AuthApiService } from '@oc/frontend/auth/api/service';
 import { StorageKeys } from '@oc/frontend-api/types/model';
 import type { IUserAuth, IUserCreate, IUserSecretsF } from '@oc/frontend-api/types/user';
-import { AuthApiService } from '@oc/frontend/auth/api/service';
-import { catchError, map, Observable, of, switchMap, take } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 import { LocalAsyncStorage } from 'storage-local';
-
-import * as AuthActions from './auth.actions';
 
 /**
  * This state using for authorization user.
@@ -98,22 +100,45 @@ export class AuthState implements NgxsOnInit {
 		ctx: StateContext<IAuthStateModel>,
 		{ payload }: AuthActions.Login,
 	): Observable<Observable<void> | void> {
-		return this.authApiService.login(payload).pipe(
-			map((user: IUserAuth) => {
-				const state = ctx.getState();
+		return this.localAsyncStorage.getItems([StorageKeys.Users]).pipe(
+			take(1),
+			switchMap(([users]: [string]) => {
+				const mapUsers: Map<IUserCreate['username'], IUserSecretsF['access_token']> =
+					new Map<IUserCreate['username'], IUserSecretsF['access_token']>(
+						JSON.parse(users),
+					);
 
-				ctx.setState({
-					...state,
-					logged: true,
-					user: user,
-					error: {},
-				});
+				if (!mapUsers.has(payload.username)) {
+					throw new Error('18d57062-1644-4663-a82b-ea7e7ae07945');
+				}
 
-				this.localAsyncStorage.setItems({
-					[StorageKeys.AuthToken]: user.access_token,
-				});
+				return this.authApiService.login(payload).pipe(
+					map((user: IUserAuth) => {
+						const state = ctx.getState();
 
-				return ctx.dispatch(new AuthActions.LoginSuccess(user));
+						const token: string = mapUsers.get(payload.username) ?? '';
+						const access: IUserCreate = jwtDecode<IUserCreate>(token);
+
+						if (access.password !== payload.password) {
+							throw new Error('fa023ac1-a2ea-4f6d-a410-10d38343cd56');
+						}
+
+						ctx.setState({
+							...state,
+							logged: true,
+							user: user,
+							error: {},
+						});
+
+						mapUsers.set(payload.username, user.access_token);
+
+						this.localAsyncStorage.setItems({
+							[StorageKeys.AuthToken]: user.access_token,
+						});
+
+						return ctx.dispatch(new AuthActions.LoginSuccess(user));
+					}),
+				);
 			}),
 			catchError((error: unknown) =>
 				ctx.dispatch(
