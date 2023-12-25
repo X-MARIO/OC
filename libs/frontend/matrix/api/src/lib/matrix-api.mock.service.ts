@@ -27,6 +27,10 @@ export class MatrixApiMockService {
 		return of(matrixEl);
 	}
 
+	public deleteOne(placeId: MatrixElement['_placeId']): Observable<MatrixElement['_placeId']> {
+		return of(placeId);
+	}
+
 	private getArr(): MatrixElement[][] {
 		const array: number[] = Array(128)
 			.fill(null)

@@ -1,7 +1,9 @@
 <div class="tui-form">
 	<div class="tui-row">
 		<div class="tui-col_12">
-			<div class="tui-form__header">Are you sure that you want to permanently delete ""?</div>
+			<div class="tui-form__header">
+				Are you sure that you want to permanently delete "{{ element.name }}"?
+			</div>
 			<div class="tui-form__row">If you delete a file, it is permanently lost.</div>
 			<div class="tui-form__buttons tui-form__buttons_align_end">
 				<button
@@ -10,7 +12,7 @@
 					size="l"
 					appearance="flat"
 					class="tui-form__button"
-					(click)="onCancel()">
+					(click)="onClose()">
 					Cancel
 				</button>
 				<button

@@ -58,7 +58,6 @@ export class ModalRenameComponent extends RenameForm implements OnInit {
 	}
 
 	public onRename(): void {
-		console.log('this.element', this.element);
 		this.matrixFacade.updateElMatrix(
 			new MatrixElement({
 				...this.element,

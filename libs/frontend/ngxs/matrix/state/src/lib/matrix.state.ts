@@ -191,6 +191,52 @@ export class MatrixState {
 	}
 
 	/**
+	 * Action for set matrix.
+	 * @param ctx StateContext<IMatrixStateModel>
+	 * @returns Observable<void>
+	 */
+	@Action(MatrixActions.DeleteElMatrix)
+	public deleteOneMatrix(
+		ctx: StateContext<IMatrixStateModel>,
+		{ payload }: MatrixActions.DeleteElMatrix,
+	): Observable<Observable<void> | void> {
+		return this.matrixApiWrapperService.deleteOne(payload).pipe(
+			map((placeId: MatrixElement['_placeId']) => {
+				const stateS = ctx.getState();
+
+				const newMatrix: MatrixElement[][] = stateS.matrix.filter(
+					(value: MatrixElement[]) => value[0]?.placeId !== placeId,
+				);
+
+				ctx.setState({
+					...stateS,
+					state: EState.READY,
+					matrix: [...newMatrix],
+					error: {},
+				});
+
+				return ctx.dispatch(new MatrixActions.DeleteElMatrixSuccess(payload));
+			}),
+			catchError((error: {}) => {
+				const stateE = ctx.getState();
+
+				ctx.setState({
+					...stateE,
+					state: EState.ERROR,
+					matrix: [],
+					error,
+				});
+
+				return ctx.dispatch(
+					new MatrixActions.DeleteElMatrixFailure({
+						error,
+					}),
+				);
+			}),
+		);
+	}
+
+	/**
 	 * Selector that returns the logged from state.
 	 * @param state IMatrixStateModel IMatrixStateModel
 	 * @returns IMatrixStateModel['logged']

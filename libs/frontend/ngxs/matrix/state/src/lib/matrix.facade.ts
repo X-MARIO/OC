@@ -50,6 +50,16 @@ export class NgxsMatrixFacade implements MatrixFacade {
 		map(({ error }) => error),
 	);
 
+	public deleteElMatrixSuccess$: MatrixFacade['deleteElMatrixSuccess$'] = this.actions$.pipe(
+		ofActionDispatched(MatrixActions.DeleteElMatrixSuccess),
+		map(({ payload }) => payload),
+	);
+
+	public deleteElMatrixFailure$: MatrixFacade['deleteElMatrixFailure$'] = this.actions$.pipe(
+		ofActionDispatched(MatrixActions.DeleteElMatrixFailure),
+		map(({ error }) => error),
+	);
+
 	public clearSuccess$: MatrixFacade['clearSuccess$'] = this.actions$.pipe(
 		ofActionDispatched(MatrixActions.ClearSuccess),
 		map(() => undefined),
@@ -72,6 +82,10 @@ export class NgxsMatrixFacade implements MatrixFacade {
 
 	public updateElMatrix(payload: MatrixElement): void {
 		this.store.dispatch(new MatrixActions.UpdateElMatrix(payload));
+	}
+
+	public deleteElMatrix(payload: MatrixElement['_placeId']): void {
+		this.store.dispatch(new MatrixActions.DeleteElMatrix(payload));
 	}
 
 	public clear(): void {

@@ -50,4 +50,14 @@ export class MatrixApiService {
 				}),
 			);
 	}
+
+	public deleteOne(placeId: MatrixElement['_placeId']): Observable<MatrixElement['_placeId']> {
+		return this.apiService
+			.patch<void>(MATRIX_API_ROUTES[MatrixApiRoutesEnum.MATRIX], placeId)
+			.pipe(
+				map(() => {
+					return placeId;
+				}),
+			);
+	}
 }

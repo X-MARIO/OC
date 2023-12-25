@@ -58,6 +58,24 @@ export class UpdateElMatrixFailure {
 	public constructor(public readonly error: Record<string, any>) {}
 }
 
+export class DeleteElMatrix {
+	public static readonly type = '[Matrix] Delete One';
+
+	public constructor(public readonly payload: MatrixElement['_placeId']) {}
+}
+
+export class DeleteElMatrixSuccess {
+	public static readonly type = '[Matrix] Delete One Success';
+
+	public constructor(public readonly payload: MatrixElement['_placeId']) {}
+}
+
+export class DeleteElMatrixFailure {
+	public static readonly type = '[Matrix] Delete One Failure';
+
+	public constructor(public readonly error: Record<string, any>) {}
+}
+
 export class Clear {
 	public static readonly type = '[Matrix] Clear';
 }
