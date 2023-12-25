@@ -77,6 +77,7 @@
 			"ngxs-terminal-state": ["libs/frontend/ngxs/terminal/state/src/index.ts"],
 			"process-api": ["libs/frontend/process/api/src/index.ts"],
 			"process-facade": ["libs/frontend/process/facade/src/index.ts"],
+			"storage-local": ["libs/core/storage/local/src/index.ts"],
 			"store-root": ["libs/core/store/root/src/index.ts"],
 			"table-process": ["libs/frontend/process/table-process/src/index.ts"],
 			"terminal-api": ["libs/frontend/terminal/api/src/index.ts"],
