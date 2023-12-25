@@ -15,7 +15,6 @@ export interface INavigationPaths {
 	authRegister: string;
 
 	user: string;
-
 	notFound: string;
 }
 

@@ -8,7 +8,7 @@ COPY package*.json ./
 
 COPY decorate-angular-cli.js ./
 
-RUN npm ci
+RUN npm ci --froce
 
 COPY . .
 
