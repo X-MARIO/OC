@@ -8,7 +8,7 @@ import { MatrixFacade } from 'matrix-facade';
 import type { Observable } from 'rxjs';
 import { delay, switchMap, tap } from 'rxjs';
 import { map, take, takeUntil } from 'rxjs/operators';
-import { MatrixElement } from 'types-matrix';
+import { EFileType, MatrixElement } from 'types-matrix';
 import { FormModelRename } from './rename-form.types';
 import { RenameForm } from './rename.form';
 
@@ -22,6 +22,10 @@ import { RenameForm } from './rename.form';
 export class ModalRenameComponent extends RenameForm implements OnInit {
 	// @ts-ignore
 	public readonly matrix$: Observable<MatrixElement[][]> = this.matrixFacade.matrix$;
+
+	public readonly eFileType: typeof EFileType = EFileType;
+
+	public readonly fileType: MatrixElement['_mime'] = EFileType.FOLDER;
 
 	public element!: MatrixElement;
 
@@ -38,11 +42,20 @@ export class ModalRenameComponent extends RenameForm implements OnInit {
 		const matrixElementId: string | null =
 			this.activatedRoute.snapshot.queryParamMap.get('iconId');
 
+		const fileType: EFileType | null = this.activatedRoute.snapshot.queryParamMap.get(
+			'fileType',
+		) as EFileType;
+
 		if (matrixElementId == null) {
 			throw new Error('de84cd20-d78a-450e-850b-7584955629ab');
 		}
 
+		if (fileType == null) {
+			throw new Error('');
+		}
+
 		this.matrixElementId = +matrixElementId;
+		this.fileType = fileType;
 	}
 
 	public ngOnInit(): void {
@@ -110,8 +123,20 @@ export class ModalRenameComponent extends RenameForm implements OnInit {
 		this.matrixFacade.updateElMatrixSuccess$
 			.pipe(
 				switchMap(() => {
+					let label: string = '';
+					switch (this.fileType) {
+						case EFileType.FOLDER:
+							label = `Имя папки успешно обновлено`;
+							break;
+						case EFileType.FILE:
+							label = `Имя файла успешно обновлено`;
+							break;
+						default:
+							label = `Имя сущности успешно обновлено`;
+					}
+
 					return this.alerts$.open(undefined, {
-						label: 'Имя файла успешно обновлено',
+						label,
 						status: TuiNotification.Success,
 						hasCloseButton: true,
 						hasIcon: true,
@@ -137,8 +162,20 @@ export class ModalRenameComponent extends RenameForm implements OnInit {
 		this.matrixFacade.updateElMatrixFailure$
 			.pipe(
 				switchMap(() => {
+					let label: string = '';
+					switch (this.fileType) {
+						case EFileType.FOLDER:
+							label = `Не удалось обновить имя папки`;
+							break;
+						case EFileType.FILE:
+							label = `Не удалось обновить имя файла`;
+							break;
+						default:
+							label = `Не удалось обновить имя сущности`;
+					}
+
 					return this.alerts$.open(undefined, {
-						label: 'Не удалось обновить имя файла',
+						label,
 						status: TuiNotification.Error,
 						hasCloseButton: true,
 						hasIcon: true,

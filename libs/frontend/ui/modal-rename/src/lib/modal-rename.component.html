@@ -4,8 +4,13 @@
 			<div class="tui-form__header">Enter the new name:</div>
 			<div class="tui-form__row">
 				<tui-input [formControlName]="formFields.fileName">
-					FileName
-					<input tuiTextfield type="text" placeholder="Enter new file name" />
+					{{ fileType === eFileType.FOLDER ? 'FolderName' : 'FileName' }}
+					<input
+						tuiTextfield
+						type="text"
+						placeholder="Enter new {{
+							fileType === eFileType.FOLDER ? 'folder' : 'file'
+						}} name" />
 				</tui-input>
 				<tui-error
 					[formControlName]="formFields.fileName"

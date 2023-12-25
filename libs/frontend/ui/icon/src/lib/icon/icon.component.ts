@@ -5,8 +5,7 @@ import { TuiActiveZoneModule } from '@taiga-ui/cdk';
 import type { TuiSizeL, TuiSizeS } from '@taiga-ui/core';
 import { TuiButtonModule, TuiDataListModule, TuiDropdownModule } from '@taiga-ui/core';
 import { TuiDataListDropdownManagerModule } from '@taiga-ui/kit';
-import type { IQueryParamsBase } from 'types-matrix';
-import { MatrixElementShort } from 'types-matrix';
+import { IQueryParamsBase, IQueryParamsCreate, MatrixElementShort } from 'types-matrix';
 
 @Component({
 	selector: 'oc-icon',
@@ -67,8 +66,9 @@ export class IconComponent {
 	}
 
 	public onRename($event: MouseEvent): void {
-		const queryParams: IQueryParamsBase = {
+		const queryParams: IQueryParamsCreate = {
 			iconId: this.data.iconId,
+			fileType: this.data.type,
 		};
 
 		void this.navigationService
