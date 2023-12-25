@@ -21,11 +21,11 @@ export interface INavigationPaths {
 export const NAVIGATION_PATHS: INavigationPaths = {
 	home: '',
 	dashboard: 'dashboard',
-	dashboardFileEdit: 'file/edit',
-	dashboardFileRename: 'file/rename',
-	dashboardFileDelete: 'file/delete',
-	dashboardFolderCreate: 'folder/create',
-	process: 'process',
+	dashboardFileEdit: 'dashboard/file/edit',
+	dashboardFileRename: 'dashboard/file/rename',
+	dashboardFileDelete: 'dashboard/file/delete',
+	dashboardFolderCreate: 'dashboard/folder/create',
+	process: 'dashboard/process',
 
 	auth: 'auth',
 	authLogin: 'auth/login',

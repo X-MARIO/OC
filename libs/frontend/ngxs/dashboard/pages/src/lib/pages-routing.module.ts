@@ -2,6 +2,7 @@ import type { Type } from '@angular/core';
 import { NgModule } from '@angular/core';
 import type { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { NAVIGATION_PATHS } from '@oc/core/navigation/common';
 import type { PageModule } from '@oc/frontend/dashboard/pages';
 
 /**
@@ -16,6 +17,8 @@ const routes: Routes = [
 			);
 		},
 	},
+	{ path: '', redirectTo: '', pathMatch: 'full' },
+	{ path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 /**
