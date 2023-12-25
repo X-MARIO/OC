@@ -74,6 +74,7 @@
 			"core-uuid": ["libs/core/uuid/src/index.ts"],
 			"matrix-api": ["libs/frontend/matrix/api/src/index.ts"],
 			"matrix-facade": ["libs/frontend/matrix/facade/src/index.ts"],
+			"modal-about": ["libs/frontend/ui/modal-about/src/index.ts"],
 			"modal-process": ["libs/frontend/process/modal-precess/src/index.ts"],
 			"modal-process-error": ["libs/frontend/process/modal-process-error/src/index.ts"],
 			"ngxs-matrix-state": ["libs/frontend/ngxs/matrix/state/src/index.ts"],
