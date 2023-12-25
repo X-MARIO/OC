@@ -1,12 +1,14 @@
+import { map, take, takeUntil } from 'rxjs/operators';
+
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, Inject, Injector } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from '@oc/core/navigation/service';
-import { MatrixElement, MatrixEmitService } from '@oc/frontend/ui/matrix';
+import { MatrixEmitService } from '@oc/frontend/ui/matrix';
 import { TUI_EDITOR_EXTENSIONS, TuiEditorTool } from '@taiga-ui/addon-editor';
 import { TuiDestroyService } from '@taiga-ui/cdk';
-import { map, take, takeUntil } from 'rxjs/operators';
+import { MatrixElement } from 'types-matrix';
 
 // eslint-disable-next-line @angular-eslint/prefer-standalone-component
 @Component({

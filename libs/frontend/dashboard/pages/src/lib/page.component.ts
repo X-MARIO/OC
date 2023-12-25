@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import type { MatrixElement } from '@oc/frontend/ui/matrix';
 import { MatrixEmitService } from '@oc/frontend/ui/matrix';
 import type { Observable } from 'rxjs';
+import type { MatrixElement } from 'types-matrix';
 
 /**
  * Page component for dashboard application
