@@ -5,8 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from '@oc/core/navigation/service';
 import { TUI_EDITOR_EXTENSIONS, TuiEditorTool } from '@taiga-ui/addon-editor';
 import { TuiDestroyService } from '@taiga-ui/cdk';
+import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
 import { MatrixFacade } from 'matrix-facade';
-import type { Observable } from 'rxjs';
+import { delay, Observable, switchMap, tap } from 'rxjs';
 import { map, take, takeUntil } from 'rxjs/operators';
 import { MatrixElement } from 'types-matrix';
 
@@ -45,6 +46,7 @@ export class ModalEditorComponent implements OnInit {
 	public constructor(
 		@Inject(ActivatedRoute) private readonly activatedRoute: ActivatedRoute,
 		@Inject(TuiDestroyService) private readonly destroy$: TuiDestroyService,
+		@Inject(TuiAlertService) private readonly alerts$: TuiAlertService,
 		private readonly matrixFacade: MatrixFacade,
 		private readonly navigationService: NavigationService,
 	) {
@@ -62,7 +64,7 @@ export class ModalEditorComponent implements OnInit {
 		this.setSubscriptions();
 	}
 
-	public onCancel(): void {
+	public onClose(): void {
 		void this.navigationService
 			.navigateByUrl(this.navigationService.getPaths().dashboard)
 			.then()
@@ -79,12 +81,6 @@ export class ModalEditorComponent implements OnInit {
 	}
 
 	private setSubscriptions(): void {
-		// TODO доабвить редирект после успешного обновления
-		// void this.navigationService
-		// 						.navigateByUrl(this.navigationService.getPaths().dashboard)
-		// 						.then()
-		// 						.catch();
-
 		this.matrix$
 			.pipe(
 				take(1),
@@ -114,5 +110,47 @@ export class ModalEditorComponent implements OnInit {
 					this.element = matrixEl;
 				},
 			});
+
+		this.matrixFacade.updateElMatrixSuccess$
+			.pipe(
+				switchMap(() => {
+					return this.alerts$.open(undefined, {
+						label: 'Файл успешно обновлён',
+						status: TuiNotification.Success,
+						hasCloseButton: true,
+						hasIcon: true,
+						autoClose: 5000,
+					});
+				}),
+				takeUntil(this.destroy$),
+			)
+			.subscribe();
+
+		this.matrixFacade.updateElMatrixSuccess$
+			.pipe(
+				delay(1000),
+				tap({
+					next: () => {
+						this.onClose();
+					},
+				}),
+				takeUntil(this.destroy$),
+			)
+			.subscribe();
+
+		this.matrixFacade.updateElMatrixFailure$
+			.pipe(
+				switchMap(() => {
+					return this.alerts$.open(undefined, {
+						label: 'Не удалось обновить файл',
+						status: TuiNotification.Error,
+						hasCloseButton: true,
+						hasIcon: true,
+						autoClose: 5000,
+					});
+				}),
+				takeUntil(this.destroy$),
+			)
+			.subscribe();
 	}
 }
