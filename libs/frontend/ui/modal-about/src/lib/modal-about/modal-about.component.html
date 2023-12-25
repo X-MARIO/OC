@@ -1,1 +1,49 @@
-<p>modal-about works!</p>
+<ul class="tui-list tui-list_large">
+	<li class="tui-list__item">OC - Kali linux</li>
+	<li class="tui-list__item">
+		Языки программирования
+		<ul class="tui-list tui-list_linear tui-list_nested">
+			<li class="tui-list__item">Java</li>
+			<li class="tui-list__item">Javascript</li>
+		</ul>
+	</li>
+	<li class="tui-list__item">
+		Бригада
+		<ol class="tui-list tui-list_ordered tui-list_nested">
+			<li class="tui-list__item">
+				Чекушкин П.М
+				<tui-tag
+						status="primary"
+						[hoverable]="true"
+						[value]="'Frontend разработчик'"
+				></tui-tag>
+			</li>
+			<li class="tui-list__item">
+				Савельев М.Б
+				<tui-tag
+						status="error"
+						[hoverable]="true"
+						[value]="'Backend разработчик'"
+				></tui-tag>
+			</li>
+			<li class="tui-list__item">
+				Кириллов Д.В.
+				<tui-tag
+						status="warning"
+						[hoverable]="true"
+						[value]="'Общение с заказчиком/формирование отчёта'"
+				></tui-tag>
+			</li>
+			<li class="tui-list__item">
+				Словохотов  Г.С.
+				<button
+						status="custom"
+						tuiTag
+						value="Общение с заказчиком/формирование отчёта (креативный директор)"
+						class="tag"
+						[hoverable]="true"
+				></button>
+			</li>
+		</ol>
+	</li>
+</ul>

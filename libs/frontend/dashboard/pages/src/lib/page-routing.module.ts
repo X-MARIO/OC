@@ -1,3 +1,4 @@
+import { ModalAboutModule } from '../../../../ui/modal-about/src/lib/modal-about/modal-about.module';
 import { PageComponent } from './page.component';
 
 import type { Type } from '@angular/core';
@@ -56,6 +57,14 @@ const routes: Routes = [
 		loadChildren: async (): Promise<Type<ModalProcessModule>> => {
 			return import('modal-process').then(
 				(m: { ModalProcessModule: Type<ModalProcessModule> }) => m.ModalProcessModule,
+			);
+		},
+	},
+	{
+		path: 'about',
+		loadChildren: async (): Promise<Type<ModalAboutModule>> => {
+			return import('modal-about').then(
+				(m: { ModalAboutModule: Type<ModalAboutModule> }) => m.ModalAboutModule,
 			);
 		},
 	},

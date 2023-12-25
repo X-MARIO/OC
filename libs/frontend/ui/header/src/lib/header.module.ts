@@ -21,6 +21,7 @@ import {
 	TuiSelectModule,
 } from '@taiga-ui/kit';
 import { ButtonProcessComponent } from 'button-process';
+import { ButtonAboutComponent } from 'button-about';
 
 @NgModule({
 	imports: [
@@ -42,6 +43,7 @@ import { ButtonProcessComponent } from 'button-process';
 		TuiSvgModule,
 		ButtonProcessComponent,
 		TuiLetModule,
+		ButtonAboutComponent,
 	],
 	declarations: [HeaderComponent],
 	exports: [HeaderComponent],

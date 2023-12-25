@@ -1,11 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core';
 import { NavigationService } from '@oc/core/navigation/service';
-import { TuiActiveZoneModule } from '@taiga-ui/cdk';
-import type { TuiSizeL, TuiSizeS } from '@taiga-ui/core';
-import { TuiButtonModule, TuiDataListModule, TuiDropdownModule } from '@taiga-ui/core';
+import { TuiActiveZoneModule, TuiDestroyService } from '@taiga-ui/cdk';
+import {
+	TuiAlertService,
+	TuiButtonModule,
+	TuiDataListModule,
+	TuiDropdownModule,
+	TuiNotification,
+	TuiSizeL,
+	TuiSizeS,
+} from '@taiga-ui/core';
 import { TuiDataListDropdownManagerModule } from '@taiga-ui/kit';
-import { IQueryParamsBase, IQueryParamsCreate, MatrixElementShort } from 'types-matrix';
+import { take, takeUntil } from 'rxjs';
+import { EFileType, IQueryParamsBase, IQueryParamsCreate, MatrixElementShort } from 'types-matrix';
 
 @Component({
 	selector: 'oc-icon',
@@ -20,6 +28,7 @@ import { IQueryParamsBase, IQueryParamsCreate, MatrixElementShort } from 'types-
 	],
 	templateUrl: './icon.component.html',
 	styleUrls: ['./icon.component.scss'],
+	providers: [TuiDestroyService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent {
@@ -32,7 +41,11 @@ export class IconComponent {
 
 	public readonly size: TuiSizeL | TuiSizeS = 'm';
 
-	public constructor(private readonly navigationService: NavigationService) {}
+	public constructor(
+		private readonly navigationService: NavigationService,
+		@Inject(TuiAlertService) private readonly alerts$: TuiAlertService,
+		@Inject(TuiDestroyService) private readonly destroy$: TuiDestroyService,
+	) {}
 
 	public onOpenContextMenu($event: MouseEvent): void {
 		$event.preventDefault();
@@ -40,6 +53,20 @@ export class IconComponent {
 	}
 
 	public onOpen($event: MouseEvent): void {
+		if (this.data.type !== EFileType.FILE) {
+			this.alerts$
+				.open(undefined, {
+					label: 'Сущность данного типа нельзя открыть',
+					status: TuiNotification.Error,
+					hasCloseButton: true,
+					hasIcon: true,
+					autoClose: 3000,
+				})
+				.pipe(take(1), takeUntil(this.destroy$))
+				.subscribe();
+			return;
+		}
+
 		const queryParams: IQueryParamsBase = {
 			iconId: this.data.iconId,
 		};

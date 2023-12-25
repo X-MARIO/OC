@@ -1,12 +1,20 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
 	selector: 'oc-modal-about-modal-about',
-	standalone: true,
-	imports: [CommonModule],
 	templateUrl: './modal-about.component.html',
-	styleUrl: './modal-about.component.scss',
+	styleUrl: './modal-about.component.less',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ModalAboutComponent {}
+export class ModalAboutComponent {
+	index = 0;
+
+	readonly items = [
+		'angular.svg',
+		'avatar.jpg',
+		'angular.svg',
+		'avatar.jpg',
+		'angular.svg',
+		'avatar.jpg',
+	];
+}
