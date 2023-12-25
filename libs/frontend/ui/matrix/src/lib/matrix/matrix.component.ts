@@ -1,5 +1,3 @@
-import { CreateComponent } from '@oc/frontend/ui/create';
-import type { MatrixElementBase } from './matrix-emit.service';
 import { MatrixEmitService } from './matrix-emit.service';
 
 import type { CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -20,6 +18,8 @@ import {
 	Input,
 	TemplateRef,
 } from '@angular/core';
+import { CreateComponent } from '@oc/frontend/ui/create';
+import type { MatrixElementBase } from 'types-matrix';
 
 @Component({
 	selector: 'oc-matrix',

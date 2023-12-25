@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NavigationService } from '@oc/core/navigation/service';
-import type { IQueryParamsEditIcon } from '@oc/frontend/ui/matrix';
-import { MatrixElementShort } from '@oc/frontend/ui/matrix';
 import { TuiActiveZoneModule } from '@taiga-ui/cdk';
 import type { TuiSizeL, TuiSizeS } from '@taiga-ui/core';
 import { TuiButtonModule, TuiDataListModule, TuiDropdownModule } from '@taiga-ui/core';
 import { TuiDataListDropdownManagerModule } from '@taiga-ui/kit';
+import type { IQueryParamsEditIcon } from 'types-matrix';
+import { MatrixElementShort } from 'types-matrix';
 
 @Component({
 	selector: 'oc-icon',

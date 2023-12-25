@@ -1,1 +1,1 @@
-export * from './lib/types-matrix/types-matrix.component';
+export * from './lib/matrix.interface';
