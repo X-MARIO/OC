@@ -43,7 +43,7 @@ const routes: Routes = [
 		},
 	},
 	{
-		path: 'folder/create',
+		path: 'create',
 		loadChildren: async (): Promise<Type<ModalCreateFolderModule>> => {
 			return import('@oc/frontend/ui/modal-create-folder').then(
 				(m: { ModalCreateFolderModule: Type<ModalCreateFolderModule> }) =>

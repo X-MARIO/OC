@@ -6,7 +6,7 @@ export interface INavigationPaths {
 	dashboardFileEdit: string;
 	dashboardFileRename: string;
 	dashboardFileDelete: string;
-	dashboardFolderCreate: string;
+	dashboardCreate: string;
 	process: string;
 
 	auth: string;
@@ -24,7 +24,7 @@ export const NAVIGATION_PATHS: INavigationPaths = {
 	dashboardFileEdit: 'dashboard/file/edit',
 	dashboardFileRename: 'dashboard/file/rename',
 	dashboardFileDelete: 'dashboard/file/delete',
-	dashboardFolderCreate: 'dashboard/folder/create',
+	dashboardCreate: 'dashboard/create',
 	process: 'dashboard/process',
 
 	auth: 'auth',

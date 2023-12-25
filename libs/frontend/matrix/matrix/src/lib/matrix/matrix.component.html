@@ -1,6 +1,6 @@
 @for (itemFlat of _matrix; track itemFlat; let idx = $index) {
 <div class="example-container">
-	<lib-create>
+	<lib-create [id]="idx">
 		<div
 			cdkDropList
 			[id]="getIdToString(idx)"

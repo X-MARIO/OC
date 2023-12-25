@@ -96,6 +96,10 @@ export class MatrixElement extends MatrixElementShort implements IMatrixElement 
 	}
 }
 
-export interface IQueryParamsEditIcon {
+export interface IQueryParamsBase {
 	readonly iconId: IMatrixElementShort['_iconId'];
+}
+
+export interface IQueryParamsCreate extends IQueryParamsBase {
+	readonly fileType: IMatrixElementShort['_mime'];
 }

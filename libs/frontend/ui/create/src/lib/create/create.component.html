@@ -17,7 +17,8 @@
 			tuiDropdownSided
 			tuiOption
 			[tuiDropdown]="emptyFile"
-			[tuiDropdownManual]="false">
+			[tuiDropdownManual]="false"
+			(click)="onOpenCreateDocument($event)">
 			Create Document
 		</button>
 		<button tuiOption type="button" (click)="onOpenTerminal($event)">Open Terminal Here</button>

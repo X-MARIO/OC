@@ -5,7 +5,7 @@ import { TuiActiveZoneModule } from '@taiga-ui/cdk';
 import type { TuiSizeL, TuiSizeS } from '@taiga-ui/core';
 import { TuiButtonModule, TuiDataListModule, TuiDropdownModule } from '@taiga-ui/core';
 import { TuiDataListDropdownManagerModule } from '@taiga-ui/kit';
-import type { IQueryParamsEditIcon } from 'types-matrix';
+import type { IQueryParamsBase } from 'types-matrix';
 import { MatrixElementShort } from 'types-matrix';
 
 @Component({
@@ -41,7 +41,7 @@ export class IconComponent {
 	}
 
 	public onOpen($event: MouseEvent): void {
-		const queryParams: IQueryParamsEditIcon = {
+		const queryParams: IQueryParamsBase = {
 			iconId: this.data.iconId,
 		};
 
@@ -54,7 +54,7 @@ export class IconComponent {
 	}
 
 	public onDelete($event: MouseEvent): void {
-		const queryParams: IQueryParamsEditIcon = {
+		const queryParams: IQueryParamsBase = {
 			iconId: this.data.iconId,
 		};
 
@@ -67,7 +67,7 @@ export class IconComponent {
 	}
 
 	public onRename($event: MouseEvent): void {
-		const queryParams: IQueryParamsEditIcon = {
+		const queryParams: IQueryParamsBase = {
 			iconId: this.data.iconId,
 		};
 
