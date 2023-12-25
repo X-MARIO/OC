@@ -9,7 +9,7 @@ import type { AuthFacade } from '@oc/frontend/auth/facade';
 import type { IUserCreate, IUserLogin, IUserRecovery } from '@oc/frontend-api/types/user';
 
 /**
- * Ngxs implementation ProcessFacade
+ * Ngxs implementation MatrixFacade
  */
 @Injectable()
 export class NgxsAuthFacade implements AuthFacade {

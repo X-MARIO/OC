@@ -8,7 +8,7 @@ import { Actions, ofActionDispatched, Select, Store } from '@ngxs/store';
 import type { ProcessFacade } from 'process-facade';
 
 /**
- * Ngxs implementation ProcessFacade
+ * Ngxs implementation MatrixFacade
  */
 @Injectable()
 export class NgxsProcessFacade implements ProcessFacade {
