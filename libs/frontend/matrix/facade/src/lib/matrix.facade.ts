@@ -16,7 +16,7 @@ export abstract class MatrixFacade {
 	/**
 	 * A flag that indicates whether posts have been logged in by the matrix.
 	 */
-	public matrix$!: Observable<MatrixElement[]>;
+	public matrix$!: Observable<MatrixElement[][]>;
 
 	/**
 	 * A flag that indicates whether matrix have been logged in by the matrix.
@@ -26,7 +26,7 @@ export abstract class MatrixFacade {
 	/**
 	 * The matrix is logged in successfully
 	 */
-	public matrixSuccess$!: Observable<MatrixElement[]>;
+	public matrixSuccess$!: Observable<MatrixElement[][]>;
 
 	/**
 	 * The matrix is logged in unsuccessfully

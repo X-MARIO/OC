@@ -19,7 +19,7 @@ export interface IMatrixStateModel {
 	/**
 	 * Matrix model
 	 */
-	readonly matrix: MatrixElement[];
+	readonly matrix: MatrixElement[][];
 
 	/**
 	 * Error
@@ -60,7 +60,7 @@ export class MatrixState {
 	@Action(MatrixActions.GetMatrix)
 	public login(ctx: StateContext<IMatrixStateModel>): Observable<Observable<void> | void> {
 		return this.matrixApiWrapperService.getAll().pipe(
-			map((res: MatrixElement[]) => {
+			map((res: MatrixElement[][]) => {
 				const stateS = ctx.getState();
 
 				ctx.setState({

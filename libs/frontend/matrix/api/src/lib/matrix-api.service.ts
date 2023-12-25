@@ -15,14 +15,17 @@ export const MATRIX_API_ROUTES: Record<MatrixApiRoutesEnum, string> = {
 
 @Injectable()
 export class MatrixApiService {
-	public constructor(protected readonly apiService: ApiService) {}
+	public constructor(protected readonly apiService: ApiService) {
+	}
 
-	public getAll(): Observable<MatrixElement[]> {
+	public getAll(): Observable<MatrixElement[][]> {
 		return this.apiService
-			.get<IMatrixElement[]>(MATRIX_API_ROUTES[MatrixApiRoutesEnum.MATRIX])
+			.get<IMatrixElement[][]>(MATRIX_API_ROUTES[MatrixApiRoutesEnum.MATRIX])
 			.pipe(
-				map((res: IMatrixElement[]) => {
-					return plainToInstance<MatrixElement, IMatrixElement>(MatrixElement, res);
+				map((res: IMatrixElement[][]) => {
+					return res.map((item: IMatrixElement[]) => {
+						return plainToInstance<MatrixElement, IMatrixElement>(MatrixElement, item);
+					});
 				}),
 			);
 	}

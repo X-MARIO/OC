@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatrixEmitService } from '@oc/frontend/ui/matrix';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatrixFacade } from 'matrix-facade';
 import type { Observable } from 'rxjs';
 import type { MatrixElement } from 'types-matrix';
 
@@ -13,8 +13,12 @@ import type { MatrixElement } from 'types-matrix';
 	styleUrls: ['./page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageComponent {
-	public readonly matrix$: Observable<MatrixElement[][]> = this.matrixEmitService.initialize();
+export class PageComponent implements OnInit {
+	public readonly matrix$: Observable<MatrixElement[][]> = this.matrixFacade.matrix$;
 
-	public constructor(private readonly matrixEmitService: MatrixEmitService<MatrixElement>) {}
+	public constructor(private readonly matrixFacade: MatrixFacade) {}
+
+	public ngOnInit(): void {
+		this.matrixFacade.getMatrix();
+	}
 }

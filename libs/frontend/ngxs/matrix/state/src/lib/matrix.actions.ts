@@ -13,7 +13,7 @@ export class GetMatrix {
 export class GetMatrixSuccess {
 	public static readonly type = '[Matrix] Get Success';
 
-	public constructor(public readonly payload: MatrixElement[]) {}
+	public constructor(public readonly payload: MatrixElement[][]) {}
 }
 
 export class GetMatrixFailure {

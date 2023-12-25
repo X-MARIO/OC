@@ -6,6 +6,7 @@ import { CreateComponent } from '@oc/frontend/ui/create';
 import { IconComponent } from '@oc/frontend/ui/icon';
 import { MatrixComponent } from '@oc/frontend/ui/matrix';
 import { TerminalComponent } from '@oc/frontend/ui/terminal';
+import { MatrixStateModule } from 'ngxs-matrix-state';
 import { PageRoutingModule } from './page-routing.module';
 import { PageComponent } from './page.component';
 
@@ -22,6 +23,7 @@ import { PageComponent } from './page.component';
 		CreateComponent,
 		CdkDrag,
 		TerminalComponent,
+		MatrixStateModule,
 	],
 })
 export class PageModule {}
