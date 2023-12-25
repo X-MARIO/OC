@@ -1,8 +1,13 @@
+import { NgModule } from '@angular/core';
+import { AuthApiMockService } from './auth-api.mock.service';
 import { AuthApiService } from './auth-api.service';
 
-import { NgModule } from '@angular/core';
-
 @NgModule({
-	providers: [AuthApiService],
+	providers: [
+		{
+			provide: AuthApiService,
+			useClass: AuthApiMockService,
+		},
+	],
 })
 export class AuthApiModule {}

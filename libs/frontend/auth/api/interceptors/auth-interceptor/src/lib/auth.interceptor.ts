@@ -1,13 +1,12 @@
-import { concatMap, map, take } from 'rxjs/operators';
-
 import type { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SessionAsyncStorage } from '@oc/core/storage/session';
 import { StorageKeys } from '@oc/frontend-api/types/model';
 import type { IUserSecretsF } from '@oc/frontend-api/types/user';
 import { decodeJwt } from 'jose';
 import type { JWTPayload } from 'jose/dist/types/types';
 import type { Observable } from 'rxjs';
+import { concatMap, map, take } from 'rxjs/operators';
+import { LocalAsyncStorage } from 'storage-local';
 
 export interface IRequestUpdate {
 	setHeaders?: {
@@ -17,7 +16,7 @@ export interface IRequestUpdate {
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-	public constructor(private readonly sessionAsyncStorage: SessionAsyncStorage) {}
+	public constructor(private readonly localAsyncStorage: LocalAsyncStorage) {}
 
 	public intercept<Body = unknown>(
 		req: HttpRequest<Body>,
@@ -33,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
 	}
 
 	public getAuthHeader(): Observable<IRequestUpdate> {
-		return this.sessionAsyncStorage
+		return this.localAsyncStorage
 			.getItem<IUserSecretsF['access_token']>(StorageKeys.AuthToken)
 			.pipe(
 				take(1),

@@ -1,1 +1,2 @@
-export * from './lib/storage-local/storage-local.component';
+export * from './lib/local-sync.storage';
+export * from './lib/local-async.storage';

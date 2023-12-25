@@ -69,6 +69,8 @@
     "dayjs": "1.11.10",
     "dompurify": "3.0.6",
     "jose": "4.15.4",
+    "jwt-decode": "^4.0.0",
+    "jwt-encode": "^1.0.1",
     "reflect-metadata": "0.2.1",
     "rxjs": "7.8.1",
     "tslib": "2.6.2",
@@ -108,6 +110,8 @@
     "@types/dotenv-webpack": "7.0.7",
     "@types/jest": "29.5.11",
     "@types/json-server": "0.14.7",
+    "@types/jwt-decode": "^3.1.0",
+    "@types/jwt-encode": "^1.0.3",
     "@types/node": "18.19.3",
     "@typescript-eslint/eslint-plugin": "6.15.0",
     "@typescript-eslint/parser": "6.15.0",
@@ -175,4 +179,3 @@
     "**/*.{js,ts}": "eslint --fix=true --config .eslintrc.json"
   }
 }
-

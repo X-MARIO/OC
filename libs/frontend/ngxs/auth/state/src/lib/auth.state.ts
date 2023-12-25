@@ -1,14 +1,13 @@
-import { catchError, map, Observable, of, switchMap, take } from 'rxjs';
-
-import * as AuthActions from './auth.actions';
-
 import { Injectable } from '@angular/core';
 import type { NgxsOnInit } from '@ngxs/store';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { SessionAsyncStorage } from '@oc/core/storage/session';
-import { AuthApiService } from '@oc/frontend/auth/api/service';
 import { StorageKeys } from '@oc/frontend-api/types/model';
-import type { IUserAuth, IUserSecretsF } from '@oc/frontend-api/types/user';
+import type { IUserAuth, IUserCreate, IUserSecretsF } from '@oc/frontend-api/types/user';
+import { AuthApiService } from '@oc/frontend/auth/api/service';
+import { catchError, map, Observable, of, switchMap, take } from 'rxjs';
+import { LocalAsyncStorage } from 'storage-local';
+
+import * as AuthActions from './auth.actions';
 
 /**
  * This state using for authorization user.
@@ -52,11 +51,11 @@ export class AuthState implements NgxsOnInit {
 	/**
 	 * Auth state constructor
 	 * @param authApiService Auth API service
-	 * @param sessionAsyncStorage Any storage service
+	 * @param localAsyncStorage Any storage service
 	 */
 	public constructor(
 		private readonly authApiService: AuthApiService,
-		private readonly sessionAsyncStorage: SessionAsyncStorage,
+		private readonly localAsyncStorage: LocalAsyncStorage,
 	) {}
 
 	/**
@@ -68,7 +67,7 @@ export class AuthState implements NgxsOnInit {
 	public init(ctx: StateContext<IAuthStateModel>): Observable<Observable<void> | void> {
 		return of(null).pipe(
 			switchMap(() =>
-				this.sessionAsyncStorage
+				this.localAsyncStorage
 					.getItem<IUserSecretsF['access_token']>(StorageKeys.AuthToken)
 					.pipe(take(1)),
 			),
@@ -110,7 +109,7 @@ export class AuthState implements NgxsOnInit {
 					error: {},
 				});
 
-				this.sessionAsyncStorage.setItems({
+				this.localAsyncStorage.setItems({
 					[StorageKeys.AuthToken]: user.access_token,
 				});
 
@@ -144,7 +143,7 @@ export class AuthState implements NgxsOnInit {
 					error: {},
 				});
 
-				this.sessionAsyncStorage.removeItems([StorageKeys.AuthToken]);
+				this.localAsyncStorage.removeItems([StorageKeys.AuthToken]);
 
 				return ctx.dispatch(new AuthActions.LogoutSuccess());
 			}),
@@ -170,22 +169,39 @@ export class AuthState implements NgxsOnInit {
 		ctx: StateContext<IAuthStateModel>,
 		{ payload }: AuthActions.Register,
 	): Observable<Observable<void> | void> {
-		return this.authApiService.register(payload).pipe(
-			map((user: IUserAuth) => {
-				const state = ctx.getState();
+		return this.localAsyncStorage.getItems([StorageKeys.AuthToken, StorageKeys.Users]).pipe(
+			take(1),
+			switchMap(([token, users]: [IUserSecretsF['access_token'], string]) => {
+				const mapUsers: Map<IUserCreate['username'], IUserSecretsF['access_token']> =
+					new Map<IUserCreate['username'], IUserSecretsF['access_token']>(
+						JSON.parse(users),
+					);
 
-				ctx.setState({
-					...state,
-					logged: true,
-					user: user,
-					error: {},
-				});
+				if (mapUsers.has(payload.username)) {
+					throw new Error('202ae438-30a8-4c91-bc4a-5e2078c0b860');
+				}
 
-				this.sessionAsyncStorage.setItems({
-					[StorageKeys.AuthToken]: user.access_token,
-				});
+				return this.authApiService.register(payload).pipe(
+					map((user: IUserAuth) => {
+						const state = ctx.getState();
 
-				return ctx.dispatch(new AuthActions.RegisterSuccess(user));
+						ctx.setState({
+							...state,
+							logged: true,
+							user: user,
+							error: {},
+						});
+
+						mapUsers.set(payload.username, user.access_token);
+
+						this.localAsyncStorage.setItems({
+							[StorageKeys.AuthToken]: user.access_token,
+							[StorageKeys.Users]: JSON.stringify(Array.from(mapUsers.entries())),
+						});
+
+						return ctx.dispatch(new AuthActions.RegisterSuccess(user));
+					}),
+				);
 			}),
 			catchError((error: unknown) =>
 				ctx.dispatch(

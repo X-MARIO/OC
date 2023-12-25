@@ -3,15 +3,14 @@ import type { CanActivate, UrlTree } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { INavigationPaths, PATHS } from '@oc/core/navigation/common';
 import { NavigationService } from '@oc/core/navigation/service';
-import { SessionAsyncStorage } from '@oc/core/storage/session';
 import { StorageKeys } from '@oc/frontend-api/types/model';
 import type { IUserSecretsF } from '@oc/frontend-api/types/user';
 import { AuthFacade } from '@oc/frontend/auth/facade';
 import { decodeJwt } from 'jose';
 import type { JWTPayload } from 'jose/dist/types/types';
 import type { Observable } from 'rxjs';
-import { of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { LocalAsyncStorage } from 'storage-local';
 
 @Injectable()
 export class AccessTokenCheckGuard implements CanActivate {
@@ -19,12 +18,12 @@ export class AccessTokenCheckGuard implements CanActivate {
 		private readonly activatedRoute: ActivatedRoute,
 		private readonly authFacade: AuthFacade,
 		private readonly navigationService: NavigationService,
-		private readonly sessionAsyncStorage: SessionAsyncStorage,
+		private readonly localAsyncStorage: LocalAsyncStorage,
 		@Inject(PATHS) private readonly paths: INavigationPaths,
 	) {}
 
 	public canActivate(): Observable<UrlTree | boolean> {
-		return this.sessionAsyncStorage
+		return this.localAsyncStorage
 			.getItem<IUserSecretsF['access_token']>(StorageKeys.AuthToken)
 			.pipe(
 				take(1),
