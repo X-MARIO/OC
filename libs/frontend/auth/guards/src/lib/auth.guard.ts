@@ -22,11 +22,15 @@ export class AuthGuard implements CanActivate {
 			.getItem<IUserSecretsF['access_token']>(StorageKeys.AuthToken)
 			.pipe(
 				take(1),
-				map(
-					(authToken: IUserSecretsF['access_token'] | null) =>
-						!Boolean(authToken) ||
-						this.navigationService.createUrlTree(this.paths.home),
-				),
+				map((authToken: IUserSecretsF['access_token'] | null) => {
+					console.log('authToken', authToken);
+					console.log('!Boolean(authToken)', !Boolean(authToken));
+					console.log(
+						'this.navigationService.createUrlTree(this.paths.authLogin)',
+						this.navigationService.createUrlTree(this.paths.authLogin),
+					);
+					return true;
+				}),
 			);
 	}
 }

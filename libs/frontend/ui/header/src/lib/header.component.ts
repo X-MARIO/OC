@@ -1,7 +1,7 @@
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationService } from '@oc/core/navigation/service';
 import { AuthFacade } from '@oc/frontend/auth/facade';
 import type { TuiContextWithImplicit, TuiIdentityMatcher, TuiStringHandler } from '@taiga-ui/cdk';
 import { TuiDay } from '@taiga-ui/cdk';
@@ -76,12 +76,18 @@ export class HeaderComponent implements OnInit {
 		return selected ? `${selected.name} only` : `Selected: ${$implicit.length}`;
 	};
 
-	public constructor(private readonly authFacade: AuthFacade, private readonly router: Router) {}
+	public constructor(
+		private readonly authFacade: AuthFacade,
+		private readonly navigationService: NavigationService,
+	) {}
 
 	public ngOnInit(): void {}
 
-	public navigate(): void {
-		// void this.router.navigate('').then().catch();
+	public onShutDown(): void {
+		this.navigationService
+			.navigateByUrl(this.navigationService.getPaths().authLogin)
+			.then()
+			.catch();
 	}
 
 	public onOpenList($event: MouseEvent) {}

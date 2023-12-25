@@ -24,20 +24,30 @@ export class AccessTokenCheckGuard implements CanActivate {
 	) {}
 
 	public canActivate(): Observable<UrlTree | boolean> {
-		return of(true);
-
 		return this.sessionAsyncStorage
 			.getItem<IUserSecretsF['access_token']>(StorageKeys.AuthToken)
 			.pipe(
 				take(1),
 				map((authToken: IUserSecretsF['access_token'] | null) => {
+					console.log('authToken', authToken);
+
 					if (!authToken) {
-						return this.navigationService.createUrlTree(this.paths.authLogin);
+						console.log(
+							'this.navigationService.createUrlTree(this.paths.authLogin)',
+							this.navigationService.createUrlTree(this.paths.authLogin),
+						);
+						this.navigationService
+							.navigateByUrl(this.navigationService.getPaths().authLogin)
+							.then()
+							.catch();
+
+						return false;
 					}
 
 					const token: JWTPayload = decodeJwt(authToken);
 
 					if (!token.exp) {
+						return true;
 						this.authFacade.logout();
 						return this.navigationService.createUrlTree(this.paths.authLogin);
 					}
@@ -47,6 +57,8 @@ export class AccessTokenCheckGuard implements CanActivate {
 					if (valid) {
 						return true;
 					}
+
+					return true;
 
 					this.authFacade.logout();
 

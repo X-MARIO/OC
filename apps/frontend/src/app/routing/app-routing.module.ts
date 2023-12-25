@@ -20,6 +20,7 @@ const routes: Routes = [
 			},
 			{
 				path: '',
+				pathMatch: 'full',
 				loadChildren: async (): Promise<Type<DashboardPagesModule>> => {
 					return import('@oc/frontend/ngxs/dashboard/pages').then(
 						(m: { PagesModule: Type<DashboardPagesModule> }) => m.PagesModule,
@@ -36,8 +37,8 @@ const routes: Routes = [
 			},
 		],
 	},
-	{ path: '', redirectTo: '', pathMatch: 'full' },
-	{ path: '**', redirectTo: '', pathMatch: 'full' },
+	{ path: '', redirectTo: NAVIGATION_PATHS.auth, pathMatch: 'full' },
+	{ path: '**', redirectTo: NAVIGATION_PATHS.auth, pathMatch: 'full' },
 ];
 
 @NgModule({
