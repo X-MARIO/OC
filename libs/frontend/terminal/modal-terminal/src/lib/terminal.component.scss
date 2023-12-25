@@ -29,7 +29,7 @@
 	justify-content: center;
 	box-sizing: border-box;
 	width: 400px;
-	height: 600px;
+	max-height: 600px;
 	margin-right: 25px;
 	padding: 10px;
 	color: rgb(0 0 0 / 87%);
@@ -46,4 +46,8 @@
 .example-box:active {
 	box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
 		0 3px 14px 2px rgb(0 0 0 / 12%);
+}
+
+.tui-form__buttons {
+	justify-content: space-between;
 }

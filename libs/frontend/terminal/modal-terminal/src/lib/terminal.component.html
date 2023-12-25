@@ -1,5 +1,5 @@
 <ng-container *ngIf="open$ | async">
-	<div class="example-box" cdkDragBoundary=".example-boundary" cdkDrag>
+	<div class="example-box" cdkDragBoundary=".example-boundary" cdkDrag [cdkDragFreeDragPosition]="dragPosition">
 		<form [formGroup]="form" class="tui-form terminal">
 			<div class="tui-form__header">Kali terminal</div>
 			<div class="tui-row commands">
@@ -19,6 +19,16 @@
 						</tui-textarea>
 					</div>
 					<div class="tui-form__buttons tui-form__buttons_align_end">
+						<button
+								tuiButton
+								type="button"
+								size="l"
+								appearance="flat"
+								class="tui-form__button"
+								[showLoader]="(isLoading$ | async) || false"
+								(click)="onClose()">
+							Close
+						</button>
 						<button
 							tuiButton
 							type="button"

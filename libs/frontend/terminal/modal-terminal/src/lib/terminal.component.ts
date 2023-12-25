@@ -1,4 +1,4 @@
-import { map, switchMap, takeUntil } from 'rxjs';
+import { map, switchMap, takeUntil, tap } from 'rxjs';
 
 import { TerminalForm } from './terminal.form';
 import { TerminalService } from './terminal.service';
@@ -46,7 +46,15 @@ export interface ICommand {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TerminalComponent extends TerminalForm implements OnInit {
-	public open$: Observable<boolean> = this._terminalService.getOpenTerminal$();
+	dragPosition = {x: 0, y: 0};
+
+	public open$: Observable<boolean> = this._terminalService.getOpenTerminal$().pipe(
+		tap(()=> {
+			setTimeout(()=> {
+				this.dragPosition = {x: 500, y: -600};
+			}, 1000)
+		})
+	);
 
 	public state$: TerminalFacade['state$'] = this.terminalFacade.state$;
 
