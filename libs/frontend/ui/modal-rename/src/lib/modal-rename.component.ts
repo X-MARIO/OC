@@ -92,8 +92,6 @@ export class ModalRenameComponent extends RenameForm implements OnInit {
 			.pipe(
 				take(1),
 				map((matrix: MatrixElement[][]) => {
-					console.log('matrix', matrix);
-					console.log('this.matrixElementId', this.matrixElementId);
 					const el: MatrixElement[] | undefined = matrix.find(
 						(value: MatrixElement[]) => value[0]?.iconId === this.matrixElementId,
 					);

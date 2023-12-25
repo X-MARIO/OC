@@ -102,7 +102,7 @@ export class MatrixComponent {
 				event.currentIndex,
 			);
 		}
-		// this.onDrop.emit([...event.container.data]);
+		this.onDrop.emit([...event.container.data]);
 	}
 
 	/**

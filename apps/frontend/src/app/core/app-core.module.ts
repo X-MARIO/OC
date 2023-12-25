@@ -1,7 +1,3 @@
-import { of } from 'rxjs';
-
-import { environment } from '../../environments/environment';
-
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
@@ -14,6 +10,10 @@ import { AuthStateModule } from '@oc/frontend/ngxs/auth/state';
 import { HeaderModule } from '@oc/frontend/ui/header';
 import { LayoutModule } from '@oc/ui/layout';
 import { TUI_LANGUAGE, TUI_RUSSIAN_LANGUAGE } from '@taiga-ui/i18n';
+import { MatrixStateModule } from 'ngxs-matrix-state';
+import { of } from 'rxjs';
+
+import { environment } from '../../environments/environment';
 
 registerLocaleData(localeRu);
 
@@ -28,6 +28,7 @@ registerLocaleData(localeRu);
 		// Auth module use in many modules
 		AuthStateModule,
 		AuthGuardsModule,
+		MatrixStateModule,
 	],
 	providers: [
 		{

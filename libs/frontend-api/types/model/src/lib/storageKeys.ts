@@ -13,9 +13,10 @@
 /**
  * Типы токена: Regular, Temporary
  */
-export type StorageKeys = 'AuthToken' | 'Users';
+export type StorageKeys = 'AuthToken' | 'Users' | 'Matrix';
 
 export const StorageKeys: Record<StorageKeys, string> = {
 	AuthToken: 'AuthToken' as StorageKeys,
 	Users: 'Users' as StorageKeys,
+	Matrix: 'Matrix' as StorageKeys,
 };

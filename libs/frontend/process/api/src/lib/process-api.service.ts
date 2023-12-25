@@ -8,11 +8,11 @@ import type { IProcess } from 'types-process';
 import { Process } from 'types-process';
 
 export enum ProcessApiRoutesEnum {
-	PROCESS = 'process',
+	PROCESSES = 'processes',
 }
 
 export const PROCESS_API_ROUTES: Record<ProcessApiRoutesEnum, string> = {
-	[ProcessApiRoutesEnum.PROCESS]: '/process',
+	[ProcessApiRoutesEnum.PROCESSES]: '/processes',
 };
 
 @Injectable()
@@ -21,13 +21,11 @@ export class ProcessApiService {
 
 	public getAll(): Observable<Process[]> {
 		return this.apiService
-			.get<IProcess[]>(PROCESS_API_ROUTES[ProcessApiRoutesEnum.PROCESS])
+			.get<IProcess[]>(PROCESS_API_ROUTES[ProcessApiRoutesEnum.PROCESSES])
 			.pipe(
 				map((res: IProcess[]) => {
 					// return plainToInstance<Process, IProcess>(Process, res);
-					console.log('res', res);
 					const result = res.map((item: IProcess) => new Process(item));
-					console.log('result', result);
 					return result;
 				}),
 			);

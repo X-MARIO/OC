@@ -70,7 +70,6 @@ export class TerminalComponent extends TerminalForm implements OnInit {
 
 	public commands$: Observable<ICommand[]> = this.messages$.pipe(
 		map((messages: Message[]) => {
-			console.log('messages', messages);
 			const mapMessages: Map<Message['id'], Message[]> = new Map<Message['id'], Message[]>();
 
 			messages.forEach((message: Message) => {

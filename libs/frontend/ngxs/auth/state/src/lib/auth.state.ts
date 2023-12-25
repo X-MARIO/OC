@@ -1,15 +1,15 @@
-import { catchError, map, Observable, of, switchMap, take } from 'rxjs';
-
-import * as AuthActions from './auth.actions';
-
 import { Injectable } from '@angular/core';
 import type { NgxsOnInit } from '@ngxs/store';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { AuthApiService } from '@oc/frontend/auth/api/service';
 import { StorageKeys } from '@oc/frontend-api/types/model';
 import type { IUserAuth, IUserCreate, IUserSecretsF } from '@oc/frontend-api/types/user';
+import { AuthApiService } from '@oc/frontend/auth/api/service';
 import { jwtDecode } from 'jwt-decode';
-import { LocalAsyncStorage } from 'storage-local';
+import { catchError, map, Observable, of, switchMap, take } from 'rxjs';
+import { LocalAsyncStorage, LocalSyncStorage } from 'storage-local';
+import { EFileType, MatrixElement, type MatrixElementBase } from 'types-matrix';
+
+import * as AuthActions from './auth.actions';
 
 /**
  * This state using for authorization user.
@@ -54,10 +54,12 @@ export class AuthState implements NgxsOnInit {
 	 * Auth state constructor
 	 * @param authApiService Auth API service
 	 * @param localAsyncStorage Any storage service
+	 * @param localSyncStorage Any storage service
 	 */
 	public constructor(
 		private readonly authApiService: AuthApiService,
 		private readonly localAsyncStorage: LocalAsyncStorage,
+		private readonly localSyncStorage: LocalSyncStorage,
 	) {}
 
 	/**
@@ -132,6 +134,7 @@ export class AuthState implements NgxsOnInit {
 
 						mapUsers.set(payload.username, user.access_token);
 
+						this.localSyncStorage.setItem(StorageKeys.AuthToken, user.access_token);
 						this.localAsyncStorage.setItems({
 							[StorageKeys.AuthToken]: user.access_token,
 						});
@@ -168,6 +171,7 @@ export class AuthState implements NgxsOnInit {
 					error: {},
 				});
 
+				this.localSyncStorage.removeItem(StorageKeys.AuthToken);
 				this.localAsyncStorage.removeItems([StorageKeys.AuthToken]);
 
 				return ctx.dispatch(new AuthActions.LogoutSuccess());
@@ -194,17 +198,34 @@ export class AuthState implements NgxsOnInit {
 		ctx: StateContext<IAuthStateModel>,
 		{ payload }: AuthActions.Register,
 	): Observable<Observable<void> | void> {
-		return this.localAsyncStorage.getItems([StorageKeys.AuthToken, StorageKeys.Users]).pipe(
+		return this.localAsyncStorage.getItems([StorageKeys.Users]).pipe(
 			take(1),
-			switchMap(([token, users]: [IUserSecretsF['access_token'], string]) => {
+			switchMap(([ users]: [string]) => {
+				const matrix: string = this.localSyncStorage.getItem(StorageKeys.Matrix) ?? '';
 				const mapUsers: Map<IUserCreate['username'], IUserSecretsF['access_token']> =
 					new Map<IUserCreate['username'], IUserSecretsF['access_token']>(
 						JSON.parse(users),
 					);
 
+				console.log('mapUsers r', mapUsers);
+				console.log('matrix', matrix);
+
 				if (mapUsers.has(payload.username)) {
 					throw new Error('202ae438-30a8-4c91-bc4a-5e2078c0b860');
 				}
+
+				console.log('matrix r', matrix);
+
+				const mapMatrix: Map<IUserCreate['username'], MatrixElement[][]> =
+					new Map<IUserCreate['username'], MatrixElement[][]>(
+						matrix ? JSON.parse(matrix) : [],
+					);
+
+				mapMatrix.set(payload.username, this.getArr());
+
+				console.log('mapMatrix r', mapMatrix);
+
+				this.localSyncStorage.setItem(StorageKeys.Matrix, JSON.stringify(Array.from(mapMatrix.entries())));
 
 				return this.authApiService.register(payload).pipe(
 					map((user: IUserAuth) => {
@@ -219,6 +240,7 @@ export class AuthState implements NgxsOnInit {
 
 						mapUsers.set(payload.username, user.access_token);
 
+						this.localSyncStorage.setItem(StorageKeys.AuthToken, user.access_token);
 						this.localAsyncStorage.setItems({
 							[StorageKeys.AuthToken]: user.access_token,
 							[StorageKeys.Users]: JSON.stringify(Array.from(mapUsers.entries())),
@@ -270,5 +292,42 @@ export class AuthState implements NgxsOnInit {
 
 	public ngxsOnInit(ctx: StateContext<IAuthStateModel>): void {
 		ctx.dispatch(new AuthActions.Init());
+	}
+
+	private getArr(): MatrixElement[][] {
+		const array: number[] = Array(128)
+			.fill(null)
+			.map((u, i) => i); //массив, можно использовать массив объектов
+		const size = 1; //размер подмассива
+		const subarray: MatrixElementBase[][] = []; //массив в который будет выведен результат.
+		for (let i = 0; i < Math.ceil(array.length / size); i++) {
+			subarray[i] =
+				i === 55
+					? [
+						new MatrixElement({
+							_placeId: 55,
+							_iconId: 1,
+							_icon: "tuiIconFileLarge",
+							_name: '1',
+							_mime: EFileType.FILE,
+							_content: '',
+						}),
+					]
+					: i === 56
+						? [
+							new MatrixElement({
+								_placeId: 56,
+								_iconId: 2,
+								_icon: 'tuiIconFolderLarge',
+								_name: '2',
+								_mime: EFileType.FOLDER,
+								_content: '',
+							}),
+						]
+						: [];
+		}
+		console.log('subarray', subarray);
+		// @ts-expect-error
+		return subarray;
 	}
 }

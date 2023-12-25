@@ -6,6 +6,7 @@ import { AuthFacade } from '@oc/frontend/auth/facade';
 import type { TuiContextWithImplicit, TuiIdentityMatcher, TuiStringHandler } from '@taiga-ui/cdk';
 import { TuiDay } from '@taiga-ui/cdk';
 import type { TuiSizeL, TuiSizeS } from '@taiga-ui/core';
+import { MatrixFacade } from 'matrix-facade';
 
 const FAVORITES = {
 	name: 'Favorites',
@@ -78,6 +79,7 @@ export class HeaderComponent implements OnInit {
 
 	public constructor(
 		private readonly authFacade: AuthFacade,
+		private readonly matrixFacade: MatrixFacade,
 		private readonly navigationService: NavigationService,
 	) {}
 
@@ -92,6 +94,7 @@ export class HeaderComponent implements OnInit {
 
 	public onLogout(): void {
 		this.authFacade.logout();
+		this.matrixFacade.clear();
 		this.navigationService
 			.navigateByUrl(this.navigationService.getPaths().authLogin)
 			.then()

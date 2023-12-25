@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '@oc/core/api/service';
+import { StorageKeys } from '@oc/frontend-api/types/model';
+import type { IUserCreate, IUserSecretsF } from '@oc/frontend-api/types/user';
+import { plainToInstance } from 'class-transformer';
+import { jwtDecode } from 'jwt-decode';
 import { Observable, of } from 'rxjs';
-import { EFileType, MatrixElement, type MatrixElementBase } from 'types-matrix';
+import { LocalSyncStorage } from 'storage-local';
+import { IMatrixElement, MatrixElement } from 'types-matrix';
 
 export enum MatrixApiRoutesEnum {
 	MATRIX = 'matrix',
@@ -13,17 +18,74 @@ export const MATRIX_API_ROUTES: Record<MatrixApiRoutesEnum, string> = {
 
 @Injectable()
 export class MatrixApiMockService {
-	public constructor(protected readonly apiService: ApiService) {}
+	public constructor(
+		protected readonly apiService: ApiService,
+		private readonly localSyncStorage: LocalSyncStorage,
+	) {
+	}
 
 	public getAll(): Observable<MatrixElement[][]> {
-		return of(this.getArr());
+		const authToken: IUserSecretsF['access_token'] = this.localSyncStorage.getItem(StorageKeys.AuthToken) ?? '';
+		const matrixSrt: string = this.localSyncStorage.getItem(StorageKeys.Matrix) ?? '';
+
+		const mapMatrix: Map<IUserCreate['username'], MatrixElement[][]> =
+			new Map<IUserCreate['username'], MatrixElement[][]>(
+				JSON.parse(matrixSrt),
+			);
+
+		const access: IUserCreate = jwtDecode<IUserCreate>(authToken);
+
+		const result = mapMatrix.get(access.username) ?? [];
+
+		return of(result.map((item: IMatrixElement[]) => {
+			return plainToInstance<MatrixElement, IMatrixElement>(MatrixElement, item);
+		}));
 	}
 
 	public setAll(matrix: MatrixElement[][]): Observable<MatrixElement[][]> {
-		return of(matrix);
+		const authToken: IUserSecretsF['access_token'] = this.localSyncStorage.getItem(StorageKeys.AuthToken) ?? '';
+		const matrixSrt: string = this.localSyncStorage.getItem(StorageKeys.Matrix) ?? '';
+
+		const mapMatrix: Map<IUserCreate['username'], MatrixElement[][]> =
+			new Map<IUserCreate['username'], MatrixElement[][]>(
+				JSON.parse(matrixSrt),
+			);
+
+		const access: IUserCreate = jwtDecode<IUserCreate>(authToken);
+
+		mapMatrix.set(access.username, matrix)
+
+		const result = mapMatrix.get(access.username) ?? [];
+
+		this.localSyncStorage.setItem(StorageKeys.Matrix, JSON.stringify(Array.from(mapMatrix.entries())));
+
+		return of(result.map((item: IMatrixElement[]) => {
+			return plainToInstance<MatrixElement, IMatrixElement>(MatrixElement, item);
+		}));
 	}
 
 	public create(matrixEl: MatrixElement): Observable<MatrixElement> {
+
+		const authToken: IUserSecretsF['access_token'] = this.localSyncStorage.getItem(StorageKeys.AuthToken) ?? '';
+		const matrixSrt: string = this.localSyncStorage.getItem(StorageKeys.Matrix) ?? '';
+
+		const mapMatrix: Map<IUserCreate['username'], MatrixElement[][]> =
+			new Map<IUserCreate['username'], MatrixElement[][]>(
+				JSON.parse(matrixSrt),
+			);
+
+		const access: IUserCreate = jwtDecode<IUserCreate>(authToken);
+
+		const matrixArr: MatrixElement[][] = mapMatrix.get(access.username) ?? [];
+
+		const el: MatrixElement[] = matrixArr[matrixEl.placeId];
+
+		el.push(matrixEl);
+
+		mapMatrix.set(access.username, matrixArr);
+
+		this.localSyncStorage.setItem(StorageKeys.Matrix, JSON.stringify(Array.from(mapMatrix.entries())));
+
 		return of(matrixEl);
 	}
 
@@ -33,42 +95,5 @@ export class MatrixApiMockService {
 
 	public deleteOne(placeId: MatrixElement['_placeId']): Observable<MatrixElement['_placeId']> {
 		return of(placeId);
-	}
-
-	private getArr(): MatrixElement[][] {
-		const array: number[] = Array(128)
-			.fill(null)
-			.map((u, i) => i); //массив, можно использовать массив объектов
-		const size = 1; //размер подмассива
-		const subarray: MatrixElementBase[][] = []; //массив в который будет выведен результат.
-		for (let i = 0; i < Math.ceil(array.length / size); i++) {
-			subarray[i] =
-				i === 55
-					? [
-							new MatrixElement({
-								_placeId: 55,
-								_iconId: 1,
-								_icon: 'tuiIconFileLarge',
-								_name: '1',
-								_mime: EFileType.FILE,
-								_content: '',
-							}),
-					  ]
-					: i === 56
-					? [
-							new MatrixElement({
-								_placeId: 56,
-								_iconId: 2,
-								_icon: 'tuiIconFolderLarge',
-								_name: '2',
-								_mime: EFileType.FOLDER,
-								_content: '',
-							}),
-					  ]
-					: [];
-		}
-		console.log('subarray', subarray);
-		// @ts-expect-error
-		return subarray;
 	}
 }

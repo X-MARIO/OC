@@ -1,4 +1,6 @@
 import type { Flavor } from '@oc/core/types';
+import { Exclude, Expose, Type } from 'class-transformer';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export type IMatrixElementBasePlaceId = Flavor<number, 'IMatrixElementBaseId-placeId'>;
 
@@ -6,7 +8,12 @@ export interface IMatrixElementBase {
 	readonly _placeId: IMatrixElementBasePlaceId;
 }
 
+@Exclude()
 export class MatrixElementBase implements IMatrixElementBase {
+	@IsNotEmpty()
+	@IsNumber()
+	@Expose()
+	@Type(() => Number)
 	public readonly _placeId: IMatrixElementBase['_placeId'] = -1;
 
 	public constructor(params: IMatrixElementBase) {
@@ -40,13 +47,28 @@ export interface IMatrixElementShort extends IMatrixElementBase {
 	readonly _name: IMatrixElementShortName;
 }
 
+@Exclude()
 export class MatrixElementShort extends MatrixElementBase implements IMatrixElementShort {
+	@IsNotEmpty()
+	@IsNumber()
+	@Expose()
+	@Type(() => Number)
 	public readonly _iconId: IMatrixElementShort['_iconId'] = -1;
 
+	@IsNotEmpty()
+	@Expose()
 	public readonly _mime: IMatrixElementShort['_mime'] = EFileType.FILE;
 
+	@IsNotEmpty()
+	@IsString()
+	@Expose()
+	@Type(() => String)
 	public readonly _icon: IMatrixElementShort['_icon'] = '';
 
+	@IsNotEmpty()
+	@IsString()
+	@Expose()
+	@Type(() => String)
 	public readonly _name: IMatrixElementShort['_name'] = '';
 
 	public constructor(params: IMatrixElementShort) {
@@ -79,7 +101,11 @@ export interface IMatrixElement extends IMatrixElementShort {
 	readonly _content: IMatrixElementShortContent;
 }
 
+@Exclude()
 export class MatrixElement extends MatrixElementShort implements IMatrixElement {
+	@IsNotEmpty()
+	@IsString()
+	@Expose()
 	public readonly _content: IMatrixElement['_content'] = '';
 
 	public constructor(params: IMatrixElement) {

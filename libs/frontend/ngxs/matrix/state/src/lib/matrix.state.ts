@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { MatrixApiWrapperService } from 'matrix-api';
-import { catchError, map, Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { State as EState } from 'store-root';
 import { MatrixElement } from 'types-matrix';
 import * as MatrixActions from './matrix.actions';
@@ -100,6 +100,7 @@ export class MatrixState {
 		ctx: StateContext<IMatrixStateModel>,
 		{ payload }: MatrixActions.SetMatrix,
 	): Observable<Observable<void> | void> {
+		console.log(payload, payload);
 		return this.matrixApiWrapperService.setAll(payload).pipe(
 			map((matrix: MatrixElement[][]) => {
 				const stateS = ctx.getState();
@@ -275,6 +276,45 @@ export class MatrixState {
 
 				return ctx.dispatch(
 					new MatrixActions.DeleteElMatrixFailure({
+						error,
+					}),
+				);
+			}),
+		);
+	}
+
+	/**
+	 * Action for set matrix.
+	 * @param ctx StateContext<IMatrixStateModel>
+	 * @returns Observable<void>
+	 */
+	@Action(MatrixActions.Clear)
+	public clear(
+		ctx: StateContext<IMatrixStateModel>,
+	): Observable<null | void> {
+
+		const stateS = ctx.getState();
+
+		ctx.setState({
+			...stateS,
+			state: EState.EMPTY,
+			matrix: [],
+			error: {},
+		});
+
+		return of(null).pipe(
+			catchError((error: {}) => {
+				const stateE = ctx.getState();
+
+				ctx.setState({
+					...stateE,
+					state: EState.ERROR,
+					matrix: [],
+					error,
+				});
+
+				return ctx.dispatch(
+					new MatrixActions.ClearFailure({
 						error,
 					}),
 				);
