@@ -44,6 +44,16 @@ export abstract class MatrixFacade {
 	public setMatrixFailure$!: Observable<Record<string, any>>;
 
 	/**
+	 * The matrix is set in successfully
+	 */
+	public updateElMatrixSuccess$!: Observable<MatrixElementBase>;
+
+	/**
+	 * The matrix is set in unsuccessfully
+	 */
+	public updateElMatrixFailure$!: Observable<Record<string, any>>;
+
+	/**
 	 * Storage cleared successfully
 	 */
 	public clearSuccess$!: Observable<void>;
@@ -62,6 +72,11 @@ export abstract class MatrixFacade {
 	 * matrix set method
 	 */
 	public abstract setMatrix(payload: MatrixElementBase[][]): void;
+
+	/**
+	 * matrix update el method
+	 */
+	public abstract updateElMatrix(payload: MatrixElementBase): void;
 
 	/**
 	 * Method clear storage

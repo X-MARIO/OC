@@ -133,6 +133,64 @@ export class MatrixState {
 	}
 
 	/**
+	 * Action for set matrix.
+	 * @param ctx StateContext<IMatrixStateModel>
+	 * @returns Observable<void>
+	 */
+	@Action(MatrixActions.UpdateElMatrix)
+	public updateOneMatrix(
+		ctx: StateContext<IMatrixStateModel>,
+		{ payload }: MatrixActions.UpdateElMatrix,
+	): Observable<Observable<void> | void> {
+		return this.matrixApiWrapperService.updateOne(payload).pipe(
+			map((matrixElement: MatrixElement) => {
+				const stateS = ctx.getState();
+
+				const el: MatrixElement[] | undefined = stateS.matrix.find(
+					(value: MatrixElement[]) => value[0]?.placeId === payload.placeId,
+				);
+
+				if (!el) {
+					throw new Error('e89b92b9-241b-4c9c-bdc1-7603640156ce');
+				}
+
+				const matrixEl: MatrixElement | undefined = el[0];
+
+				if (matrixEl === undefined) {
+					throw new Error('7ef7cb07-9c6a-4d66-b674-76c137401079');
+				}
+
+				matrixEl.update(payload);
+
+				ctx.setState({
+					...stateS,
+					state: EState.READY,
+					matrix: [...stateS.matrix],
+					error: {},
+				});
+
+				return ctx.dispatch(new MatrixActions.UpdateElMatrixSuccess(matrixElement));
+			}),
+			catchError((error: {}) => {
+				const stateE = ctx.getState();
+
+				ctx.setState({
+					...stateE,
+					state: EState.ERROR,
+					matrix: [],
+					error,
+				});
+
+				return ctx.dispatch(
+					new MatrixActions.UpdateElMatrixFailure({
+						error,
+					}),
+				);
+			}),
+		);
+	}
+
+	/**
 	 * Selector that returns the logged from state.
 	 * @param state IMatrixStateModel IMatrixStateModel
 	 * @returns IMatrixStateModel['logged']

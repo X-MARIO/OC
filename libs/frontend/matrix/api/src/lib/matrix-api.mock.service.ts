@@ -23,6 +23,10 @@ export class MatrixApiMockService {
 		return of(matrix);
 	}
 
+	public updateOne(matrixEl: MatrixElement): Observable<MatrixElement> {
+		return of(matrixEl);
+	}
+
 	private getArr(): MatrixElement[][] {
 		const array: number[] = Array(128)
 			.fill(null)

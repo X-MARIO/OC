@@ -40,4 +40,14 @@ export class MatrixApiService {
 				}),
 			);
 	}
+
+	public updateOne(matrixEl: MatrixElement): Observable<MatrixElement> {
+		return this.apiService
+			.patch<IMatrixElement>(MATRIX_API_ROUTES[MatrixApiRoutesEnum.MATRIX], matrixEl)
+			.pipe(
+				map((res: IMatrixElement) => {
+					return plainToInstance<MatrixElement, IMatrixElement>(MatrixElement, res);
+				}),
+			);
+	}
 }

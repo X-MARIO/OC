@@ -40,6 +40,24 @@ export class SetMatrixFailure {
 	public constructor(public readonly error: Record<string, any>) {}
 }
 
+export class UpdateElMatrix {
+	public static readonly type = '[Matrix] Update One';
+
+	public constructor(public readonly payload: MatrixElement) {}
+}
+
+export class UpdateElMatrixSuccess {
+	public static readonly type = '[Matrix] Update One Success';
+
+	public constructor(public readonly payload: MatrixElement) {}
+}
+
+export class UpdateElMatrixFailure {
+	public static readonly type = '[Matrix] Update One Failure';
+
+	public constructor(public readonly error: Record<string, any>) {}
+}
+
 export class Clear {
 	public static readonly type = '[Matrix] Clear';
 }

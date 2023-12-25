@@ -1,13 +1,13 @@
-import { map, take, takeUntil } from 'rxjs/operators';
-
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, Inject, Injector } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from '@oc/core/navigation/service';
-import { MatrixEmitService } from '@oc/frontend/ui/matrix';
 import { TUI_EDITOR_EXTENSIONS, TuiEditorTool } from '@taiga-ui/addon-editor';
 import { TuiDestroyService } from '@taiga-ui/cdk';
+import { MatrixFacade } from 'matrix-facade';
+import type { Observable } from 'rxjs';
+import { map, take, takeUntil } from 'rxjs/operators';
 import { MatrixElement } from 'types-matrix';
 
 // eslint-disable-next-line @angular-eslint/prefer-standalone-component
@@ -37,12 +37,15 @@ export class ModalEditorComponent implements OnInit {
 
 	public control: FormControl<string | null> = new FormControl<string>('');
 
+	// @ts-ignore
+	public readonly matrix$: Observable<MatrixElement[][]> = this.matrixFacade.matrix$;
+
 	private readonly matrixElementId: MatrixElement['_iconId'] = -1;
 
 	public constructor(
 		@Inject(ActivatedRoute) private readonly activatedRoute: ActivatedRoute,
 		@Inject(TuiDestroyService) private readonly destroy$: TuiDestroyService,
-		private readonly matrixEmitService: MatrixEmitService<MatrixElement>,
+		private readonly matrixFacade: MatrixFacade,
 		private readonly navigationService: NavigationService,
 	) {
 		const matrixElementId: string | null =
@@ -67,27 +70,22 @@ export class ModalEditorComponent implements OnInit {
 	}
 
 	public onSave(): void {
-		this.matrixEmitService
-			.update(
-				new MatrixElement({
-					...this.element,
-					_content: this.control.value ?? '',
-				}),
-			)
-			.pipe(take(1), takeUntil(this.destroy$))
-			.subscribe({
-				next: () => {
-					void this.navigationService
-						.navigateByUrl(this.navigationService.getPaths().dashboard)
-						.then()
-						.catch();
-				},
-			});
+		this.matrixFacade.updateElMatrix(
+			new MatrixElement({
+				...this.element,
+				_content: this.control.value ?? '',
+			}),
+		);
 	}
 
 	private setSubscriptions(): void {
-		this.matrixEmitService
-			.getMatrixData$()
+		// TODO доабвить редирект после успешного обновления
+		// void this.navigationService
+		// 						.navigateByUrl(this.navigationService.getPaths().dashboard)
+		// 						.then()
+		// 						.catch();
+
+		this.matrix$
 			.pipe(
 				take(1),
 				map((matrix: MatrixElement[][]) => {
