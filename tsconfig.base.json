@@ -72,6 +72,7 @@
 			"button-process": ["libs/frontend/ui/process/src/index.ts"],
 			"core-uuid": ["libs/core/uuid/src/index.ts"],
 			"matrix-api": ["libs/frontend/matrix/api/src/index.ts"],
+			"matrix-facade": ["libs/frontend/matrix/facade/src/index.ts"],
 			"modal-process": ["libs/frontend/process/modal-precess/src/index.ts"],
 			"modal-process-error": ["libs/frontend/process/modal-process-error/src/index.ts"],
 			"ngxs-process-state": ["libs/frontend/ngxs/process/state/src/index.ts"],
