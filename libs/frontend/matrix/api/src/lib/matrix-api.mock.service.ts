@@ -23,6 +23,10 @@ export class MatrixApiMockService {
 		return of(matrix);
 	}
 
+	public create(matrixEl: MatrixElement): Observable<MatrixElement> {
+		return of(matrixEl);
+	}
+
 	public updateOne(matrixEl: MatrixElement): Observable<MatrixElement> {
 		return of(matrixEl);
 	}

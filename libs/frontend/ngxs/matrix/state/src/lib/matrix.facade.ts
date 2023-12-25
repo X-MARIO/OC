@@ -40,6 +40,16 @@ export class NgxsMatrixFacade implements MatrixFacade {
 		map(({ error }) => error),
 	);
 
+	public createElMatrixSuccess$: MatrixFacade['createElMatrixSuccess$'] = this.actions$.pipe(
+		ofActionDispatched(MatrixActions.CreateElMatrixSuccess),
+		map(({ payload }) => payload),
+	);
+
+	public createElMatrixFailure$: MatrixFacade['createElMatrixFailure$'] = this.actions$.pipe(
+		ofActionDispatched(MatrixActions.CreateElMatrixFailure),
+		map(({ error }) => error),
+	);
+
 	public updateElMatrixSuccess$: MatrixFacade['updateElMatrixSuccess$'] = this.actions$.pipe(
 		ofActionDispatched(MatrixActions.UpdateElMatrixSuccess),
 		map(({ payload }) => payload),
@@ -78,6 +88,10 @@ export class NgxsMatrixFacade implements MatrixFacade {
 
 	public setMatrix(payload: MatrixElement[][]): void {
 		this.store.dispatch(new MatrixActions.SetMatrix(payload));
+	}
+
+	public createEl(payload: MatrixElement): void {
+		this.store.dispatch(new MatrixActions.CreateElMatrix(payload));
 	}
 
 	public updateElMatrix(payload: MatrixElement): void {

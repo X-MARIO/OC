@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '@oc/core/api/service';
 import { plainToInstance } from 'class-transformer';
-import type { Observable } from 'rxjs';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { IMatrixElement, MatrixElement } from 'types-matrix';
 
 export enum MatrixApiRoutesEnum {
@@ -37,6 +36,16 @@ export class MatrixApiService {
 					return res.map((item: IMatrixElement[]) => {
 						return plainToInstance<MatrixElement, IMatrixElement>(MatrixElement, item);
 					});
+				}),
+			);
+	}
+
+	public create(matrixEl: MatrixElement): Observable<MatrixElement> {
+		return this.apiService
+			.post<IMatrixElement>(MATRIX_API_ROUTES[MatrixApiRoutesEnum.MATRIX], matrixEl)
+			.pipe(
+				map((res: IMatrixElement) => {
+					return plainToInstance<MatrixElement, IMatrixElement>(MatrixElement, res);
 				}),
 			);
 	}

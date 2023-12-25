@@ -137,6 +137,52 @@ export class MatrixState {
 	 * @param ctx StateContext<IMatrixStateModel>
 	 * @returns Observable<void>
 	 */
+	@Action(MatrixActions.CreateElMatrix)
+	public createOneMatrix(
+		ctx: StateContext<IMatrixStateModel>,
+		{ payload }: MatrixActions.CreateElMatrix,
+	): Observable<Observable<void> | void> {
+		return this.matrixApiWrapperService.create(payload).pipe(
+			map((matrixElement: MatrixElement) => {
+				const stateS = ctx.getState();
+
+				const el: MatrixElement[] = stateS.matrix[payload.placeId];
+
+				el.push(payload);
+
+				ctx.setState({
+					...stateS,
+					state: EState.READY,
+					matrix: [...stateS.matrix],
+					error: {},
+				});
+
+				return ctx.dispatch(new MatrixActions.CreateElMatrixSuccess(matrixElement));
+			}),
+			catchError((error: {}) => {
+				const stateE = ctx.getState();
+
+				ctx.setState({
+					...stateE,
+					state: EState.ERROR,
+					matrix: [],
+					error,
+				});
+
+				return ctx.dispatch(
+					new MatrixActions.CreateElMatrixFailure({
+						error,
+					}),
+				);
+			}),
+		);
+	}
+
+	/**
+	 * Action for set matrix.
+	 * @param ctx StateContext<IMatrixStateModel>
+	 * @returns Observable<void>
+	 */
 	@Action(MatrixActions.UpdateElMatrix)
 	public updateOneMatrix(
 		ctx: StateContext<IMatrixStateModel>,
