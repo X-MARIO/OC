@@ -69,6 +69,7 @@
 			"@oc/frontend/ui/modal-rename": ["libs/frontend/ui/modal-rename/src/index.ts"],
 			"@oc/frontend/ui/terminal": ["libs/frontend/terminal/modal-terminal/src/index.ts"],
 			"@oc/ui/layout": ["libs/ui/layout/src/index.ts"],
+			"button-about": ["libs/frontend/ui/about/src/index.ts"],
 			"button-process": ["libs/frontend/ui/process/src/index.ts"],
 			"core-uuid": ["libs/core/uuid/src/index.ts"],
 			"matrix-api": ["libs/frontend/matrix/api/src/index.ts"],
