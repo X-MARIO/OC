@@ -75,6 +75,7 @@
 			"matrix-facade": ["libs/frontend/matrix/facade/src/index.ts"],
 			"modal-process": ["libs/frontend/process/modal-precess/src/index.ts"],
 			"modal-process-error": ["libs/frontend/process/modal-process-error/src/index.ts"],
+			"ngxs-matrix-state": ["libs/frontend/ngxs/matrix/state/src/index.ts"],
 			"ngxs-process-state": ["libs/frontend/ngxs/process/state/src/index.ts"],
 			"ngxs-terminal-state": ["libs/frontend/ngxs/terminal/state/src/index.ts"],
 			"process-api": ["libs/frontend/process/api/src/index.ts"],
